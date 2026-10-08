@@ -1,0 +1,2684 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FGV | Courses A-Z</title>
+<link rel="icon" href="faviconfgv.jpg">
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root{
+    --primary:#3178C9;
+    --secondary:#56B4E9;
+    --light:#E0F2FE;
+    --dark:#0B3158;
+    --text:#151515;
+
+    --font-title:'Space Grotesk',sans-serif;
+    --font-text:'Manrope',sans-serif;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+    scrollbar-width:thin;
+    scrollbar-color:var(--primary) #e9f4fb;
+}
+
+html::-webkit-scrollbar{
+    width:10px;
+}
+
+html::-webkit-scrollbar-track{
+    background:#e9f4fb;
+}
+
+html::-webkit-scrollbar-thumb{
+    background:linear-gradient(
+        180deg,
+        var(--secondary),
+        var(--primary)
+    );
+    border-radius:20px;
+}
+
+body{
+    min-height:100vh;
+    font-family:var(--font-text);
+    color:var(--text);
+    background:#fff;
+    overflow-x:hidden;
+}
+
+button{
+    font-family:var(--font-text);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6{
+    font-family:var(--font-title);
+}
+
+p,
+span,
+a,
+button,
+input,
+textarea,
+li{
+    font-family:var(--font-text);
+}
+
+img{
+    display:block;
+    max-width:100%;
+}
+
+
+/* =========================================================
+   ENTRADA
+========================================================= */
+
+#institutionEntry{
+    position:fixed;
+    inset:0;
+    z-index:10000;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #56B4E9 0%,
+            #3178C9 48%,
+            #E0F2FE 100%
+        );
+
+    transition:
+        opacity .9s ease,
+        visibility .9s ease;
+}
+
+#institutionEntry.hidden{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.entryContent{
+    width:min(650px,88vw);
+}
+
+.searchBox{
+    position:relative;
+
+    width:100%;
+    height:72px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 28px;
+
+    border-radius:18px;
+
+    background:rgba(255,255,255,.97);
+
+    box-shadow:
+        0 30px 90px rgba(15,70,110,.25);
+}
+
+.searchIcon{
+    position:relative;
+
+    width:22px;
+    height:22px;
+
+    margin-right:18px;
+
+    border:3px solid #26333d;
+    border-radius:50%;
+
+    flex-shrink:0;
+}
+
+.searchIcon::after{
+    content:"";
+
+    position:absolute;
+
+    width:10px;
+    height:3px;
+
+    right:-8px;
+    bottom:-4px;
+
+    background:#26333d;
+    border-radius:5px;
+
+    transform:rotate(45deg);
+}
+
+.searchText{
+    min-height:25px;
+
+    font-size:20px;
+    color:#17212a;
+}
+
+.searchCaret{
+    width:2px;
+    height:25px;
+
+    margin-left:3px;
+
+    background:var(--primary);
+
+    animation:blink .8s infinite;
+}
+
+@keyframes blink{
+
+    50%{
+        opacity:0;
+    }
+
+}
+
+.searchResult{
+    width:100%;
+
+    margin-top:10px;
+    padding:18px 22px;
+
+    display:flex;
+    align-items:center;
+    gap:15px;
+
+    border:0;
+    border-radius:14px;
+
+    text-align:left;
+
+    background:#fff;
+    color:#17212a;
+
+    box-shadow:
+        0 15px 45px rgba(15,70,110,.18);
+
+    opacity:0;
+    transform:translateY(-8px);
+
+    pointer-events:none;
+    cursor:pointer;
+
+    transition:
+        opacity .35s ease,
+        transform .35s ease,
+        background .25s ease;
+}
+
+.searchResult.visible{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+}
+
+.searchResult:hover{
+    background:#f4faff;
+}
+
+.resultLogo{
+    width:44px;
+    height:44px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:#fff;
+}
+
+.resultLogo img{
+    width:84%;
+    height:84%;
+    object-fit:contain;
+}
+
+.resultInfo{
+    display:flex;
+    flex-direction:column;
+    gap:4px;
+}
+
+.resultInfo strong{
+    font-family:var(--font-title);
+    font-size:15px;
+}
+
+.resultInfo span{
+    font-size:12px;
+    color:#7c8790;
+}
+
+
+/* =========================================================
+   TRANSIÇÃO
+========================================================= */
+
+.pageTransition{
+    position:fixed;
+    inset:0;
+
+    z-index:12000;
+
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.pageTransition.active{
+    visibility:visible;
+}
+
+.transitionCircle{
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    transform:scale(0);
+}
+
+.transitionCircle:nth-child(1){
+    left:7%;
+    top:13%;
+}
+
+.transitionCircle:nth-child(2){
+    left:39%;
+    top:4%;
+}
+
+.transitionCircle:nth-child(3){
+    right:9%;
+    top:17%;
+}
+
+.transitionCircle:nth-child(4){
+    left:17%;
+    bottom:11%;
+}
+
+.transitionCircle:nth-child(5){
+    right:23%;
+    bottom:7%;
+}
+
+.transitionCircle:nth-child(6){
+    left:50%;
+    top:50%;
+}
+
+.pageTransition.active .transitionCircle{
+    animation:
+        expandCircle
+        1.15s
+        cubic-bezier(.76,0,.24,1)
+        forwards;
+}
+
+.pageTransition.active .transitionCircle:nth-child(2){
+    animation-delay:.06s;
+}
+
+.pageTransition.active .transitionCircle:nth-child(3){
+    animation-delay:.12s;
+}
+
+.pageTransition.active .transitionCircle:nth-child(4){
+    animation-delay:.08s;
+}
+
+.pageTransition.active .transitionCircle:nth-child(5){
+    animation-delay:.15s;
+}
+
+.pageTransition.active .transitionCircle:nth-child(6){
+    animation-delay:.02s;
+}
+
+@keyframes expandCircle{
+
+    from{
+        transform:scale(0);
+    }
+
+    to{
+        transform:scale(35);
+    }
+
+}
+
+
+/* =========================================================
+   PÁGINA PRINCIPAL
+========================================================= */
+
+#mainPage{
+    opacity:0;
+    visibility:hidden;
+}
+
+#mainPage.ready{
+    opacity:1;
+    visibility:visible;
+}
+
+.reveal{
+    opacity:0;
+    transform:translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .9s cubic-bezier(.22,1,.36,1);
+}
+
+.reveal.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    background:#0B3158;
+    isolation:isolate;
+}
+
+.heroBackground{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            115deg,
+            rgba(11,49,88,.88),
+            rgba(49,120,201,.46),
+            rgba(224,242,254,.28)
+        ),
+        url("img/fundos/fgv.jpg")
+        center/cover no-repeat;
+
+    z-index:-3;
+}
+
+.heroOverlay{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(49,120,201,.52),
+            rgba(255,255,255,.05) 50%,
+            rgba(11,49,88,.65)
+        );
+
+    z-index:-2;
+}
+
+.heroNoise{
+    position:absolute;
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 20% 25%,
+            rgba(255,255,255,.18),
+            transparent 22%
+        ),
+        radial-gradient(
+            circle at 80% 75%,
+            rgba(224,242,254,.16),
+            transparent 25%
+        );
+
+    z-index:-1;
+}
+
+.heroContent{
+    position:relative;
+
+    width:min(1150px,88vw);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    text-align:center;
+}
+
+.logoHalo{
+    position:absolute;
+
+    width:470px;
+    height:470px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.38),
+            rgba(86,180,233,.22) 45%,
+            transparent 72%
+        );
+
+    filter:blur(8px);
+
+    animation:
+        haloPulse
+        4s
+        ease-in-out
+        infinite;
+}
+
+@keyframes haloPulse{
+
+    0%,100%{
+        transform:scale(.94);
+        opacity:.65;
+    }
+
+    50%{
+        transform:scale(1.06);
+        opacity:1;
+    }
+
+}
+
+.heroLogo{
+    position:relative;
+
+    width:320px;
+    height:320px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    box-shadow:
+        0 0 25px rgba(255,255,255,.95),
+        0 0 70px rgba(86,180,233,.85),
+        0 0 120px rgba(49,120,201,.7);
+
+    animation:
+        heroLogoIntro
+        1.2s
+        cubic-bezier(.22,1,.36,1)
+        both;
+}
+
+.heroLogo::before{
+    content:"";
+
+    position:absolute;
+    inset:-15px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(255,255,255,.8);
+
+    animation:
+        logoRing
+        3.5s
+        ease-in-out
+        infinite;
+}
+
+@keyframes heroLogoIntro{
+
+    from{
+        opacity:0;
+        transform:scale(.65);
+    }
+
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+
+}
+
+@keyframes logoRing{
+
+    0%,100%{
+        transform:scale(1);
+        opacity:.45;
+    }
+
+    50%{
+        transform:scale(1.06);
+        opacity:1;
+    }
+
+}
+
+.heroLogo img{
+    width:68%;
+    height:68%;
+    object-fit:contain;
+}
+
+
+/* =========================================================
+   AVISO
+========================================================= */
+
+.noticeSection{
+    position:relative;
+
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:100px 7vw;
+
+    overflow:hidden;
+
+    background:#fff;
+}
+
+.noticeShape{
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+}
+
+.noticeShape.one{
+    width:320px;
+    height:320px;
+
+    right:-130px;
+    top:-120px;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--secondary),
+            var(--primary)
+        );
+
+    opacity:.9;
+}
+
+.noticeShape.two{
+    width:220px;
+    height:220px;
+
+    left:-100px;
+    bottom:-100px;
+
+    border:35px solid var(--primary);
+
+    opacity:.16;
+}
+
+.noticeShape.three{
+    width:90px;
+    height:90px;
+
+    right:18%;
+    bottom:13%;
+
+    background:var(--secondary);
+
+    opacity:.18;
+}
+
+.noticeWrap{
+    position:relative;
+
+    width:min(900px,90vw);
+    min-height:430px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+}
+
+.noticeInitial,
+.noticeMessage,
+.noticeThanks{
+    position:absolute;
+
+    width:100%;
+
+    text-align:center;
+
+    transition:
+        opacity .65s ease,
+        transform .7s cubic-bezier(.76,0,.24,1);
+}
+
+.noticeInitial{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.noticeInitial.hidden{
+    opacity:0;
+    transform:translateX(-120%);
+}
+
+.noticeInitial h1,
+.noticeThanks h1{
+    font-family:var(--font-title);
+
+    font-size:
+        clamp(54px,9vw,110px);
+
+    line-height:.9;
+    letter-spacing:-5px;
+
+    margin-bottom:38px;
+}
+
+.noticeButton{
+    border:0;
+
+    padding:18px 42px;
+
+    border-radius:100px;
+
+    background:
+        linear-gradient(
+            110deg,
+            var(--primary),
+            #245FA2
+        );
+
+    color:#fff;
+
+    font-family:var(--font-text);
+    font-weight:700;
+    letter-spacing:1px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 15px 40px rgba(49,120,201,.25);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.noticeButton:hover{
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 22px 50px rgba(49,120,201,.34);
+}
+
+.noticeMessage{
+    opacity:0;
+    transform:translateX(120%);
+}
+
+.noticeMessage.visible{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.noticeMessage p{
+    max-width:700px;
+
+    margin:0 auto 32px;
+
+    font-family:var(--font-text);
+    font-size:18px;
+    line-height:1.9;
+
+    color:#5d6870;
+}
+
+.noticeMessage .noticeButton{
+    background:var(--primary);
+}
+
+.noticeThanks{
+    opacity:0;
+    transform:translateX(120%);
+}
+
+.noticeThanks.visible{
+    opacity:1;
+    transform:translateX(0);
+}
+
+.scrollArrow{
+    position:absolute;
+
+    bottom:38px;
+    left:50%;
+
+    width:54px;
+    height:54px;
+
+    border:1px solid rgba(11,49,88,.2);
+    border-radius:50%;
+
+    background:#fff;
+    color:var(--primary);
+
+    cursor:pointer;
+
+    transform:translateX(-50%);
+
+    opacity:0;
+    pointer-events:none;
+
+    transition:
+        opacity .5s ease,
+        transform .3s ease,
+        background .3s ease;
+}
+
+.scrollArrow.visible{
+    opacity:1;
+    pointer-events:auto;
+
+    animation:
+        arrowFloat
+        1.8s
+        ease-in-out
+        infinite;
+}
+
+.scrollArrow:hover{
+    background:var(--primary);
+    color:#fff;
+}
+
+@keyframes arrowFloat{
+
+    0%,100%{
+        transform:translateX(-50%) translateY(0);
+    }
+
+    50%{
+        transform:translateX(-50%) translateY(8px);
+    }
+
+}
+
+
+/* =========================================================
+   CURSOS
+========================================================= */
+
+.coursesSection{
+    position:relative;
+
+    min-height:100vh;
+
+    padding:130px 6vw 120px;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f2f9fd,
+            #ffffff
+        );
+
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+}
+
+.coursesSection::before{
+    content:"";
+
+    position:absolute;
+
+    width:600px;
+    height:600px;
+
+    right:-300px;
+    top:10%;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(49,120,201,.12),
+            transparent 70%
+        );
+
+    pointer-events:none;
+}
+
+.coursesHeader{
+    position:relative;
+
+    width:min(1100px,90vw);
+
+    margin:0 auto 70px;
+
+    text-align:center;
+}
+
+.coursesEyebrow{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+
+    margin-bottom:22px;
+
+    color:var(--primary);
+
+    font-family:var(--font-text);
+    font-size:11px;
+    letter-spacing:4px;
+    font-weight:700;
+}
+
+.coursesEyebrow::before,
+.coursesEyebrow::after{
+    content:"";
+
+    width:50px;
+    height:1px;
+
+    background:var(--primary);
+}
+
+.coursesHeader h1{
+    font-family:var(--font-title);
+
+    font-size:
+        clamp(60px,10vw,130px);
+
+    line-height:.8;
+    letter-spacing:-7px;
+}
+
+.coursesHeader p{
+    max-width:760px;
+
+    margin:32px auto 0;
+
+    font-family:var(--font-text);
+    line-height:1.8;
+
+    color:#68747d;
+    font-size:16px;
+}
+
+.coursesTrack{
+    width:min(1200px,90vw);
+
+    margin:0 auto;
+
+    display:grid;
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:24px;
+
+    padding:20px 0 55px;
+}
+
+.courseCard{
+    position:relative;
+
+    min-height:430px;
+
+    padding:26px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #edf7fd
+        );
+
+    border:
+        1px solid rgba(49,120,201,.09);
+
+    box-shadow:
+        0 20px 60px rgba(15,70,110,.08);
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    opacity:0;
+    transform:translateY(35px);
+
+    transition:
+        opacity .7s ease,
+        transform .7s cubic-bezier(.22,1,.36,1),
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+.courseCard.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.courseCard:hover{
+    transform:translateY(-12px);
+
+    border-color:
+        rgba(49,120,201,.35);
+
+    box-shadow:
+        0 35px 80px rgba(15,70,110,.16);
+}
+
+.courseCard::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(86,180,233,.1),
+            transparent 50%,
+            rgba(49,120,201,.09)
+        );
+
+    opacity:0;
+
+    transition:opacity .4s ease;
+}
+
+.courseCard:hover::before{
+    opacity:1;
+}
+
+.courseTop{
+    position:relative;
+    z-index:2;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.courseNumber{
+    font-family:var(--font-text);
+    font-size:11px;
+    letter-spacing:3px;
+
+    color:var(--primary);
+    font-weight:700;
+}
+
+.courseOpen{
+    font-family:var(--font-text);
+    font-size:9px;
+    letter-spacing:2px;
+    color:#8b959d;
+
+    transition:color .3s ease;
+}
+
+.courseCard:hover .courseOpen{
+    color:var(--primary);
+}
+
+.courseLogo{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:145px;
+    height:145px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    transform:
+        translate(-50%,-55%);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.09);
+
+    transition:
+        transform .5s cubic-bezier(.22,1,.36,1),
+        box-shadow .5s ease;
+}
+
+.courseCard:hover .courseLogo{
+    transform:
+        translate(-50%,-55%)
+        scale(1.08);
+
+    box-shadow:
+        0 25px 70px rgba(49,120,201,.2);
+}
+
+.courseLogo::before{
+    content:"";
+
+    position:absolute;
+    inset:-8px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(49,120,201,.18);
+
+    transition:
+        transform .5s ease,
+        border-color .5s ease;
+}
+
+.courseCard:hover .courseLogo::before{
+    transform:scale(1.08);
+    border-color:rgba(49,120,201,.55);
+}
+
+.courseLogo img{
+    width:67%;
+    height:67%;
+    object-fit:contain;
+}
+
+.courseBottom{
+    position:relative;
+    z-index:2;
+}
+
+.courseBottom span{
+    display:block;
+
+    margin-bottom:10px;
+
+    font-family:var(--font-text);
+    font-size:9px;
+    letter-spacing:3px;
+
+    color:#8a949b;
+}
+
+.courseBottom h2{
+    font-family:var(--font-title);
+
+    font-size:24px;
+    line-height:1.1;
+    max-width:280px;
+}
+
+.courseArrow{
+    position:absolute;
+
+    right:24px;
+    bottom:25px;
+
+    width:48px;
+    height:48px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:var(--primary);
+    color:#fff;
+
+    font-family:var(--font-text);
+    font-size:20px;
+
+    transform:translateX(8px);
+    opacity:.65;
+
+    transition:
+        transform .35s ease,
+        opacity .35s ease;
+}
+
+.courseCard:hover .courseArrow{
+    transform:translateX(0);
+    opacity:1;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.courseOverlay{
+    position:fixed;
+    inset:0;
+
+    z-index:15000;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,255,255,.98);
+
+    opacity:0;
+    visibility:hidden;
+
+    pointer-events:none;
+
+    transition:
+        opacity .4s ease,
+        visibility .4s ease;
+}
+
+.courseOverlay.active{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+}
+
+.courseOverlayLine{
+    width:0;
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--secondary),
+            var(--primary)
+        );
+
+    transition:
+        width .65s
+        cubic-bezier(.76,0,.24,1);
+}
+
+.courseOverlay.active .courseOverlayLine{
+    width:180px;
+}
+
+.courseOverlayText{
+    position:absolute;
+
+    bottom:50px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    font-family:var(--font-text);
+    font-size:9px;
+    letter-spacing:4px;
+
+    color:#7c858c;
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media(max-width:1000px){
+
+    .coursesTrack{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .heroLogo{
+        width:280px;
+        height:280px;
+    }
+
+    .logoHalo{
+        width:420px;
+        height:420px;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .searchBox{
+        height:62px;
+        padding:0 20px;
+    }
+
+    .searchText{
+        font-size:16px;
+    }
+
+    .heroLogo{
+        width:215px;
+        height:215px;
+    }
+
+    .logoHalo{
+        width:320px;
+        height:320px;
+    }
+
+    .noticeSection{
+        padding:80px 6vw;
+    }
+
+    .noticeMessage p{
+        font-size:15px;
+    }
+
+    .coursesSection{
+        padding:100px 0;
+    }
+
+    .coursesHeader{
+        padding:0 7vw;
+    }
+
+    .coursesHeader h1{
+        letter-spacing:-4px;
+    }
+
+    .coursesTrack{
+        width:86vw;
+        grid-template-columns:1fr;
+    }
+
+    .courseCard{
+        min-height:410px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<section id="institutionEntry">
+
+    <div class="entryContent">
+
+        <div class="searchBox">
+
+            <div class="searchIcon"></div>
+
+            <span
+                class="searchText"
+                id="searchText"
+            ></span>
+
+            <span class="searchCaret"></span>
+
+        </div>
+
+
+        <button
+            class="searchResult"
+            id="searchResult"
+            type="button"
+        >
+
+            <span class="resultLogo">
+
+                <img
+                    src="img/logos/fgv.png"
+                    alt="FGV"
+                >
+
+            </span>
+
+            <span class="resultInfo">
+
+                <strong>
+                    Fundação Getulio Vargas
+                </strong>
+
+                <span>
+                    FGV
+                </span>
+
+            </span>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<div
+    class="pageTransition"
+    id="pageTransition"
+>
+
+    <div class="transitionCircle"></div>
+    <div class="transitionCircle"></div>
+    <div class="transitionCircle"></div>
+    <div class="transitionCircle"></div>
+    <div class="transitionCircle"></div>
+    <div class="transitionCircle"></div>
+
+</div>
+
+
+<main id="mainPage">
+
+
+    <section class="hero">
+
+        <div class="heroBackground"></div>
+        <div class="heroOverlay"></div>
+        <div class="heroNoise"></div>
+
+        <div class="heroContent">
+
+            <div class="logoHalo"></div>
+
+            <div class="heroLogo">
+
+                <img
+                    src="img/logos/fgv.png"
+                    alt="Logo FGV"
+                >
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="noticeSection"
+        id="notice"
+    >
+
+        <div class="noticeShape one"></div>
+        <div class="noticeShape two"></div>
+        <div class="noticeShape three"></div>
+
+
+        <div class="noticeWrap">
+
+
+            <div
+                class="noticeInitial"
+                id="noticeInitial"
+            >
+
+                <h1>
+                    AVISO
+                </h1>
+
+                <button
+                    class="noticeButton"
+                    id="noticeButton"
+                    type="button"
+                >
+                    CONTINUAR
+                </button>
+
+            </div>
+
+
+            <div
+                class="noticeMessage"
+                id="noticeMessage"
+            >
+
+                <p>
+                    Este conteúdo não representa propaganda
+                    institucional. Trata-se de uma amostra da
+                    trajetória acadêmica e da certificação
+                    realizada pelo desenvolvedor.
+                </p>
+
+                <button
+                    class="noticeButton"
+                    id="noticeOk"
+                    type="button"
+                >
+                    OK
+                </button>
+
+            </div>
+
+
+            <div
+                class="noticeThanks"
+                id="noticeThanks"
+            >
+
+                <h1>
+                    Obrigado por ler!
+                </h1>
+
+            </div>
+
+
+            <button
+                class="scrollArrow"
+                id="scrollArrow"
+                type="button"
+                aria-label="Ver cursos"
+            >
+                ↓
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <section
+        class="coursesSection"
+        id="courses"
+    >
+
+        <div class="coursesHeader reveal">
+
+            <div class="coursesEyebrow">
+                COURSES A-Z
+            </div>
+
+            <h1>
+                CURSOS
+            </h1>
+
+            <p>
+                Formação acadêmica e profissional construída
+                a partir dos cursos realizados na FGV.
+            </p>
+
+        </div>
+
+
+        <div
+            class="coursesTrack"
+            id="coursesTrack"
+        >
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-introducao-matematica-financeira.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">01</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 001</span>
+                    <h2>
+                        Introdução à Matemática Financeira:
+                        Regimes de Capitalização
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-kanban-ferramentas-ageis.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">02</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 002</span>
+                    <h2>
+                        Kanban e Ferramentas Ágeis de
+                        Gestão de Projetos
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-logistica-cadeia-suprimentos.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">03</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 003</span>
+                    <h2>
+                        Conceitos Iniciais de Logística e
+                        Cadeia de Suprimentos
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-processo-inovacao.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">04</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 004</span>
+                    <h2>
+                        Introdução ao Processo de Inovação
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-neurobusiness.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">05</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 005</span>
+                    <h2>
+                        Fundamentos do Neurobusiness
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-financas-avaliacao-projetos.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">06</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 006</span>
+                    <h2>
+                        Introdução a Finanças e Métodos
+                        de Avaliação de Projetos
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-fintechs-pagamentos.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">07</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 007</span>
+                    <h2>
+                        Aspectos Básicos do Ecossistema
+                        de Fintechs e Pagamentos Digitais
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-sistema-tributario.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">08</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 008</span>
+                    <h2>
+                        Aspectos Introdutórios do Sistema
+                        Tributário Nacional
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-empreendedorismo-mercado-financeiro.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">09</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 009</span>
+                    <h2>
+                        Empreendedorismo para o
+                        Mercado Financeiro
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-segmentacao-recomendacao.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">10</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 010</span>
+                    <h2>
+                        Introdução aos Sistemas de
+                        Segmentação e Recomendação
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-decisao-precos.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">11</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 011</span>
+                    <h2>
+                        Influência dos Fatores Mercadológicos
+                        na Decisão de Preços
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-criacao-novos-produtos.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">12</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 012</span>
+                    <h2>
+                        Criação de Novos Produtos
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-fundamentos-marketing.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">13</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 013</span>
+                    <h2>
+                        Fundamentos de Marketing
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-marketing-servicos.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">14</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 014</span>
+                    <h2>
+                        Fundamentos do Marketing
+                        de Serviços
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-storytelling-apresentacao.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">15</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 015</span>
+                    <h2>
+                        Storytelling e Técnicas de Apresentação:
+                        Conceitos Gerais de Comunicação
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-ecommerce.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">16</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 016</span>
+                    <h2>
+                        E-commerce: Noções de Tecnologia,
+                        Segurança e Operacionalização
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-algebra-linear-ciencia-dados.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">17</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 017</span>
+                    <h2>
+                        Álgebra Linear e Ciência de Dados
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-linguagem-r.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">18</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 018</span>
+                    <h2>
+                        Linguagem R: Introdução à
+                        Programação e Automação
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-sql.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">19</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 019</span>
+                    <h2>
+                        SQL - Structured Query Language
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-protecao-dados.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">20</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 020</span>
+                    <h2>
+                        Proteção de Dados
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-ciberseguranca.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">21</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 021</span>
+                    <h2>
+                        Cibersegurança: Anatomia Clássica
+                        de um Ciberataque
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-ti-elemento-estrategico.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">22</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 022</span>
+                    <h2>
+                        TI como Elemento Estratégico
+                        nas Organizações
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-ciencia-dados.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">23</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 023</span>
+                    <h2>
+                        Introdução à Ciência de Dados
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+            <article
+                class="courseCard"
+                data-course-url="page/fgv-desenvolvimento-web-css-html.html"
+            >
+
+                <div class="courseTop">
+                    <span class="courseNumber">24</span>
+                    <span class="courseOpen">ABRIR CURSO</span>
+                </div>
+
+                <div class="courseLogo">
+                    <img src="img/logos/fgv.png" alt="FGV">
+                </div>
+
+                <div class="courseBottom">
+                    <span>CURSO / 024</span>
+                    <h2>
+                        Desenvolvimento de Sistemas Web:
+                        CSS e HTML
+                    </h2>
+                </div>
+
+                <div class="courseArrow">→</div>
+
+            </article>
+
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<div
+    class="courseOverlay"
+    id="courseOverlay"
+>
+
+    <div class="courseOverlayLine"></div>
+
+    <span class="courseOverlayText">
+        ABRINDO CURSO
+    </span>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   ENTRADA — DIGITAÇÃO
+========================================================= */
+
+const institutionEntry =
+    document.getElementById(
+        "institutionEntry"
+    );
+
+const searchText =
+    document.getElementById(
+        "searchText"
+    );
+
+const searchResult =
+    document.getElementById(
+        "searchResult"
+    );
+
+const pageTransition =
+    document.getElementById(
+        "pageTransition"
+    );
+
+const mainPage =
+    document.getElementById(
+        "mainPage"
+    );
+
+const institutionName =
+    "FGV";
+
+let typingIndex = 0;
+
+
+/* =========================================================
+   VERIFICAÇÃO — PULAR INTRODUÇÃO
+========================================================= */
+
+const urlParams =
+    new URLSearchParams(
+        window.location.search
+    );
+
+const skipIntro =
+    urlParams.get("skipIntro") === "1";
+
+
+/* =========================================================
+   INTRODUÇÃO DA PÁGINA
+========================================================= */
+
+function revealPage(){
+
+    const revealElements =
+        document.querySelectorAll(
+            ".reveal"
+        );
+
+
+    revealElements.forEach(
+        (element,index) => {
+
+            setTimeout(() => {
+
+                element.classList.add(
+                    "show"
+                );
+
+            },index * 120);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ENTRADA COM ANIMAÇÃO
+========================================================= */
+
+function typeInstitution(){
+
+    if(
+        typingIndex <
+        institutionName.length
+    ){
+
+        searchText.textContent +=
+            institutionName[typingIndex];
+
+        typingIndex++;
+
+        setTimeout(
+            typeInstitution,
+            120
+        );
+
+        return;
+    }
+
+
+    setTimeout(() => {
+
+        searchResult.classList.add(
+            "visible"
+        );
+
+    },500);
+
+}
+
+
+/* =========================================================
+   DEFINIÇÃO DA ENTRADA
+========================================================= */
+
+if(skipIntro){
+
+    /*
+     * O usuário está retornando de uma
+     * página de curso.
+     *
+     * A tela de introdução é ocultada
+     * imediatamente.
+     */
+
+    institutionEntry.classList.add(
+        "hidden"
+    );
+
+
+    /*
+     * A página principal fica disponível
+     * imediatamente.
+     */
+
+    mainPage.classList.add(
+        "ready"
+    );
+
+
+    /*
+     * Revela os elementos da página
+     * principal sem passar pela
+     * animação inicial.
+     */
+
+    revealPage();
+
+
+    /*
+     * Remove o parâmetro da URL depois
+     * que ele já foi utilizado.
+     *
+     * Isso evita que "?skipIntro=1"
+     * fique permanentemente na URL.
+     */
+
+    const cleanUrl =
+        window.location.pathname +
+        window.location.hash;
+
+    window.history.replaceState(
+        {},
+        document.title,
+        cleanUrl
+    );
+
+}
+else{
+
+    /*
+     * Entrada normal da FGV.
+     *
+     * A animação original permanece
+     * exatamente como antes.
+     */
+
+    setTimeout(
+        typeInstitution,
+        700
+    );
+
+}
+
+
+/* =========================================================
+   ENTRADA → PÁGINA PRINCIPAL
+========================================================= */
+
+searchResult.addEventListener(
+    "click",
+    () => {
+
+        if(
+            !searchResult.classList.contains(
+                "visible"
+            )
+        ){
+            return;
+        }
+
+
+        pageTransition.classList.add(
+            "active"
+        );
+
+
+        setTimeout(() => {
+
+            mainPage.classList.add(
+                "ready"
+            );
+
+        },850);
+
+
+        setTimeout(() => {
+
+            institutionEntry.classList.add(
+                "hidden"
+            );
+
+        },1050);
+
+
+        setTimeout(() => {
+
+            pageTransition.classList.remove(
+                "active"
+            );
+
+            revealPage();
+
+        },1500);
+
+    }
+);
+
+
+/* =========================================================
+   AVISO
+========================================================= */
+
+const noticeInitial =
+    document.getElementById(
+        "noticeInitial"
+    );
+
+const noticeMessage =
+    document.getElementById(
+        "noticeMessage"
+    );
+
+const noticeThanks =
+    document.getElementById(
+        "noticeThanks"
+    );
+
+const noticeButton =
+    document.getElementById(
+        "noticeButton"
+    );
+
+const noticeOk =
+    document.getElementById(
+        "noticeOk"
+    );
+
+const scrollArrow =
+    document.getElementById(
+        "scrollArrow"
+    );
+
+
+noticeButton.addEventListener(
+    "click",
+    () => {
+
+        noticeInitial.classList.add(
+            "hidden"
+        );
+
+
+        setTimeout(() => {
+
+            noticeMessage.classList.add(
+                "visible"
+            );
+
+        },350);
+
+    }
+);
+
+
+noticeOk.addEventListener(
+    "click",
+    () => {
+
+        noticeMessage.classList.remove(
+            "visible"
+        );
+
+
+        setTimeout(() => {
+
+            noticeThanks.classList.add(
+                "visible"
+            );
+
+            scrollArrow.classList.add(
+                "visible"
+            );
+
+        },450);
+
+    }
+);
+
+
+scrollArrow.addEventListener(
+    "click",
+    () => {
+
+        document.getElementById(
+            "courses"
+        ).scrollIntoView({
+            behavior:"smooth"
+        });
+
+    }
+);
+
+
+/* =========================================================
+   INTRODUÇÃO DOS CARDS
+========================================================= */
+
+const courseCards =
+    document.querySelectorAll(
+        ".courseCard"
+    );
+
+
+const cardObserver =
+    new IntersectionObserver(
+        (entries) => {
+
+            entries.forEach(
+                (entry) => {
+
+                    if(
+                        entry.isIntersecting
+                    ){
+
+                        entry.target.classList.add(
+                            "show"
+                        );
+
+                        cardObserver.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                }
+            );
+
+        },
+        {
+            threshold:.08
+        }
+    );
+
+
+courseCards.forEach(
+    (card) => {
+
+        cardObserver.observe(
+            card
+        );
+
+    }
+);
+
+
+/* =========================================================
+   ABERTURA DOS CURSOS
+========================================================= */
+
+const courseOverlay =
+    document.getElementById(
+        "courseOverlay"
+    );
+
+
+courseCards.forEach(
+    (card) => {
+
+        card.addEventListener(
+            "click",
+            () => {
+
+                const destination =
+                    card.dataset.courseUrl;
+
+
+                if(!destination){
+                    return;
+                }
+
+
+                courseOverlay.classList.add(
+                    "active"
+                );
+
+
+                document.body.style.overflow =
+                    "hidden";
+
+
+                setTimeout(() => {
+
+                    window.location.href =
+                        destination;
+
+                },700);
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   HISTÓRICO
+========================================================= */
+
+window.addEventListener(
+    "pageshow",
+    () => {
+
+        document.body.style.overflow =
+            "";
+
+    }
+);
+
+</script>
+
+</body>
+</html>

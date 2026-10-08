@@ -1,0 +1,2178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Courses A-Z</title>
+
+  <link rel="icon" href="faviconprincipal.png">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* ============================================================
+           RESET
+        ============================================================ */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html,
+        body {
+
+            width: 100%;
+            height: 100%;
+
+            overflow: hidden;
+
+            background: #ffffff;
+        }
+
+
+        body {
+
+            font-family:
+                "Goldman",
+                sans-serif;
+        }
+
+
+        /* ============================================================
+           CENA PRINCIPAL
+        ============================================================ */
+
+        .scene {
+
+            position: relative;
+
+            width: 100vw;
+            height: 100vh;
+
+            overflow: hidden;
+
+            background: #ffffff;
+        }
+
+
+        /* ============================================================
+           BARRA DE PESQUISA
+        ============================================================ */
+
+        .search-wrapper {
+
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            width:
+                min(620px, 72vw);
+
+            height: 74px;
+
+            transform:
+                translate(-50%, -50%)
+                scale(.2);
+
+            opacity: 0;
+
+            z-index: 50;
+
+            pointer-events: none;
+
+            animation:
+                searchAppear
+                1s
+                cubic-bezier(.16, 1, .3, 1)
+                forwards;
+        }
+
+
+        .search-bar {
+
+            position: relative;
+
+            width: 100%;
+            height: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            padding:
+                0 30px 0 76px;
+
+            border:
+                2px solid
+                rgba(0, 0, 0, .13);
+
+            border-radius:
+                999px;
+
+            background:
+                rgba(255, 255, 255, .96);
+
+            box-shadow:
+                0 14px 40px
+                rgba(0, 0, 0, .10),
+
+                inset 0 0 20px
+                rgba(0, 0, 0, .025);
+        }
+
+
+        /* ============================================================
+           LUPA DA BARRA
+        ============================================================ */
+
+        .search-icon {
+
+            position: absolute;
+
+            left: 25px;
+            top: 50%;
+
+            width: 27px;
+            height: 27px;
+
+            transform:
+                translateY(-50%);
+
+            border:
+                3px solid
+                #303030;
+
+            border-radius: 50%;
+
+            opacity: .9;
+        }
+
+
+        .search-icon::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 12px;
+            height: 3px;
+
+            right: -9px;
+            bottom: 0;
+
+            border-radius: 999px;
+
+            background:
+                #303030;
+
+            transform:
+                rotate(45deg);
+
+            transform-origin:
+                left center;
+        }
+
+
+        /* ============================================================
+           TEXTO DE DIGITAÇÃO
+        ============================================================ */
+
+        .typing-text {
+
+            width: 100%;
+
+            text-align: left;
+
+            font-size:
+                clamp(20px, 2.25vw, 31px);
+
+            font-weight: 700;
+
+            line-height: 1;
+
+            white-space: nowrap;
+
+            overflow: hidden;
+
+            text-overflow: clip;
+
+            color:
+                #111111;
+
+            padding-right: 12px;
+        }
+
+
+        /* ============================================================
+           LOGOS DAS INSTITUIÇÕES
+        ============================================================ */
+
+        .institution {
+
+            position: absolute;
+
+            z-index: 20;
+
+            width:
+                clamp(125px, 12vw, 185px);
+
+            height:
+                clamp(65px, 7vw, 100px);
+
+            object-fit: contain;
+
+            object-position:
+                center;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            user-select: none;
+
+            transform-origin:
+                center center;
+        }
+
+
+        .institution.active {
+
+            opacity: 1;
+
+            visibility: visible;
+        }
+
+
+        /* ============================================================
+           POSIÇÃO SENAC
+        ============================================================ */
+
+        .senac {
+
+            top: 13%;
+            right: 13%;
+        }
+
+
+        /* ============================================================
+           POSIÇÃO DIO
+        ============================================================ */
+
+        .dio {
+
+            top: 13%;
+            left: 13%;
+        }
+
+
+        /* ============================================================
+           POSIÇÃO GRAU
+        ============================================================ */
+
+        .grau {
+
+            right: 11%;
+            bottom: 13%;
+        }
+
+
+        /* ============================================================
+           POSIÇÃO MICROLINS
+        ============================================================ */
+
+        .microlins {
+
+            left: 11%;
+            bottom: 13%;
+        }
+
+
+        /* ============================================================
+           POSIÇÃO FGV
+        ============================================================ */
+
+        .fgv {
+
+            top: 50%;
+            right: 7%;
+
+            transform:
+                translateY(-50%);
+        }
+
+
+        /* ============================================================
+           POSIÇÃO SANTANDER
+        ============================================================ */
+
+        .santander {
+
+            top: 50%;
+            left: 7%;
+
+            transform:
+                translateY(-50%);
+        }
+
+
+        /* ============================================================
+           LUPA CENTRAL
+        ============================================================ */
+
+        .magnifier {
+
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            width: 94px;
+            height: 94px;
+
+            transform:
+                translate(-50%, -50%)
+                scale(.7);
+
+            opacity: 0;
+
+            z-index: 40;
+
+            pointer-events: none;
+        }
+
+
+        .magnifier-glass {
+
+            position: absolute;
+
+            top: 0;
+            left: 0;
+
+            width: 67px;
+            height: 67px;
+
+            border:
+                5px solid
+                #202020;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, .15);
+
+            transition:
+                border-color .18s ease,
+                box-shadow .18s ease,
+                background .18s ease;
+        }
+
+
+        .magnifier-handle {
+
+            position: absolute;
+
+            width: 38px;
+            height: 6px;
+
+            right: 3px;
+            bottom: 13px;
+
+            border-radius: 999px;
+
+            background:
+                #202020;
+
+            transform:
+                rotate(45deg);
+        }
+
+
+        .magnifier.visible {
+
+            opacity: 1;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1);
+
+            transition:
+                opacity .35s ease,
+                transform .35s
+                cubic-bezier(.16, 1, .3, 1);
+        }
+
+
+        .magnifier.pulse {
+
+            animation:
+                magnifierPulse
+                .42s
+                cubic-bezier(.2, .8, .2, 1);
+        }
+
+
+        /* ============================================================
+           CÍRCULOS CRIADOS A PARTIR DAS LOGOS
+        ============================================================ */
+
+        .travel-circle {
+
+            position: fixed;
+
+            width: 52px;
+            height: 52px;
+
+            border-radius: 50%;
+
+            z-index: 100;
+
+            pointer-events: none;
+
+            opacity: 1;
+
+            box-shadow:
+                0 3px 12px
+                rgba(0, 0, 0, .14);
+
+            transform:
+                translate(-50%, -50%)
+                scale(1);
+
+            will-change:
+                transform,
+                left,
+                top,
+                opacity;
+        }
+
+
+        /* ============================================================
+           EFEITO DE ABSORÇÃO
+        ============================================================ */
+
+        .absorption {
+
+            position: fixed;
+
+            left: 50%;
+            top: 50%;
+
+            width: 10px;
+            height: 10px;
+
+            border-radius: 50%;
+
+            transform:
+                translate(-50%, -50%)
+                scale(0);
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            z-index: 110;
+        }
+
+
+        /* ============================================================
+           CONTAINER DOS ANÉIS
+        ============================================================ */
+
+        .rings-container {
+
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            width: 420px;
+            height: 420px;
+
+            transform:
+                translate(-50%, -50%);
+
+            z-index: 30;
+
+            pointer-events: none;
+        }
+
+
+        /* ============================================================
+           ANÉIS
+        ============================================================ */
+
+        .ring {
+
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            width:
+                var(--ring-size);
+
+            height:
+                var(--ring-size);
+
+            border-radius: 50%;
+
+            transform:
+                translate(-50%, -50%)
+                scale(.1)
+                rotate(-90deg);
+
+            opacity: 0;
+
+            border:
+                5px solid transparent;
+
+            border-top-color:
+                var(--ring-color);
+
+            filter:
+                drop-shadow(
+                    0 0 5px
+                    var(--ring-color)
+                );
+        }
+
+
+        .ring.active {
+
+            animation:
+                ringLoad
+                1.15s
+                cubic-bezier(.4, 0, .15, 1)
+                forwards;
+        }
+
+
+        .ring::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: -5px;
+
+            border-radius: 50%;
+
+            border:
+                2px solid transparent;
+
+            border-right-color:
+                rgba(255, 255, 255, .55);
+
+            opacity: .65;
+        }
+
+
+        /* ============================================================
+           ANIMAÇÕES
+        ============================================================ */
+
+        @keyframes searchAppear {
+
+            0% {
+
+                opacity: 0;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(.2);
+            }
+
+            100% {
+
+                opacity: 1;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes magnifierPulse {
+
+            0% {
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1);
+            }
+
+            35% {
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1.18);
+            }
+
+            65% {
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(.94);
+            }
+
+            100% {
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes ringLoad {
+
+            0% {
+
+                opacity: 0;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(.08)
+                    rotate(-90deg);
+            }
+
+            12% {
+
+                opacity: 1;
+            }
+
+            55% {
+
+                opacity: 1;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1)
+                    rotate(100deg);
+            }
+
+            88% {
+
+                opacity: 1;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1)
+                    rotate(270deg);
+            }
+
+            100% {
+
+                opacity: 0;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1.04)
+                    rotate(360deg);
+            }
+        }
+
+
+        /* ============================================================
+           RESPONSIVIDADE
+        ============================================================ */
+
+        @media (max-width: 700px) {
+
+            .search-wrapper {
+
+                width: 82vw;
+
+                height: 64px;
+            }
+
+
+            .search-bar {
+
+                padding:
+                    0 18px 0 62px;
+            }
+
+
+            .search-icon {
+
+                left: 20px;
+
+                width: 23px;
+                height: 23px;
+
+                border-width:
+                    2.5px;
+            }
+
+
+            .typing-text {
+
+                font-size:
+                    clamp(17px, 4vw, 24px);
+
+                padding-right: 4px;
+            }
+
+
+            .institution {
+
+                width:
+                    clamp(100px, 22vw, 145px);
+
+                height:
+                    clamp(55px, 12vw, 80px);
+            }
+
+
+            .senac {
+
+                right: 7%;
+            }
+
+
+            .dio {
+
+                left: 7%;
+            }
+
+
+            .grau {
+
+                right: 5%;
+            }
+
+
+            .microlins {
+
+                left: 5%;
+            }
+
+
+            .fgv {
+
+                right: 4%;
+            }
+
+
+            .santander {
+
+                left: 4%;
+            }
+
+
+            .rings-container {
+
+                width: 300px;
+                height: 300px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main class="scene">
+
+
+        <!-- ========================================================
+             BARRA DE PESQUISA
+        ========================================================= -->
+
+        <div
+            class="search-wrapper"
+            id="searchWrapper"
+        >
+
+            <div class="search-bar">
+
+                <div
+                    class="search-icon"
+                    aria-hidden="true"
+                ></div>
+
+                <div
+                    class="typing-text"
+                    id="typingText"
+                ></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ========================================================
+             LOGOS DAS INSTITUIÇÕES
+
+             Coloque os arquivos em:
+
+             img/logos/senac.png
+             img/logos/dio.png
+             img/logos/grau.png
+             img/logos/microlins.png
+             img/logos/fgv.png
+             img/logos/santander.png
+        ========================================================= -->
+
+
+        <img
+            src="img/logos/senac.png"
+            class="institution senac"
+            id="senac"
+            alt=""
+        >
+
+
+        <img
+            src="img/logos/dio.png"
+            class="institution dio"
+            id="dio"
+            alt=""
+        >
+
+
+        <img
+            src="img/logos/grau.jpg"
+            class="institution grau"
+            id="grau"
+            alt=""
+        >
+
+
+        <img
+            src="img/logos/microlins.png"
+            class="institution microlins"
+            id="microlins"
+            alt=""
+        >
+
+
+        <img
+            src="img/logos/fgv.png"
+            class="institution fgv"
+            id="fgv"
+            alt=""
+        >
+
+
+        <img
+            src="img/logos/santander.png"
+            class="institution santander"
+            id="santander"
+            alt=""
+        >
+
+
+        <!-- ========================================================
+             LUPA CENTRAL
+        ========================================================= -->
+
+        <div
+            class="magnifier"
+            id="magnifier"
+        >
+
+            <div
+                class="magnifier-glass"
+                id="magnifierGlass"
+            ></div>
+
+            <div
+                class="magnifier-handle"
+            ></div>
+
+        </div>
+
+
+        <!-- ========================================================
+             ANÉIS
+        ========================================================= -->
+
+        <div
+            class="rings-container"
+            id="ringsContainer"
+        >
+
+            <div
+                class="ring"
+                style="
+                    --ring-size: 95px;
+                    --ring-color: #ff9d19;
+                "
+            ></div>
+
+
+            <div
+                class="ring"
+                style="
+                    --ring-size: 145px;
+                    --ring-color: #63c8ff;
+                "
+            ></div>
+
+
+            <div
+                class="ring"
+                style="
+                    --ring-size: 195px;
+                    --ring-color: #214f9c;
+                "
+            ></div>
+
+
+            <div
+                class="ring"
+                style="
+                    --ring-size: 245px;
+                    --ring-color: #76d9ff;
+                "
+            ></div>
+
+
+            <div
+                class="ring"
+                style="
+                    --ring-size: 295px;
+                    --ring-color: #266bc0;
+                "
+            ></div>
+
+
+            <div
+                class="ring"
+                style="
+                    --ring-size: 345px;
+                    --ring-color: #d9424b;
+                "
+            ></div>
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        /* ============================================================
+           ELEMENTOS
+        ============================================================ */
+
+        const typingText =
+            document.getElementById(
+                "typingText"
+            );
+
+
+        const searchWrapper =
+            document.getElementById(
+                "searchWrapper"
+            );
+
+
+        const magnifier =
+            document.getElementById(
+                "magnifier"
+            );
+
+
+        const magnifierGlass =
+            document.getElementById(
+                "magnifierGlass"
+            );
+
+
+        const rings =
+            document.querySelectorAll(
+                ".ring"
+            );
+
+
+        /* ============================================================
+           INSTITUIÇÕES
+        ============================================================ */
+
+        const institutions = [
+
+            {
+                typing:
+                    "Senac",
+
+                element:
+                    document.getElementById(
+                        "senac"
+                    ),
+
+                color:
+                    "#ff9a22"
+            },
+
+
+            {
+                typing:
+                    "Digital Innovation One",
+
+                element:
+                    document.getElementById(
+                        "dio"
+                    ),
+
+                color:
+                    "#76bfff"
+            },
+
+
+            {
+                typing:
+                    "Grau Profissionalizante",
+
+                element:
+                    document.getElementById(
+                        "grau"
+                    ),
+
+                color:
+                    "#315f9d"
+            },
+
+
+            {
+                typing:
+                    "Microlins",
+
+                element:
+                    document.getElementById(
+                        "microlins"
+                    ),
+
+                color:
+                    "#79d7ff"
+            },
+
+
+            {
+                typing:
+                    "Fundação Getúlio Vargas",
+
+                element:
+                    document.getElementById(
+                        "fgv"
+                    ),
+
+                color:
+                    "#3178c9"
+            },
+
+
+            {
+                typing:
+                    "Santander Open Academy",
+
+                element:
+                    document.getElementById(
+                        "santander"
+                    ),
+
+                color:
+                    "#d7353e"
+            }
+
+        ];
+
+
+        /* ============================================================
+           CONFIGURAÇÕES
+        ============================================================ */
+
+        const typingSpeed =
+            85;
+
+
+        const textMoveDuration =
+            900;
+
+
+        const pauseBetweenTexts =
+            170;
+
+
+        const circleTransformDuration =
+            280;
+
+
+        const circleTravelDuration =
+            900;
+
+
+        const circleAbsorbDuration =
+            230;
+
+
+        const pauseAfterAbsorption =
+            170;
+
+
+        /* ============================================================
+           FUNÇÃO DE ESPERA
+        ============================================================ */
+
+        function wait(ms) {
+
+            return new Promise(
+                resolve =>
+                    setTimeout(
+                        resolve,
+                        ms
+                    )
+            );
+
+        }
+
+
+        /* ============================================================
+           DIGITAÇÃO
+        ============================================================ */
+
+        async function typeText(text) {
+
+            typingText.textContent =
+                "";
+
+
+            for (
+                let index = 0;
+                index < text.length;
+                index++
+            ) {
+
+                typingText.textContent =
+                    text.substring(
+                        0,
+                        index + 1
+                    );
+
+
+                await wait(
+                    typingSpeed
+                );
+
+            }
+
+        }
+
+
+        /* ============================================================
+           LIMPA BARRA
+        ============================================================ */
+
+        async function clearSearch() {
+
+            await wait(180);
+
+
+            searchWrapper.style.opacity =
+                "0";
+
+
+            searchWrapper.style.transform =
+                "translate(-50%, -50%) scale(.92)";
+
+
+            await wait(420);
+
+        }
+
+
+        /* ============================================================
+           POSICIONA LOGO
+        ============================================================ */
+
+        async function placeInstitution(item) {
+
+            await typeText(
+                item.typing
+            );
+
+
+            await clearSearch();
+
+
+            item.element.classList.add(
+                "active"
+            );
+
+
+            item.element.style.opacity =
+                "1";
+
+
+            item.element.style.visibility =
+                "visible";
+
+
+            item.element.style.display =
+                "block";
+
+
+            const verticalElement =
+                item.element.classList.contains(
+                    "fgv"
+                ) ||
+                item.element.classList.contains(
+                    "santander"
+                );
+
+
+            item.element.animate(
+
+                [
+
+                    {
+                        opacity: 0,
+
+                        transform:
+                            verticalElement
+                                ? "translateY(-50%) scale(.88)"
+                                : "scale(.88)"
+                    },
+
+
+                    {
+                        opacity: 1,
+
+                        transform:
+                            verticalElement
+                                ? "translateY(-50%) scale(1.04)"
+                                : "scale(1.04)"
+                    },
+
+
+                    {
+                        opacity: 1,
+
+                        transform:
+                            verticalElement
+                                ? "translateY(-50%) scale(1)"
+                                : "scale(1)"
+                    }
+
+                ],
+
+                {
+
+                    duration:
+                        textMoveDuration,
+
+                    easing:
+                        "cubic-bezier(.16, 1, .3, 1)",
+
+                    fill:
+                        "forwards"
+                }
+
+            );
+
+
+            await wait(
+                textMoveDuration +
+                pauseBetweenTexts
+            );
+
+        }
+
+
+        /* ============================================================
+           MOSTRA LOGOS
+        ============================================================ */
+
+        async function showInstitutions() {
+
+            for (
+                const item of institutions
+            ) {
+
+                searchWrapper.style.display =
+                    "block";
+
+
+                searchWrapper.style.opacity =
+                    "1";
+
+
+                searchWrapper.style.transform =
+                    "translate(-50%, -50%) scale(1)";
+
+
+                await wait(250);
+
+
+                await placeInstitution(
+                    item
+                );
+
+            }
+
+
+            searchWrapper.style.display =
+                "none";
+
+        }
+
+
+        /* ============================================================
+           MOSTRA LUPA
+        ============================================================ */
+
+        function showMagnifier() {
+
+            magnifier.classList.add(
+                "visible"
+            );
+
+        }
+
+
+        /* ============================================================
+           REAÇÃO DA LUPA
+        ============================================================ */
+
+        function triggerMagnifier(color) {
+
+            magnifierGlass.style.borderColor =
+                color;
+
+
+            magnifierGlass.style.boxShadow = `
+
+                0 0 7px
+                ${color},
+
+                0 0 16px
+                ${color},
+
+                0 0 28px
+                ${color}
+
+            `;
+
+
+            magnifierGlass.style.background =
+
+                `radial-gradient(
+                    circle,
+                    ${color}22 0%,
+                    rgba(255,255,255,.08) 65%,
+                    transparent 100%
+                )`;
+
+
+            magnifier.classList.remove(
+                "pulse"
+            );
+
+
+            void magnifier.offsetWidth;
+
+
+            magnifier.classList.add(
+                "pulse"
+            );
+
+        }
+
+
+        /* ============================================================
+           CRIA CÍRCULO A PARTIR DA LOGO
+        ============================================================ */
+
+        function createTravelCircle(item) {
+
+            const rect =
+                item.element.getBoundingClientRect();
+
+
+            const circle =
+                document.createElement(
+                    "div"
+                );
+
+
+            circle.className =
+                "travel-circle";
+
+
+            circle.style.background =
+                item.color;
+
+
+            circle.style.left =
+                `${rect.left + rect.width / 2}px`;
+
+
+            circle.style.top =
+                `${rect.top + rect.height / 2}px`;
+
+
+            document.body.appendChild(
+                circle
+            );
+
+
+            /*
+                A LOGO É IMEDIATAMENTE REMOVIDA
+                DA POSIÇÃO ORIGINAL.
+
+                Nenhuma logo fica sobrando.
+            */
+
+            item.element.classList.remove(
+                "active"
+            );
+
+
+            item.element.style.opacity =
+                "0";
+
+
+            item.element.style.visibility =
+                "hidden";
+
+
+            item.element.style.display =
+                "none";
+
+
+            return circle;
+
+        }
+
+
+        /* ============================================================
+           LOGO → CÍRCULO
+        ============================================================ */
+
+        async function transformIntoCircle(item) {
+
+            const circle =
+                createTravelCircle(
+                    item
+                );
+
+
+            circle.animate(
+
+                [
+
+                    {
+                        transform:
+                            "translate(-50%, -50%) scale(.45)",
+
+                        opacity:
+                            .35
+                    },
+
+
+                    {
+                        transform:
+                            "translate(-50%, -50%) scale(1)",
+
+                        opacity:
+                            1
+                    }
+
+                ],
+
+                {
+
+                    duration:
+                        circleTransformDuration,
+
+                    easing:
+                        "cubic-bezier(.16, 1, .3, 1)",
+
+                    fill:
+                        "forwards"
+                }
+
+            );
+
+
+            await wait(
+                circleTransformDuration
+            );
+
+
+            return circle;
+
+        }
+
+
+        /* ============================================================
+           CÍRCULO → LUPA
+        ============================================================ */
+
+        async function moveCircleToMagnifier(
+            circle,
+            item
+        ) {
+
+            const magnifierRect =
+                magnifier.getBoundingClientRect();
+
+
+            const startX =
+                parseFloat(
+                    circle.style.left
+                );
+
+
+            const startY =
+                parseFloat(
+                    circle.style.top
+                );
+
+
+            const targetX =
+                magnifierRect.left +
+                magnifierRect.width / 2;
+
+
+            const targetY =
+                magnifierRect.top +
+                magnifierRect.height / 2;
+
+
+            const animation =
+                circle.animate(
+
+                    [
+
+                        {
+                            left:
+                                `${startX}px`,
+
+                            top:
+                                `${startY}px`,
+
+                            transform:
+                                "translate(-50%, -50%) scale(1)",
+
+                            opacity:
+                                1
+                        },
+
+
+                        {
+                            left:
+                                `${startX +
+                                    (targetX - startX) * .28}px`,
+
+                            top:
+                                `${startY +
+                                    (targetY - startY) * .28}px`,
+
+                            transform:
+                                "translate(-50%, -50%) scale(.72)",
+
+                            opacity:
+                                1
+                        },
+
+
+                        {
+                            left:
+                                `${startX +
+                                    (targetX - startX) * .58}px`,
+
+                            top:
+                                `${startY +
+                                    (targetY - startY) * .58}px`,
+
+                            transform:
+                                "translate(-50%, -50%) scale(.43)",
+
+                            opacity:
+                                1
+                        },
+
+
+                        {
+                            left:
+                                `${startX +
+                                    (targetX - startX) * .82}px`,
+
+                            top:
+                                `${startY +
+                                    (targetY - startY) * .82}px`,
+
+                            transform:
+                                "translate(-50%, -50%) scale(.19)",
+
+                            opacity:
+                                .95
+                        },
+
+
+                        {
+                            left:
+                                `${targetX}px`,
+
+                            top:
+                                `${targetY}px`,
+
+                            transform:
+                                "translate(-50%, -50%) scale(.025)",
+
+                            opacity:
+                                .15
+                        }
+
+                    ],
+
+                    {
+
+                        duration:
+                            circleTravelDuration,
+
+                        easing:
+                            "cubic-bezier(.25, .7, .15, 1)",
+
+                        fill:
+                            "forwards"
+                    }
+
+                );
+
+
+            await animation.finished;
+
+
+            circle.style.left =
+                `${targetX}px`;
+
+
+            circle.style.top =
+                `${targetY}px`;
+
+
+            circle.style.transform =
+                "translate(-50%, -50%) scale(.025)";
+
+
+            circle.style.opacity =
+                "0";
+
+
+            /*
+                A logo/círculo chegou ao centro.
+                A lupa reage exatamente nesse momento.
+            */
+
+            triggerMagnifier(
+                item.color
+            );
+
+
+            const absorption =
+                document.createElement(
+                    "div"
+                );
+
+
+            absorption.className =
+                "absorption";
+
+
+            absorption.style.background =
+                item.color;
+
+
+            absorption.style.boxShadow = `
+
+                0 0 8px
+                ${item.color},
+
+                0 0 18px
+                ${item.color},
+
+                0 0 32px
+                ${item.color}
+
+            `;
+
+
+            absorption.style.left =
+                `${targetX}px`;
+
+
+            absorption.style.top =
+                `${targetY}px`;
+
+
+            document.body.appendChild(
+                absorption
+            );
+
+
+            absorption.animate(
+
+                [
+
+                    {
+                        opacity:
+                            .9,
+
+                        transform:
+                            "translate(-50%, -50%) scale(.2)"
+                    },
+
+
+                    {
+                        opacity:
+                            1,
+
+                        transform:
+                            "translate(-50%, -50%) scale(1.8)"
+                    },
+
+
+                    {
+                        opacity:
+                            0,
+
+                        transform:
+                            "translate(-50%, -50%) scale(.1)"
+                    }
+
+                ],
+
+                {
+
+                    duration:
+                        circleAbsorbDuration,
+
+                    easing:
+                        "cubic-bezier(.16, 1, .3, 1)",
+
+                    fill:
+                        "forwards"
+                }
+
+            );
+
+
+            await wait(
+                circleAbsorbDuration
+            );
+
+
+            circle.remove();
+
+            absorption.remove();
+
+
+            await wait(
+                pauseAfterAbsorption
+            );
+
+        }
+
+
+        /* ============================================================
+           PROCESSA TODAS AS LOGOS
+        ============================================================ */
+
+        async function processCircles() {
+
+            showMagnifier();
+
+
+            await wait(500);
+
+
+            /*
+                Ordem inversa:
+                último → primeiro
+            */
+
+            const order = [
+
+                institutions[5],
+                institutions[4],
+                institutions[3],
+                institutions[2],
+                institutions[1],
+                institutions[0]
+
+            ];
+
+
+            for (
+                const item of order
+            ) {
+
+                item.element.style.opacity =
+                    "0";
+
+
+                item.element.style.visibility =
+                    "hidden";
+
+
+                const circle =
+                    await transformIntoCircle(
+                        item
+                    );
+
+
+                await moveCircleToMagnifier(
+                    circle,
+                    item
+                );
+
+            }
+
+
+            /*
+                Depois que TODOS os círculos
+                foram absorvidos, a lupa desaparece.
+            */
+
+            magnifier.style.opacity =
+                "0";
+
+
+            await wait(450);
+
+        }
+
+
+        /* ============================================================
+           ANÉIS
+        ============================================================ */
+
+        async function playRings() {
+
+            for (
+                let index = 0;
+                index < rings.length;
+                index++
+            ) {
+
+                /*
+                    Garante que somente um anel
+                    esteja ativo por vez.
+                */
+
+                rings.forEach(
+                    ring => {
+
+                        ring.classList.remove(
+                            "active"
+                        );
+
+                    }
+                );
+
+
+                const currentRing =
+                    rings[index];
+
+
+                currentRing.classList.add(
+                    "active"
+                );
+
+
+                await wait(
+                    1150
+                );
+
+
+                currentRing.classList.remove(
+                    "active"
+                );
+
+
+                await wait(
+                    80
+                );
+
+            }
+
+        }
+
+
+        /* ============================================================
+           FINALIZAÇÃO
+        ============================================================ */
+
+        async function finishAnimation() {
+
+            /*
+                Não existe mais tela final,
+                logo, anel final ou botão.
+
+                Tudo permanece branco.
+            */
+
+            document.body.style.background =
+                "#ffffff";
+
+
+            document.documentElement.style
+                .background =
+                "#ffffff";
+
+
+            document.querySelector(
+                ".scene"
+            ).style.background =
+                "#ffffff";
+
+
+            /*
+                Garantia adicional de que
+                nenhum elemento antigo permaneça.
+            */
+
+            document.querySelectorAll(
+                ".institution"
+            ).forEach(
+                element => {
+
+                    element.style.opacity =
+                        "0";
+
+                    element.style.visibility =
+                        "hidden";
+
+                    element.style.display =
+                        "none";
+
+                }
+            );
+
+
+            magnifier.style.opacity =
+                "0";
+
+
+            rings.forEach(
+                ring => {
+
+                    ring.classList.remove(
+                        "active"
+                    );
+
+                    ring.style.opacity =
+                        "0";
+
+                }
+            );
+
+        }
+
+
+        /* ============================================================
+           INÍCIO DA ANIMAÇÃO
+        ============================================================ */
+
+        async function startAnimation() {
+
+            /*
+                FASE 1
+                Barra + logos
+            */
+
+            await showInstitutions();
+
+
+            /*
+                FASE 2
+                Logos → círculos → lupa
+            */
+
+            await processCircles();
+
+
+            /*
+                FASE 3
+                Anéis
+            */
+
+            await playRings();
+
+
+            /*
+                FASE 4
+                Página branca
+            */
+
+            await finishAnimation();
+
+        }
+
+
+        /* ============================================================
+           LOAD
+        ============================================================ */
+
+        window.addEventListener(
+            "load",
+            () => {
+
+                setTimeout(
+                    startAnimation,
+                    500
+                );
+
+            }
+        );
+
+        /* ============================================================
+           FINALIZAÇÃO + TRANSIÇÃO PARA COURSES A-Z
+        ============================================================ */
+
+        async function finishAnimation() {
+
+            /*
+                Deixa toda a página completamente branca.
+            */
+
+            document.body.style.background =
+                "#ffffff";
+
+
+            document.documentElement.style.background =
+                "#ffffff";
+
+
+            const scene =
+                document.querySelector(
+                    ".scene"
+                );
+
+
+            if (scene) {
+
+                scene.style.background =
+                    "#ffffff";
+
+            }
+
+
+            /*
+                Remove qualquer instituição que ainda
+                possa estar visível.
+            */
+
+            document.querySelectorAll(
+                ".institution"
+            ).forEach(
+                element => {
+
+                    element.style.opacity =
+                        "0";
+
+                    element.style.visibility =
+                        "hidden";
+
+                    element.style.display =
+                        "none";
+
+                }
+            );
+
+
+            /*
+                Remove a lupa.
+            */
+
+            magnifier.style.opacity =
+                "0";
+
+
+            /*
+                Remove todos os anéis.
+            */
+
+            rings.forEach(
+                ring => {
+
+                    ring.classList.remove(
+                        "active"
+                    );
+
+                    ring.style.opacity =
+                        "0";
+
+                }
+            );
+
+
+            /*
+                A página permanece branca durante
+                alguns milissegundos.
+
+                Esse pequeno intervalo cria a
+                transição visual entre as páginas.
+            */
+
+            await wait(180);
+
+
+            /*
+                ========================================================
+                CONEXÃO COM A SEGUNDA PÁGINA
+                ========================================================
+
+                Os dois arquivos estão na mesma pasta.
+
+                Primeira página:
+                    arquivo atual
+
+                Segunda página:
+                    courses.html
+
+                Portanto, não precisamos de caminho
+                adicional.
+            */
+
+            window.location.href =
+                "courses.html";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

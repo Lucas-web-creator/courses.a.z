@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CSS Developer | DIO</title>
+  <link rel="icon" href="../favicondio.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --theme: #1572B6;
+            --theme-dark: #0D4F7A;
+            --theme-glow: rgba(21,114,182,.48);
+
+            --blue: #2364AA;
+            --pink: #B8336A;
+
+            --dark: #071521;
+            --dark-blue: #102D4D;
+
+            --text: #15212B;
+            --muted: #697780;
+
+            --light: #F4F7FA;
+            --white: #FFFFFF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Manrope", sans-serif;
+            background: var(--light);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        .hero {
+            min-height: 100vh;
+            padding: 90px 8vw;
+
+            display: grid;
+            grid-template-columns: 1.15fr .85fr;
+            align-items: center;
+            gap: 70px;
+
+            position: relative;
+            overflow: hidden;
+
+            color: var(--white);
+
+            background:
+                radial-gradient(
+                    circle at 80% 30%,
+                    var(--theme-glow),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 20% 80%,
+                    rgba(35,100,170,.30),
+                    transparent 35%
+                ),
+                linear-gradient(
+                    135deg,
+                    #06111d,
+                    #102D4D 60%,
+                    #071521
+                );
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 600px;
+            height: 600px;
+
+            right: -220px;
+            top: -180px;
+
+            border: 1px solid rgba(255,255,255,.07);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 400px;
+            height: 400px;
+
+            left: -220px;
+            bottom: -230px;
+
+            border: 1px solid rgba(255,255,255,.05);
+            border-radius: 50%;
+        }
+
+        .hero-content,
+        .hero-card {
+            position: relative;
+            z-index: 2;
+        }
+
+        .eyebrow,
+        .section-label {
+            display: inline-block;
+
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+        }
+
+        .eyebrow {
+            margin-bottom: 25px;
+            color: var(--theme);
+        }
+
+        .hero h1 {
+            max-width: 850px;
+
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(4rem,9vw,8.5rem);
+            line-height: .85;
+            letter-spacing: -.07em;
+            font-weight: 700;
+
+            animation: heroTitle .8s ease both;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: var(--theme);
+        }
+
+        .hero-description {
+            max-width: 690px;
+
+            margin-top: 38px;
+
+            color: rgba(255,255,255,.72);
+
+            font-size: 1.05rem;
+            line-height: 1.8;
+
+            animation: heroText .9s .15s ease both;
+        }
+
+        .hero-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            margin-top: 32px;
+        }
+
+        .meta {
+            padding: 9px 15px;
+
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 999px;
+
+            color: rgba(255,255,255,.75);
+
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+        }
+
+        .hero-card {
+            padding: 45px;
+
+            min-height: 500px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            position: relative;
+
+            border: 1px solid rgba(255,255,255,.13);
+            border-radius: 28px;
+
+            background: rgba(255,255,255,.055);
+            backdrop-filter: blur(18px);
+
+            box-shadow: 0 35px 100px rgba(0,0,0,.28);
+
+            animation: cardIntro 1s .25s ease both;
+        }
+
+        .card-number {
+            position: absolute;
+            top: 28px;
+            right: 30px;
+
+            color: rgba(255,255,255,.35);
+
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .8rem;
+            letter-spacing: .15em;
+        }
+
+        .logo-orbit {
+            width: 210px;
+            height: 210px;
+
+            margin: 0 auto 35px;
+
+            display: grid;
+            place-items: center;
+
+            position: relative;
+        }
+
+        .logo-orbit::before,
+        .logo-orbit::after {
+            content: "";
+
+            position: absolute;
+
+            border: 1px solid var(--theme);
+            border-radius: 50%;
+        }
+
+        .logo-orbit::before {
+            inset: 0;
+            opacity: .25;
+        }
+
+        .logo-orbit::after {
+            inset: 22px;
+            opacity: .15;
+        }
+
+        .logo-panel {
+            width: 130px;
+            height: 130px;
+
+            display: grid;
+            place-items: center;
+
+            position: relative;
+            z-index: 2;
+
+            border-radius: 28px;
+
+            background: rgba(255,255,255,.96);
+
+            box-shadow: 0 0 45px var(--theme-glow);
+        }
+
+        .logo-panel img {
+            width: 82px;
+            height: 82px;
+            object-fit: contain;
+        }
+
+        .hero-card h2 {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .hero-card p {
+            max-width: 390px;
+
+            margin: 15px auto 0;
+
+            color: rgba(255,255,255,.58);
+
+            font-size: .9rem;
+            line-height: 1.7;
+            text-align: center;
+        }
+
+        .information {
+            padding: 130px 8vw;
+            background: var(--light);
+        }
+
+        .section-header {
+            max-width: 850px;
+            margin-bottom: 65px;
+        }
+
+        .section-label {
+            margin-bottom: 20px;
+            color: var(--theme);
+        }
+
+        .section-header h2,
+        .focus-content h2,
+        .difference-inner h2 {
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 700;
+            letter-spacing: -.04em;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.8rem,6vw,5.5rem);
+            line-height: .98;
+        }
+
+        .section-header h2 span,
+        .focus-content h2 span,
+        .difference-inner h2 span {
+            color: var(--theme);
+        }
+
+        .section-header p {
+            max-width: 720px;
+
+            margin-top: 28px;
+
+            color: var(--muted);
+
+            font-size: 1rem;
+            line-height: 1.85;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 18px;
+        }
+
+        .info-card {
+            min-height: 300px;
+
+            padding: 35px;
+
+            position: relative;
+
+            border: 1px solid #DCE3E8;
+            border-radius: 20px;
+
+            background: var(--white);
+
+            opacity: 0;
+            transform: translateY(25px);
+
+            transition:
+                opacity .6s ease,
+                transform .6s ease,
+                border-color .3s ease,
+                box-shadow .3s ease;
+        }
+
+        .info-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .info-card:hover {
+            border-color: var(--theme);
+            box-shadow: 0 20px 50px rgba(7,21,33,.08);
+        }
+
+        .card-index {
+            color: var(--theme);
+
+            font-family: "Space Grotesk", sans-serif;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .12em;
+        }
+
+        .info-card h3 {
+            margin-top: 55px;
+
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 1.6rem;
+        }
+
+        .info-card p {
+            margin-top: 16px;
+
+            color: var(--muted);
+
+            font-size: .9rem;
+            line-height: 1.8;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-top: 25px;
+        }
+
+        .feature {
+            padding: 12px 0;
+
+            border-bottom: 1px solid #E7EBEE;
+
+            color: var(--muted);
+
+            font-size: .85rem;
+        }
+
+        .feature::before {
+            content: "—";
+            margin-right: 10px;
+            color: var(--theme);
+        }
+
+        .focus {
+            padding: 120px 8vw;
+
+            color: var(--white);
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--dark),
+                    var(--dark-blue)
+                );
+        }
+
+        .focus-inner {
+            max-width: 1250px;
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: .8fr 1.2fr;
+            align-items: center;
+            gap: 100px;
+        }
+
+        .focus-visual {
+            min-height: 450px;
+
+            display: grid;
+            place-items: center;
+
+            position: relative;
+        }
+
+        .focus-ring {
+            width: 340px;
+            height: 340px;
+
+            position: absolute;
+
+            border: 1px solid var(--theme);
+            border-radius: 50%;
+
+            box-shadow: 0 0 70px var(--theme-glow);
+
+            animation: orbitFloat 5s ease-in-out infinite;
+        }
+
+        .focus-ring::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 35px;
+
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 50%;
+        }
+
+        .focus-logo {
+            width: 190px;
+            height: 190px;
+
+            display: grid;
+            place-items: center;
+
+            position: relative;
+            z-index: 2;
+
+            border-radius: 45px;
+
+            background: rgba(255,255,255,.96);
+
+            box-shadow: 0 0 80px var(--theme-glow);
+        }
+
+        .focus-logo img {
+            width: 115px;
+            height: 115px;
+            object-fit: contain;
+        }
+
+        .focus-content h2 {
+            max-width: 750px;
+
+            font-size: clamp(2.8rem,5vw,5rem);
+            line-height: 1;
+        }
+
+        .focus-content p {
+            max-width: 650px;
+
+            margin-top: 30px;
+
+            color: rgba(255,255,255,.6);
+
+            line-height: 1.85;
+        }
+
+        .focus-points {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+
+            margin-top: 35px;
+        }
+
+        .focus-points span {
+            padding: 9px 14px;
+
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 999px;
+
+            color: rgba(255,255,255,.68);
+
+            font-size: .68rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+        }
+
+        .difference {
+            padding: 150px 8vw;
+            background: var(--white);
+        }
+
+        .difference-inner {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .difference-inner h2 {
+            max-width: 950px;
+
+            font-size: clamp(3rem,7vw,7rem);
+            line-height: .92;
+        }
+
+        .accent-line {
+            width: 120px;
+            height: 3px;
+
+            margin-top: 55px;
+
+            background: var(--theme);
+        }
+
+        .difference-word {
+            margin-top: 60px;
+
+            color: transparent;
+
+            font-family: "Space Grotesk", sans-serif;
+            font-size: clamp(5rem,18vw,15rem);
+            font-weight: 700;
+            line-height: .8;
+            letter-spacing: -.08em;
+
+            -webkit-text-stroke: 1px var(--theme);
+
+            opacity: .22;
+        }
+
+        .footer {
+            padding: 35px 8vw;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            color: rgba(255,255,255,.5);
+
+            background: var(--dark);
+
+            font-size: .72rem;
+            letter-spacing: .08em;
+        }
+
+        .back {
+            color: var(--white);
+            text-decoration: none;
+
+            font-family: "Space Grotesk", sans-serif;
+            font-weight: 700;
+
+            transition: color .3s ease, transform .3s ease;
+        }
+
+        .back:hover {
+            color: var(--theme);
+            transform: translateX(-5px);
+        }
+
+        @keyframes heroTitle {
+
+            from {
+                opacity: 0;
+                transform: translateY(35px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        @keyframes heroText {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        @keyframes cardIntro {
+
+            from {
+                opacity: 0;
+                transform: translateY(35px) scale(.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+        }
+
+        @keyframes orbitFloat {
+
+            0%,
+            100% {
+                transform: rotate(0deg) scale(1);
+            }
+
+            50% {
+                transform: rotate(8deg) scale(1.035);
+            }
+
+        }
+
+        @media (max-width: 900px) {
+
+            .hero {
+                grid-template-columns: 1fr;
+                padding-top: 70px;
+            }
+
+            .focus-inner {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            .hero,
+            .information,
+            .focus,
+            .difference {
+                padding-left: 6vw;
+                padding-right: 6vw;
+            }
+
+            .hero h1 {
+                font-size: clamp(3.4rem,18vw,6rem);
+            }
+
+            .hero-card {
+                padding: 30px 20px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .focus-ring {
+                width: 280px;
+                height: 280px;
+            }
+
+            .focus-logo {
+                width: 150px;
+                height: 150px;
+            }
+
+            .focus-logo img {
+                width: 90px;
+                height: 90px;
+            }
+
+            .footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div class="eyebrow">
+                    FORMAÇÃO · DIO
+                </div>
+
+                <h1>
+                    CSS
+                    <span>Developer</span>
+                </h1>
+
+                <p class="hero-description">
+                    Uma formação dedicada à construção visual de interfaces,
+                    trabalhando estilos, layouts, posicionamento,
+                    responsividade e composição para a Web.
+                </p>
+
+                <div class="hero-meta">
+                    <span class="meta">CSS</span>
+                    <span class="meta">LAYOUT</span>
+                    <span class="meta">RESPONSIVO</span>
+                </div>
+
+            </div>
+
+
+            <div class="hero-card">
+
+                <div class="card-number">
+                    02
+                </div>
+
+                <div class="logo-orbit">
+
+                    <div class="logo-panel">
+
+                        <img
+                            src="https://raw.githubusercontent.com/CSS-Next/logo.css/main/css.svg"
+                            alt="CSS"
+                        >
+
+                    </div>
+
+                </div>
+
+                <h2>
+                    CSS · Estilo · Interface
+                </h2>
+
+                <p>
+                    A tecnologia responsável por transformar
+                    estruturas em interfaces visuais.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <section class="information">
+
+            <div class="section-header">
+
+                <span class="section-label">
+                    SOBRE A FORMAÇÃO
+                </span>
+
+                <h2>
+                    Estilo.
+                    <span>Layout.</span>
+                    Interface.
+                </h2>
+
+                <p>
+                    O CSS permite definir como os elementos de uma
+                    página serão apresentados. Através dele é possível
+                    trabalhar aparência, posicionamento, espaçamento,
+                    adaptação de telas e composição visual.
+                </p>
+
+            </div>
+
+
+            <div class="grid">
+
+                <article class="info-card">
+
+                    <span class="card-index">01</span>
+
+                    <h3>
+                        O que é?
+                    </h3>
+
+                    <p>
+                        CSS é a linguagem utilizada para definir
+                        a apresentação visual dos elementos
+                        estruturados em HTML.
+                    </p>
+
+                </article>
+
+
+                <article class="info-card">
+
+                    <span class="card-index">02</span>
+
+                    <h3>
+                        O que você aprende?
+                    </h3>
+
+                    <p>
+                        Seletores, propriedades, posicionamento,
+                        layouts, responsividade, espaçamento,
+                        tipografia e composição visual.
+                    </p>
+
+                </article>
+
+
+                <article class="info-card">
+
+                    <span class="card-index">03</span>
+
+                    <h3>
+                        Competências
+                    </h3>
+
+                    <ul class="feature-list">
+
+                        <li class="feature">
+                            Seletores e propriedades CSS
+                        </li>
+
+                        <li class="feature">
+                            Layout e posicionamento
+                        </li>
+
+                        <li class="feature">
+                            Responsividade
+                        </li>
+
+                        <li class="feature">
+                            Composição visual
+                        </li>
+
+                    </ul>
+
+                </article>
+
+
+                <article class="info-card">
+
+                    <span class="card-index">04</span>
+
+                    <h3>
+                        Aplicação
+                    </h3>
+
+                    <p>
+                        O conhecimento pode ser utilizado na criação
+                        de interfaces, sites responsivos, sistemas,
+                        portfólios e experiências digitais.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <section class="focus">
+
+            <div class="focus-inner">
+
+                <div class="focus-visual">
+
+                    <div class="focus-ring"></div>
+
+                    <div class="focus-logo">
+
+                        <img
+                            src="https://raw.githubusercontent.com/CSS-Next/logo.css/main/css.svg"
+                            alt="CSS"
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="focus-content">
+
+                    <span class="section-label">
+                        TECNOLOGIA DA FORMAÇÃO
+                    </span>
+
+                    <h2>
+                        Transformar estrutura
+                        em <span>experiência.</span>
+                    </h2>
+
+                    <p>
+                        CSS conecta estrutura e apresentação,
+                        permitindo transformar documentos estruturados
+                        em interfaces organizadas, responsivas e
+                        visualmente consistentes.
+                    </p>
+
+                    <div class="focus-points">
+
+                        <span>LAYOUT</span>
+                        <span>RESPONSIVIDADE</span>
+                        <span>ESTILO</span>
+                        <span>INTERFACE</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="difference">
+
+            <div class="difference-inner">
+
+                <span class="section-label">
+                    DIFERENCIAL DA FORMAÇÃO
+                </span>
+
+                <h2>
+                    Aprender CSS é compreender
+                    como uma <span>interface ganha forma.</span>
+                </h2>
+
+                <div class="accent-line"></div>
+
+                <div class="difference-word">
+                    CSS
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer class="footer">
+
+        <a
+            href="../dio.html?skipIntro=1"
+            class="back"
+        >
+            ← VOLTAR PARA DIO
+        </a>
+
+        <span>
+            DIO · COURSES A-Z
+        </span>
+
+    </footer>
+
+
+    <script>
+        const cards = document.querySelectorAll(".info-card");
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach((entry, index) => {
+
+                    if (entry.isIntersecting) {
+
+                        setTimeout(() => {
+                            entry.target.classList.add("show");
+                        }, index * 70);
+
+                        observer.unobserve(entry.target);
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.12
+            }
+        );
+
+        cards.forEach((card) => {
+            observer.observe(card);
+        });
+    </script>
+
+</body>
+</html>

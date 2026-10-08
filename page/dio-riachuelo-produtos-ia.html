@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Riachuelo Produtos com IA | DIO</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+    <link rel="icon" href="../favicondio.jpg">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --blue:#2364AA;
+            --pink:#B8336A;
+            --coral:#E85D75;
+            --blue-dark:#102D4D;
+            --dark:#071521;
+            --text:#15212B;
+            --muted:#697780;
+            --light:#F4F7FA;
+            --white:#FFFFFF;
+        }
+
+        * {
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html {
+            scroll-behavior:smooth;
+        }
+
+        body {
+            font-family:"Manrope",sans-serif;
+            color:var(--text);
+            background:var(--light);
+            overflow-x:hidden;
+        }
+
+        h1,h2,h3,h4 {
+            font-family:"Space Grotesk",sans-serif;
+        }
+
+        .page {
+            min-height:100vh;
+        }
+
+        .hero {
+            min-height:100vh;
+            position:relative;
+            display:flex;
+            align-items:center;
+            overflow:hidden;
+            background:
+                radial-gradient(
+                    circle at 76% 23%,
+                    rgba(232,93,117,.48),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    125deg,
+                    #06121D,
+                    #102D4D 55%,
+                    #2364AA
+                );
+            color:white;
+        }
+
+        .hero::before {
+            content:"";
+            position:absolute;
+            width:620px;
+            height:620px;
+            right:-230px;
+            top:-190px;
+            border:1px solid rgba(255,255,255,.15);
+            border-radius:50%;
+            box-shadow:
+                0 0 0 75px rgba(255,255,255,.025),
+                0 0 0 150px rgba(255,255,255,.018);
+        }
+
+        .hero::after {
+            content:"";
+            position:absolute;
+            width:380px;
+            height:380px;
+            left:-180px;
+            bottom:-180px;
+            border-radius:50%;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(184,51,106,.52),
+                    transparent 70%
+                );
+        }
+
+        .hero-content {
+            position:relative;
+            z-index:2;
+            width:min(1180px,88vw);
+            margin:auto;
+            display:grid;
+            grid-template-columns:1.2fr .8fr;
+            gap:80px;
+            align-items:center;
+        }
+
+        .eyebrow {
+            display:inline-flex;
+            align-items:center;
+            gap:12px;
+            margin-bottom:28px;
+            color:#FFD0DB;
+            font-size:11px;
+            font-weight:800;
+            letter-spacing:4px;
+        }
+
+        .eyebrow::before {
+            content:"";
+            width:38px;
+            height:2px;
+            background:var(--pink);
+        }
+
+        .hero h1 {
+            max-width:760px;
+            font-size:clamp(55px,7vw,105px);
+            line-height:.91;
+            letter-spacing:-6px;
+            margin-bottom:32px;
+            animation:heroTitle .65s ease both;
+        }
+
+        .hero h1 span {
+            color:#FF9EAE;
+        }
+
+        .hero-description {
+            max-width:650px;
+            color:#C7D1DB;
+            line-height:1.8;
+            font-size:17px;
+            animation:heroText .7s .1s ease both;
+        }
+
+        .hero-meta {
+            display:flex;
+            gap:12px;
+            flex-wrap:wrap;
+            margin-top:35px;
+            animation:heroText .7s .2s ease both;
+        }
+
+        .meta {
+            padding:10px 16px;
+            border:1px solid rgba(255,255,255,.15);
+            border-radius:100px;
+            color:#DDE9F3;
+            font-size:11px;
+            letter-spacing:1px;
+            background:rgba(255,255,255,.05);
+        }
+
+        .hero-card {
+            position:relative;
+            min-height:430px;
+            padding:35px;
+            border:1px solid rgba(255,255,255,.15);
+            border-radius:35px;
+            background:rgba(255,255,255,.065);
+            backdrop-filter:blur(18px);
+            box-shadow:0 30px 90px rgba(0,0,0,.28);
+            animation:cardIntro .8s .15s ease both;
+        }
+
+        .hero-card::before {
+            content:"";
+            position:absolute;
+            inset:12px;
+            border:1px solid rgba(255,158,174,.12);
+            border-radius:27px;
+        }
+
+        .card-number {
+            font-size:11px;
+            letter-spacing:3px;
+            color:#FF9EAE;
+        }
+
+        .hero-card h2 {
+            position:absolute;
+            left:35px;
+            bottom:35px;
+            right:35px;
+            font-size:34px;
+            line-height:1.05;
+        }
+
+        .orb {
+            position:absolute;
+            width:190px;
+            height:190px;
+            border-radius:50%;
+            top:80px;
+            left:50%;
+            transform:translateX(-50%);
+            background:
+                radial-gradient(
+                    circle at 32% 28%,
+                    #FFF0F3,
+                    #FF9EAE 30%,
+                    #B8336A 55%,
+                    #102D4D 78%
+                );
+            box-shadow:
+                0 0 80px rgba(184,51,106,.7);
+            animation:orb 4s ease-in-out infinite;
+        }
+
+        .information {
+            position:relative;
+            padding:130px 6vw;
+            background:
+                linear-gradient(
+                    180deg,
+                    #F4F7FA,
+                    #FFFFFF
+                );
+        }
+
+        .information::before {
+            content:"";
+            position:absolute;
+            width:500px;
+            height:500px;
+            right:-260px;
+            top:100px;
+            border-radius:50%;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(184,51,106,.1),
+                    transparent 70%
+                );
+        }
+
+        .section-header {
+            width:min(1000px,90vw);
+            margin:0 auto 65px;
+        }
+
+        .section-label {
+            color:var(--blue);
+            font-size:10px;
+            font-weight:800;
+            letter-spacing:4px;
+            margin-bottom:18px;
+        }
+
+        .section-header h2 {
+            font-size:clamp(42px,6vw,78px);
+            letter-spacing:-4px;
+            line-height:.95;
+        }
+
+        .section-header p {
+            max-width:700px;
+            margin-top:25px;
+            color:var(--muted);
+            line-height:1.85;
+        }
+
+        .grid {
+            width:min(1100px,90vw);
+            margin:auto;
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:24px;
+        }
+
+        .info-card {
+            position:relative;
+            padding:35px;
+            min-height:250px;
+            border-radius:27px;
+            background:#fff;
+            border:1px solid rgba(16,24,32,.08);
+            box-shadow:0 18px 55px rgba(15,30,45,.07);
+            overflow:hidden;
+            opacity:0;
+            transform:translateY(24px);
+            transition:
+                opacity .5s ease,
+                transform .55s ease,
+                box-shadow .3s ease;
+        }
+
+        .info-card.show {
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        .info-card:hover {
+            transform:translateY(-7px);
+            box-shadow:0 28px 65px rgba(15,30,45,.12);
+        }
+
+        .info-card::after {
+            content:"";
+            position:absolute;
+            width:100px;
+            height:100px;
+            right:-40px;
+            bottom:-40px;
+            border-radius:50%;
+            background:rgba(184,51,106,.09);
+        }
+
+        .info-card:nth-child(even)::after {
+            background:rgba(35,100,170,.08);
+        }
+
+        .info-card h3 {
+            font-size:25px;
+            margin-bottom:18px;
+        }
+
+        .info-card p {
+            color:var(--muted);
+            line-height:1.8;
+            font-size:15px;
+        }
+
+        .feature-list {
+            display:grid;
+            gap:12px;
+            margin-top:20px;
+        }
+
+        .feature {
+            display:flex;
+            align-items:center;
+            gap:12px;
+            font-size:13px;
+            color:#4F5D66;
+        }
+
+        .feature i {
+            width:9px;
+            height:9px;
+            border-radius:50%;
+            background:var(--pink);
+            box-shadow:0 0 0 5px rgba(184,51,106,.1);
+        }
+
+        .feature:nth-child(even) i {
+            background:var(--blue);
+            box-shadow:0 0 0 5px rgba(35,100,170,.1);
+        }
+
+        .difference {
+            padding:130px 6vw;
+            background:
+                linear-gradient(
+                    135deg,
+                    #071521,
+                    #102D4D
+                );
+            color:white;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .difference::before {
+            content:"AI";
+            position:absolute;
+            right:-20px;
+            bottom:-120px;
+            font-family:"Space Grotesk";
+            font-size:350px;
+            font-weight:700;
+            color:rgba(255,255,255,.025);
+        }
+
+        .difference-inner {
+            width:min(1100px,90vw);
+            margin:auto;
+            position:relative;
+            z-index:2;
+        }
+
+        .difference h2 {
+            max-width:800px;
+            font-size:clamp(45px,6vw,82px);
+            line-height:.95;
+            letter-spacing:-4px;
+            margin-bottom:35px;
+        }
+
+        .difference h2 span {
+            color:#FF9EAE;
+        }
+
+        .difference p {
+            max-width:750px;
+            color:#B8C8D4;
+            line-height:1.9;
+        }
+
+        .accent-line {
+            width:90px;
+            height:4px;
+            margin:35px 0;
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--blue),
+                    var(--pink)
+                );
+        }
+
+        .footer {
+            padding:65px 6vw;
+            display:flex;
+            justify-content:center;
+            background:#fff;
+        }
+
+        .back {
+            display:inline-flex;
+            align-items:center;
+            gap:15px;
+            padding:16px 25px;
+            border:1px solid rgba(16,24,32,.12);
+            border-radius:100px;
+            color:#24313A;
+            text-decoration:none;
+            font-size:12px;
+            font-weight:800;
+            letter-spacing:1px;
+            transition:.3s ease;
+        }
+
+        .back:hover {
+            color:white;
+            background:var(--blue);
+            border-color:var(--blue);
+            transform:translateY(-3px);
+        }
+
+        @keyframes heroTitle {
+            from {
+                opacity:0;
+                transform:translateY(25px);
+            }
+            to {
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        @keyframes heroText {
+            from {
+                opacity:0;
+                transform:translateY(20px);
+            }
+            to {
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        @keyframes cardIntro {
+            from {
+                opacity:0;
+                transform:translateX(35px);
+            }
+            to {
+                opacity:1;
+                transform:translateX(0);
+            }
+        }
+
+        @keyframes orb {
+            0%,100% {
+                transform:translateX(-50%) translateY(0);
+            }
+            50% {
+                transform:translateX(-50%) translateY(-12px);
+            }
+        }
+
+        @media(max-width:800px) {
+
+            .hero-content {
+                grid-template-columns:1fr;
+                padding:100px 0;
+            }
+
+            .hero-card {
+                min-height:320px;
+            }
+
+            .grid {
+                grid-template-columns:1fr;
+            }
+
+        }
+
+        @media(max-width:520px) {
+
+            .hero h1 {
+                letter-spacing:-3px;
+            }
+
+            .hero-card h2 {
+                font-size:27px;
+            }
+
+            .information,
+            .difference {
+                padding:90px 6vw;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <main class="page">
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div>
+
+                    <div class="eyebrow">
+                        DIO · BOOTCAMP 006
+                    </div>
+
+                    <h1>
+                        Criando produtos
+                        com <span>IA</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Uma experiência voltada ao desenvolvimento
+                        de produtos utilizando Inteligência Artificial,
+                        conectando tecnologia, criatividade e visão
+                        de produto para transformar ideias em soluções.
+                    </p>
+
+                    <div class="hero-meta">
+
+                        <span class="meta">
+                            INTELIGÊNCIA ARTIFICIAL
+                        </span>
+
+                        <span class="meta">
+                            PRODUTOS DIGITAIS
+                        </span>
+
+                        <span class="meta">
+                            INOVAÇÃO
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <div class="hero-card">
+
+                    <span class="card-number">
+                        RIACHUELO
+                    </span>
+
+                    <div class="orb"></div>
+
+                    <h2>
+                        Produtos com IA
+                    </h2>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="information">
+
+            <div class="section-header">
+
+                <div class="section-label">
+                    SOBRE O BOOTCAMP
+                </div>
+
+                <h2>
+                    Da ideia ao produto
+                    com inteligência.
+                </h2>
+
+                <p>
+                    A Inteligência Artificial amplia as possibilidades
+                    de criação de produtos digitais, permitindo explorar
+                    novas formas de resolver problemas e construir
+                    experiências tecnológicas.
+                </p>
+
+            </div>
+
+            <div class="grid">
+
+                <article class="info-card">
+
+                    <h3>
+                        O que é?
+                    </h3>
+
+                    <p>
+                        Uma experiência de aprendizagem relacionada
+                        à criação de produtos utilizando recursos de
+                        Inteligência Artificial e uma visão orientada
+                        à inovação.
+                    </p>
+
+                </article>
+
+                <article class="info-card">
+
+                    <h3>
+                        Como funciona?
+                    </h3>
+
+                    <p>
+                        A proposta conecta tecnologia e construção
+                        de produtos, estimulando uma visão que parte
+                        de necessidades e possibilidades para chegar
+                        a soluções digitais.
+                    </p>
+
+                </article>
+
+                <article class="info-card">
+
+                    <h3>
+                        Competências
+                    </h3>
+
+                    <div class="feature-list">
+
+                        <div class="feature">
+                            <i></i>
+                            Aplicações de IA
+                        </div>
+
+                        <div class="feature">
+                            <i></i>
+                            Desenvolvimento de produtos
+                        </div>
+
+                        <div class="feature">
+                            <i></i>
+                            Pensamento orientado à solução
+                        </div>
+
+                        <div class="feature">
+                            <i></i>
+                            Inovação tecnológica
+                        </div>
+
+                    </div>
+
+                </article>
+
+                <article class="info-card">
+
+                    <h3>
+                        Aplicação
+                    </h3>
+
+                    <p>
+                        Os conhecimentos podem ser utilizados na
+                        concepção de produtos e projetos digitais
+                        que utilizem Inteligência Artificial como
+                        parte da solução ou da experiência.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+        <section class="difference">
+
+            <div class="difference-inner">
+
+                <div class="section-label">
+                    DIFERENCIAL
+                </div>
+
+                <h2>
+                    Criar produtos
+                    pensando em <span>inteligência.</span>
+                </h2>
+
+                <div class="accent-line"></div>
+
+                <p>
+                    A aplicação de Inteligência Artificial no
+                    desenvolvimento de produtos abre espaço para
+                    novas experiências, automações e formas de
+                    solucionar problemas. O diferencial está em
+                    transformar tecnologia em uma solução que tenha
+                    propósito e aplicação.
+                </p>
+
+            </div>
+
+        </section>
+
+        <footer class="footer">
+
+            <a
+                href="../dio.html?skipIntro=1"
+                class="back"
+            >
+                ← VOLTAR PARA DIO
+            </a>
+
+        </footer>
+
+    </main>
+
+    <script>
+
+        const cards =
+            document.querySelectorAll(".info-card");
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(
+                        (entry,index) => {
+
+                            if(entry.isIntersecting){
+
+                                setTimeout(
+                                    () => {
+
+                                        entry.target.classList.add("show");
+
+                                    },
+                                    index * 70
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold:.12
+                }
+            );
+
+        cards.forEach(
+            card => observer.observe(card)
+        );
+
+    </script>
+
+</body>
+
+</html>

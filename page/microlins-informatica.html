@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Informática | Microlins</title>
+    <link rel="icon" href="../faviconmicrolins.jpg">
+
+
+    <!-- =====================================================
+         FONTES
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           VARIÁVEIS
+        ====================================================== */
+
+        :root{
+
+            --blue:#1D3B6F;
+
+            --blue-dark:#0E1C38;
+
+            --cyan:#79D7FF;
+
+            --cyan-soft:#DDF6FF;
+
+            --white:#FFFFFF;
+
+            --light:#F3FBFF;
+
+            --text:#13202D;
+
+            --muted:#687781;
+
+            --line:rgba(29,59,111,.12);
+
+            --title:"Goldman",sans-serif;
+
+            --body:"Manrope",sans-serif;
+
+        }
+
+
+        /* =====================================================
+           RESET
+        ====================================================== */
+
+        *{
+
+            margin:0;
+
+            padding:0;
+
+            box-sizing:border-box;
+
+        }
+
+
+        html{
+
+            scroll-behavior:smooth;
+
+            scrollbar-width:thin;
+
+            scrollbar-color:
+                var(--cyan)
+                var(--blue-dark);
+
+        }
+
+
+        html::-webkit-scrollbar{
+
+            width:9px;
+
+        }
+
+
+        html::-webkit-scrollbar-track{
+
+            background:var(--blue-dark);
+
+        }
+
+
+        html::-webkit-scrollbar-thumb{
+
+            background:
+                linear-gradient(
+                    180deg,
+                    var(--cyan),
+                    var(--blue)
+                );
+
+            border-radius:20px;
+
+        }
+
+
+        body{
+
+            min-height:100vh;
+
+            overflow-x:hidden;
+
+            color:var(--text);
+
+            background:#fff;
+
+            font-family:var(--body);
+
+        }
+
+
+        a{
+
+            color:inherit;
+
+            text-decoration:none;
+
+        }
+
+
+        /* =====================================================
+           TRANSIÇÃO
+        ====================================================== */
+
+        .pageTransition{
+
+            position:fixed;
+
+            inset:0;
+
+            z-index:10000;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--blue-dark),
+                    var(--blue)
+                );
+
+            transform:translateY(100%);
+
+            pointer-events:none;
+
+            transition:
+                transform .65s
+                cubic-bezier(.76,0,.24,1);
+
+        }
+
+
+        .pageTransition.active{
+
+            transform:translateY(0);
+
+        }
+
+
+        /* =====================================================
+           HERO
+        ====================================================== */
+
+        .hero{
+
+            position:relative;
+
+            min-height:88vh;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            overflow:hidden;
+
+            color:#fff;
+
+            background:
+
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(121,215,255,.22),
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(121,215,255,.12),
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #0E1C38,
+                    #1D3B6F
+                );
+
+        }
+
+
+        .hero::before{
+
+            content:"";
+
+            position:absolute;
+
+            inset:0;
+
+            opacity:.18;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(121,215,255,.25) 1px,
+                    transparent 1px
+                ),
+
+                linear-gradient(
+                    90deg,
+                    rgba(121,215,255,.25) 1px,
+                    transparent 1px
+                );
+
+            background-size:
+                70px 70px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent
+                );
+
+        }
+
+
+        .hero::after{
+
+            content:"";
+
+            position:absolute;
+
+            width:620px;
+
+            height:620px;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(121,215,255,.16);
+
+            right:-260px;
+
+            top:-250px;
+
+            box-shadow:
+
+                0 0 0 80px
+                rgba(121,215,255,.025),
+
+                0 0 0 160px
+                rgba(121,215,255,.02);
+
+        }
+
+
+        .heroContent{
+
+            position:relative;
+
+            z-index:2;
+
+            width:min(
+                1120px,
+                88vw
+            );
+
+            display:grid;
+
+            grid-template-columns:
+                1fr 340px;
+
+            align-items:center;
+
+            gap:80px;
+
+            animation:
+                heroIn .55s
+                cubic-bezier(.22,1,.36,1)
+                both;
+
+        }
+
+
+        @keyframes heroIn{
+
+            from{
+
+                opacity:0;
+
+                transform:
+                    translateY(22px);
+
+            }
+
+            to{
+
+                opacity:1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        .heroLabel{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            gap:10px;
+
+            margin-bottom:25px;
+
+            color:var(--cyan);
+
+            font-size:9px;
+
+            font-weight:800;
+
+            letter-spacing:4px;
+
+        }
+
+
+        .heroLabel::before{
+
+            content:"";
+
+            width:38px;
+
+            height:1px;
+
+            background:var(--cyan);
+
+        }
+
+
+        .heroTitle{
+
+            font-family:var(--title);
+
+            font-size:
+                clamp(
+                    58px,
+                    8vw,
+                    112px
+                );
+
+            line-height:.84;
+
+            letter-spacing:-5px;
+
+        }
+
+
+        .heroDescription{
+
+            max-width:620px;
+
+            margin-top:32px;
+
+            color:
+                rgba(255,255,255,.72);
+
+            font-size:15px;
+
+            line-height:1.85;
+
+        }
+
+
+        .heroInstitution{
+
+            margin-top:34px;
+
+            color:
+                rgba(255,255,255,.45);
+
+            font-size:9px;
+
+            font-weight:800;
+
+            letter-spacing:3px;
+
+        }
+
+
+        .heroLogo{
+
+            position:relative;
+
+            width:300px;
+
+            height:300px;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            border-radius:50%;
+
+            background:#fff;
+
+            box-shadow:
+
+                0 0 30px
+                rgba(255,255,255,.8),
+
+                0 0 80px
+                rgba(121,215,255,.38);
+
+        }
+
+
+        .heroLogo::before{
+
+            content:"";
+
+            position:absolute;
+
+            inset:-13px;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(121,215,255,.7);
+
+        }
+
+
+        .heroLogo::after{
+
+            content:"";
+
+            position:absolute;
+
+            inset:-32px;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(121,215,255,.16);
+
+        }
+
+
+        .heroLogo img{
+
+            width:68%;
+
+            height:68%;
+
+            object-fit:contain;
+
+        }
+
+
+        /* =====================================================
+           NAVEGAÇÃO
+        ====================================================== */
+
+        .courseNav{
+
+            position:absolute;
+
+            z-index:5;
+
+            left:6vw;
+
+            right:6vw;
+
+            top:30px;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:space-between;
+
+        }
+
+
+        .backButton{
+
+            display:flex;
+
+            align-items:center;
+
+            gap:11px;
+
+            padding:
+                12px 18px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.2);
+
+            border-radius:100px;
+
+            background:
+                rgba(255,255,255,.06);
+
+            color:#fff;
+
+            font-size:9px;
+
+            font-weight:800;
+
+            letter-spacing:1.5px;
+
+            cursor:pointer;
+
+            transition:
+
+                background .25s ease,
+
+                transform .25s ease,
+
+                border-color .25s ease;
+
+        }
+
+
+        .backButton:hover{
+
+            transform:
+                translateX(-4px);
+
+            border-color:
+                rgba(121,215,255,.65);
+
+            background:
+                rgba(121,215,255,.1);
+
+        }
+
+
+        .courseCode{
+
+            color:
+                rgba(255,255,255,.42);
+
+            font-size:8px;
+
+            font-weight:800;
+
+            letter-spacing:3px;
+
+        }
+
+
+        /* =====================================================
+           SEGUNDO FUNDO / INFORMAÇÕES
+        ====================================================== */
+
+        .informationSection{
+
+            position:relative;
+
+            padding:
+                115px 6vw 130px;
+
+            overflow:hidden;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #EEF9FF,
+                    #FFFFFF 45%,
+                    #F3FAFF
+                );
+
+        }
+
+
+        .informationSection::before{
+
+            content:"";
+
+            position:absolute;
+
+            width:600px;
+
+            height:600px;
+
+            right:-280px;
+
+            top:100px;
+
+            border-radius:50%;
+
+            background:
+
+                radial-gradient(
+                    circle,
+                    rgba(121,215,255,.2),
+                    transparent 70%
+                );
+
+        }
+
+
+        .informationSection::after{
+
+            content:"";
+
+            position:absolute;
+
+            width:330px;
+
+            height:330px;
+
+            left:-200px;
+
+            bottom:-150px;
+
+            border:
+                1px solid
+                rgba(29,59,111,.12);
+
+            border-radius:50%;
+
+        }
+
+
+        .sectionHeader{
+
+            position:relative;
+
+            z-index:2;
+
+            width:min(
+                1100px,
+                90vw
+            );
+
+            margin:
+                0 auto 60px;
+
+        }
+
+
+        .sectionEyebrow{
+
+            margin-bottom:18px;
+
+            color:var(--blue);
+
+            font-size:9px;
+
+            font-weight:800;
+
+            letter-spacing:4px;
+
+        }
+
+
+        .sectionHeader h2{
+
+            max-width:850px;
+
+            color:var(--blue-dark);
+
+            font-family:var(--title);
+
+            font-size:
+                clamp(
+                    40px,
+                    6vw,
+                    75px
+                );
+
+            line-height:.95;
+
+            letter-spacing:-3px;
+
+        }
+
+
+        .sectionHeader p{
+
+            max-width:720px;
+
+            margin-top:25px;
+
+            color:var(--muted);
+
+            font-size:14px;
+
+            line-height:1.85;
+
+        }
+
+
+        /* =====================================================
+           CARTAS
+        ====================================================== */
+
+        .informationGrid{
+
+            position:relative;
+
+            z-index:2;
+
+            width:min(
+                1100px,
+                90vw
+            );
+
+            margin:auto;
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
+            gap:22px;
+
+        }
+
+
+        .infoCard{
+
+            position:relative;
+
+            min-height:285px;
+
+            padding:30px;
+
+            overflow:hidden;
+
+            border:
+                1px solid
+                var(--line);
+
+            border-radius:26px;
+
+            background:
+                rgba(255,255,255,.9);
+
+            box-shadow:
+
+                0 18px 50px
+                rgba(14,28,56,.07);
+
+            opacity:0;
+
+            transform:
+                translateY(20px);
+
+            animation:
+                cardIn .5s
+                cubic-bezier(.22,1,.36,1)
+                forwards;
+
+        }
+
+
+        .infoCard:nth-child(1){
+
+            animation-delay:.08s;
+
+        }
+
+
+        .infoCard:nth-child(2){
+
+            animation-delay:.15s;
+
+        }
+
+
+        .infoCard:nth-child(3){
+
+            animation-delay:.22s;
+
+        }
+
+
+        .infoCard:nth-child(4){
+
+            animation-delay:.29s;
+
+        }
+
+
+        .infoCard:nth-child(5){
+
+            animation-delay:.36s;
+
+        }
+
+
+        .infoCard:nth-child(6){
+
+            animation-delay:.43s;
+
+        }
+
+
+        @keyframes cardIn{
+
+            to{
+
+                opacity:1;
+
+                transform:
+                    translateY(0);
+
+            }
+
+        }
+
+
+        .infoCard::before{
+
+            content:"";
+
+            position:absolute;
+
+            width:120px;
+
+            height:120px;
+
+            right:-55px;
+
+            top:-55px;
+
+            border-radius:50%;
+
+            background:
+                rgba(121,215,255,.12);
+
+            transition:
+                transform .4s ease;
+
+        }
+
+
+        .infoCard:hover::before{
+
+            transform:
+                scale(1.6);
+
+        }
+
+
+        .infoNumber{
+
+            color:
+                var(--cyan);
+
+            font-family:var(--title);
+
+            font-size:10px;
+
+            letter-spacing:3px;
+
+        }
+
+
+        .infoCard h3{
+
+            position:relative;
+
+            margin-top:35px;
+
+            color:
+                var(--blue-dark);
+
+            font-family:var(--title);
+
+            font-size:25px;
+
+            line-height:1;
+
+        }
+
+
+        .infoCard p{
+
+            position:relative;
+
+            margin-top:18px;
+
+            color:var(--muted);
+
+            font-size:13px;
+
+            line-height:1.8;
+
+        }
+
+
+        /* =====================================================
+           DIFERENCIAL
+        ====================================================== */
+
+        .difference{
+
+            position:relative;
+
+            z-index:2;
+
+            width:min(
+                1100px,
+                90vw
+            );
+
+            margin:
+                80px auto 0;
+
+            padding:55px;
+
+            overflow:hidden;
+
+            border-radius:32px;
+
+            color:#fff;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--blue-dark),
+                    var(--blue)
+                );
+
+            box-shadow:
+
+                0 30px 80px
+                rgba(14,28,56,.18);
+
+        }
+
+
+        .difference::before{
+
+            content:"";
+
+            position:absolute;
+
+            width:320px;
+
+            height:320px;
+
+            right:-160px;
+
+            top:-160px;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(121,215,255,.25);
+
+            box-shadow:
+
+                0 0 0 60px
+                rgba(121,215,255,.03),
+
+                0 0 0 120px
+                rgba(121,215,255,.025);
+
+        }
+
+
+        .differenceLabel{
+
+            color:var(--cyan);
+
+            font-size:9px;
+
+            font-weight:800;
+
+            letter-spacing:4px;
+
+        }
+
+
+        .difference h2{
+
+            max-width:750px;
+
+            margin-top:18px;
+
+            font-family:var(--title);
+
+            font-size:
+                clamp(
+                    32px,
+                    5vw,
+                    60px
+                );
+
+            line-height:1;
+
+            letter-spacing:-2px;
+
+        }
+
+
+        .difference p{
+
+            max-width:760px;
+
+            margin-top:25px;
+
+            color:
+                rgba(255,255,255,.68);
+
+            font-size:14px;
+
+            line-height:1.85;
+
+        }
+
+
+        /* =====================================================
+           VOLTAR
+        ====================================================== */
+
+        .footer{
+
+            position:relative;
+
+            min-height:280px;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            overflow:hidden;
+
+            background:#fff;
+
+        }
+
+
+        .footerCircle{
+
+            position:absolute;
+
+            width:220px;
+
+            height:220px;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(121,215,255,.25);
+
+        }
+
+
+        .footerCircle.left{
+
+            left:-110px;
+
+            bottom:-110px;
+
+        }
+
+
+        .footerCircle.right{
+
+            right:-110px;
+
+            top:-110px;
+
+            background:
+                rgba(121,215,255,.06);
+
+        }
+
+
+        .footerContent{
+
+            position:relative;
+
+            z-index:2;
+
+            text-align:center;
+
+        }
+
+
+        .footerContent p{
+
+            margin-bottom:22px;
+
+            color:#89939A;
+
+            font-size:9px;
+
+            font-weight:800;
+
+            letter-spacing:3px;
+
+        }
+
+
+        .returnButton{
+
+            display:inline-flex;
+
+            align-items:center;
+
+            gap:12px;
+
+            padding:
+                15px 27px;
+
+            border:
+                1px solid
+                var(--blue);
+
+            border-radius:100px;
+
+            background:#fff;
+
+            color:var(--blue);
+
+            font-size:9px;
+
+            font-weight:800;
+
+            letter-spacing:1.5px;
+
+            cursor:pointer;
+
+            transition:
+
+                background .25s ease,
+
+                color .25s ease,
+
+                transform .25s ease;
+
+        }
+
+
+        .returnButton:hover{
+
+            color:#fff;
+
+            background:var(--blue);
+
+            transform:
+                translateY(-4px);
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVO
+        ====================================================== */
+
+        @media(max-width:850px){
+
+            .heroContent{
+
+                grid-template-columns:1fr;
+
+                text-align:center;
+
+                justify-items:center;
+
+                gap:50px;
+
+            }
+
+
+            .heroDescription{
+
+                margin-left:auto;
+
+                margin-right:auto;
+
+            }
+
+
+            .heroLabel{
+
+                justify-content:center;
+
+            }
+
+
+            .heroInstitution{
+
+                margin-bottom:10px;
+
+            }
+
+
+            .heroLogo{
+
+                width:230px;
+
+                height:230px;
+
+            }
+
+
+            .informationGrid{
+
+                grid-template-columns:1fr;
+
+            }
+
+
+            .difference{
+
+                padding:40px 30px;
+
+            }
+
+        }
+
+
+        @media(max-width:600px){
+
+            .courseNav{
+
+                top:20px;
+
+                left:5vw;
+
+                right:5vw;
+
+            }
+
+
+            .courseCode{
+
+                display:none;
+
+            }
+
+
+            .hero{
+
+                min-height:850px;
+
+                padding:
+                    100px 6vw 70px;
+
+            }
+
+
+            .heroTitle{
+
+                font-size:
+                    clamp(
+                        50px,
+                        17vw,
+                        82px
+                    );
+
+                letter-spacing:-4px;
+
+            }
+
+
+            .heroDescription{
+
+                font-size:13px;
+
+            }
+
+
+            .heroLogo{
+
+                width:190px;
+
+                height:190px;
+
+            }
+
+
+            .informationSection{
+
+                padding:
+                    90px 0 100px;
+
+            }
+
+
+            .sectionHeader{
+
+                width:86vw;
+
+            }
+
+
+            .informationGrid{
+
+                width:86vw;
+
+            }
+
+
+            .infoCard{
+
+                min-height:250px;
+
+                padding:25px;
+
+            }
+
+
+            .difference{
+
+                width:86vw;
+
+                margin-top:55px;
+
+                border-radius:25px;
+
+            }
+
+
+            .difference h2{
+
+                font-size:35px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         TRANSIÇÃO
+    ====================================================== -->
+
+    <div
+        class="pageTransition"
+        id="pageTransition"
+    ></div>
+
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section
+        class="hero"
+    >
+
+
+        <nav
+            class="courseNav"
+        >
+
+            <button
+                class="backButton"
+                id="backButton"
+                type="button"
+            >
+
+                ←
+
+                <span>
+                    VOLTAR PARA MICROLINS
+                </span>
+
+            </button>
+
+
+            <span
+                class="courseCode"
+            >
+                MICROLINS / CURSO 001
+            </span>
+
+        </nav>
+
+
+
+        <div
+            class="heroContent"
+        >
+
+            <div>
+
+                <div
+                    class="heroLabel"
+                >
+                    FORMAÇÃO PROFISSIONAL
+                </div>
+
+
+                <h1
+                    class="heroTitle"
+                >
+                    INFORMÁTICA
+                </h1>
+
+
+                <p
+                    class="heroDescription"
+                >
+                    Uma formação voltada para o desenvolvimento
+                    de conhecimentos fundamentais em informática,
+                    ferramentas digitais e utilização prática da
+                    tecnologia no ambiente acadêmico e profissional.
+                </p>
+
+
+                <div
+                    class="heroInstitution"
+                >
+                    MICROLINS
+                </div>
+
+            </div>
+
+
+
+            <div
+                class="heroLogo"
+            >
+
+                <img
+                    src="../img/logos/microlins.png"
+                    alt="Microlins"
+                >
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         INFORMAÇÕES
+    ====================================================== -->
+
+    <section
+        class="informationSection"
+    >
+
+
+        <header
+            class="sectionHeader"
+        >
+
+            <div
+                class="sectionEyebrow"
+            >
+                SOBRE O CURSO
+            </div>
+
+
+            <h2>
+                CONHECIMENTO
+                DIGITAL NA PRÁTICA.
+            </h2>
+
+
+            <p>
+                A formação em Informática trabalha conhecimentos
+                necessários para lidar com ferramentas digitais,
+                produtividade e recursos tecnológicos utilizados
+                em diferentes contextos profissionais.
+            </p>
+
+        </header>
+
+
+
+        <div
+            class="informationGrid"
+        >
+
+
+            <article
+                class="infoCard"
+            >
+
+                <span
+                    class="infoNumber"
+                >
+                    01
+                </span>
+
+
+                <h3>
+                    O QUE É
+                </h3>
+
+
+                <p>
+                    É uma formação voltada à utilização consciente
+                    e produtiva de computadores, softwares e
+                    ferramentas digitais presentes no cotidiano
+                    profissional.
+                </p>
+
+            </article>
+
+
+
+            <article
+                class="infoCard"
+            >
+
+                <span
+                    class="infoNumber"
+                >
+                    02
+                </span>
+
+
+                <h3>
+                    COMO FUNCIONA
+                </h3>
+
+
+                <p>
+                    O aprendizado combina apresentação dos recursos
+                    com atividades práticas, permitindo desenvolver
+                    familiaridade com ferramentas utilizadas em
+                    situações reais.
+                </p>
+
+            </article>
+
+
+
+            <article
+                class="infoCard"
+            >
+
+                <span
+                    class="infoNumber"
+                >
+                    03
+                </span>
+
+
+                <h3>
+                    NA MINHA VISÃO
+                </h3>
+
+
+                <p>
+                    O principal valor está em transformar o contato
+                    com a tecnologia em autonomia. Saber utilizar
+                    corretamente uma ferramenta também significa
+                    compreender quando e por que utilizá-la.
+                </p>
+
+            </article>
+
+
+
+            <article
+                class="infoCard"
+            >
+
+                <span
+                    class="infoNumber"
+                >
+                    04
+                </span>
+
+
+                <h3>
+                    COMPONENTES
+                </h3>
+
+
+                <p>
+                    Informática, ferramentas de escritório,
+                    organização digital, produtividade, recursos
+                    computacionais e fundamentos necessários para
+                    continuar evoluindo no ambiente tecnológico.
+                </p>
+
+            </article>
+
+
+
+            <article
+                class="infoCard"
+            >
+
+                <span
+                    class="infoNumber"
+                >
+                    05
+                </span>
+
+
+                <h3>
+                    FERRAMENTAS
+                </h3>
+
+
+                <p>
+                    O contato com diferentes ferramentas digitais
+                    ajuda a desenvolver uma base prática para
+                    utilização de softwares e recursos tecnológicos
+                    em atividades acadêmicas e profissionais.
+                </p>
+
+            </article>
+
+
+
+            <article
+                class="infoCard"
+            >
+
+                <span
+                    class="infoNumber"
+                >
+                    06
+                </span>
+
+
+                <h3>
+                    DIFERENCIAL
+                </h3>
+
+
+                <p>
+                    O diferencial está na aplicação prática:
+                    compreender a tecnologia não apenas como
+                    ferramenta, mas como recurso para melhorar
+                    organização, produtividade e execução de tarefas.
+                </p>
+
+            </article>
+
+        </div>
+
+
+
+        <!-- ================================================
+             DIFERENCIAL
+        ================================================= -->
+
+        <div
+            class="difference"
+        >
+
+            <span
+                class="differenceLabel"
+            >
+                DIFERENCIAL TRABALHADO
+            </span>
+
+
+            <h2>
+                TECNOLOGIA
+                COMO FERRAMENTA.
+            </h2>
+
+
+            <p>
+                A formação contribui para construir uma base
+                tecnológica que pode ser aproveitada em diferentes
+                áreas. O conhecimento adquirido serve como ponto
+                de partida para novas formações e para uma relação
+                mais segura com ferramentas digitais.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         RODAPÉ
+    ====================================================== -->
+
+    <footer
+        class="footer"
+    >
+
+        <div
+            class="footerCircle left"
+        ></div>
+
+
+        <div
+            class="footerCircle right"
+        ></div>
+
+
+        <div
+            class="footerContent"
+        >
+
+            <p>
+                COURSES A-Z / MICROLINS
+            </p>
+
+
+            <button
+                class="returnButton"
+                id="returnButton"
+                type="button"
+            >
+
+                ←
+
+                VOLTAR PARA A INSTITUIÇÃO
+
+            </button>
+
+        </div>
+
+    </footer>
+
+
+
+    <script>
+
+        /* =====================================================
+           RETORNO PARA A MICROLINS
+        ====================================================== */
+
+        const backButton =
+            document.getElementById(
+                "backButton"
+            );
+
+
+        const returnButton =
+            document.getElementById(
+                "returnButton"
+            );
+
+
+        const pageTransition =
+            document.getElementById(
+                "pageTransition"
+            );
+
+
+        function returnToMicrolins(){
+
+            pageTransition.classList.add(
+                "active"
+            );
+
+
+            setTimeout(
+                () => {
+
+                    window.location.href =
+                        "../microlins.html?skipIntro=1";
+
+                },
+
+                520
+
+            );
+
+        }
+
+
+        backButton.addEventListener(
+            "click",
+            returnToMicrolins
+        );
+
+
+        returnButton.addEventListener(
+            "click",
+            returnToMicrolins
+        );
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,3589 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SENAC | Courses A-Z</title>
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link rel="icon" href="faviconsenac.jpg">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           VARIÁVEIS
+        ====================================================== */
+
+        :root{
+
+            --primary:#1A6CB0;
+
+            --primary-dark:#082C5A;
+
+            --primary-deep:#052B4D;
+
+            --secondary:#E09F3E;
+
+            --secondary-dark:#C77F26;
+
+            --soft:#F4F8FB;
+
+            --soft-blue:#EAF3FA;
+
+            --text:#101820;
+
+            --muted:#69757E;
+
+            --line:#DCE5EB;
+
+            --white:#FFFFFF;
+
+            --shadow:
+                0 25px 70px
+                rgba(8,44,90,.10);
+
+            --title:
+                "Space Grotesk",
+                sans-serif;
+
+            --body:
+                "Manrope",
+                sans-serif;
+
+        }
+
+
+        /* =====================================================
+           RESET
+        ====================================================== */
+
+        *{
+
+            margin:0;
+
+            padding:0;
+
+            box-sizing:border-box;
+
+        }
+
+
+        html{
+
+            scroll-behavior:smooth;
+
+            scrollbar-width:thin;
+
+            scrollbar-color:
+                var(--primary)
+                #E8EDF2;
+
+        }
+
+
+        html::-webkit-scrollbar{
+
+            width:9px;
+
+        }
+
+
+        html::-webkit-scrollbar-track{
+
+            background:#E8EDF2;
+
+        }
+
+
+        html::-webkit-scrollbar-thumb{
+
+            background:
+                linear-gradient(
+                    180deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            border-radius:20px;
+
+        }
+
+
+        body{
+
+            min-height:100vh;
+
+            font-family:
+                var(--body);
+
+            color:var(--text);
+
+            background:#FFFFFF;
+
+            overflow-x:hidden;
+
+        }
+
+
+        button{
+
+            font:inherit;
+
+        }
+
+
+        img{
+
+            display:block;
+
+            max-width:100%;
+
+        }
+
+
+        h1,
+        h2,
+        h3,
+        h4{
+
+            font-family:
+                var(--title);
+
+        }
+
+
+        p,
+        span,
+        button,
+        a{
+
+            font-family:
+                var(--body);
+
+        }
+
+
+        /* =====================================================
+           ENTRADA
+        ====================================================== */
+
+        #institutionEntry{
+
+            position:fixed;
+
+            inset:0;
+
+            z-index:10000;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            background:
+
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(255,255,255,.13),
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 82% 75%,
+                    rgba(224,159,62,.25),
+                    transparent 25%
+                ),
+
+                linear-gradient(
+                    145deg,
+                    #1A6CB0 0%,
+                    #17619D 43%,
+                    #9E6B43 75%,
+                    #E09F3E 100%
+                );
+
+            transition:
+
+                opacity .65s ease,
+                visibility .65s ease;
+
+        }
+
+
+        #institutionEntry.hidden{
+
+            opacity:0;
+
+            visibility:hidden;
+
+            pointer-events:none;
+
+        }
+
+
+        .entryContent{
+
+            width:min(
+                650px,
+                88vw
+            );
+
+        }
+
+
+        .searchBox{
+
+            position:relative;
+
+            width:100%;
+
+            height:72px;
+
+            display:flex;
+
+            align-items:center;
+
+            padding:
+                0 28px;
+
+            border-radius:18px;
+
+            background:
+                rgba(255,255,255,.97);
+
+            box-shadow:
+
+                0 30px 90px
+                rgba(0,0,0,.25),
+
+                0 0 0 1px
+                rgba(255,255,255,.35);
+
+        }
+
+
+        .searchIcon{
+
+            position:relative;
+
+            width:21px;
+
+            height:21px;
+
+            margin-right:18px;
+
+            border:
+                3px solid
+                #26333D;
+
+            border-radius:50%;
+
+            flex-shrink:0;
+
+        }
+
+
+        .searchIcon::after{
+
+            content:"";
+
+            position:absolute;
+
+            width:10px;
+
+            height:3px;
+
+            right:-8px;
+
+            bottom:-4px;
+
+            background:#26333D;
+
+            border-radius:5px;
+
+            transform:
+                rotate(45deg);
+
+        }
+
+
+        .searchText{
+
+            min-height:25px;
+
+            font-size:20px;
+
+            font-weight:600;
+
+            color:#17212A;
+
+        }
+
+
+        .searchCaret{
+
+            width:2px;
+
+            height:25px;
+
+            margin-left:4px;
+
+            background:
+                var(--primary);
+
+            animation:
+                blink .8s infinite;
+
+        }
+
+
+        @keyframes blink{
+
+            50%{
+
+                opacity:0;
+
+            }
+
+        }
+
+
+        .searchResult{
+
+            width:100%;
+
+            margin-top:11px;
+
+            padding:
+                18px 22px;
+
+            display:flex;
+
+            align-items:center;
+
+            gap:15px;
+
+            border:0;
+
+            border-radius:14px;
+
+            text-align:left;
+
+            background:#FFFFFF;
+
+            color:#17212A;
+
+            box-shadow:
+                0 15px 45px
+                rgba(0,0,0,.18);
+
+            opacity:0;
+
+            transform:
+                translateY(-10px);
+
+            pointer-events:none;
+
+            cursor:pointer;
+
+            transition:
+
+                opacity .3s ease,
+                transform .3s ease,
+                background .25s ease,
+                box-shadow .25s ease;
+
+        }
+
+
+        .searchResult.visible{
+
+            opacity:1;
+
+            transform:
+                translateY(0);
+
+            pointer-events:auto;
+
+        }
+
+
+        .searchResult:hover{
+
+            background:#F5F8FA;
+
+            box-shadow:
+                0 20px 55px
+                rgba(0,0,0,.22);
+
+        }
+
+
+        .resultLogo{
+
+            width:44px;
+
+            height:44px;
+
+            border-radius:50%;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            overflow:hidden;
+
+            background:#FFFFFF;
+
+        }
+
+
+        .resultLogo img{
+
+            width:82%;
+
+            height:82%;
+
+            object-fit:contain;
+
+        }
+
+
+        .resultInfo{
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:4px;
+
+        }
+
+
+        .resultInfo strong{
+
+            font-family:
+                var(--title);
+
+            font-size:15px;
+
+            font-weight:700;
+
+        }
+
+
+        .resultInfo span{
+
+            font-size:11px;
+
+            color:#7C8790;
+
+        }
+
+
+        /* =====================================================
+           TRANSIÇÃO DE ENTRADA
+        ====================================================== */
+
+        .pageTransition{
+
+            position:fixed;
+
+            inset:0;
+
+            z-index:12000;
+
+            visibility:hidden;
+
+            pointer-events:none;
+
+        }
+
+
+        .pageTransition.active{
+
+            visibility:visible;
+
+        }
+
+
+        .transitionCircle{
+
+            position:absolute;
+
+            width:90px;
+
+            height:90px;
+
+            border-radius:50%;
+
+            background:#FFFFFF;
+
+            transform:
+                scale(0);
+
+        }
+
+
+        .transitionCircle:nth-child(1){
+
+            left:7%;
+
+            top:13%;
+
+        }
+
+
+        .transitionCircle:nth-child(2){
+
+            left:39%;
+
+            top:4%;
+
+        }
+
+
+        .transitionCircle:nth-child(3){
+
+            right:9%;
+
+            top:17%;
+
+        }
+
+
+        .transitionCircle:nth-child(4){
+
+            left:17%;
+
+            bottom:11%;
+
+        }
+
+
+        .transitionCircle:nth-child(5){
+
+            right:23%;
+
+            bottom:7%;
+
+        }
+
+
+        .transitionCircle:nth-child(6){
+
+            left:50%;
+
+            top:50%;
+
+        }
+
+
+        .pageTransition.active
+        .transitionCircle{
+
+            animation:
+                expandCircle
+                1.05s
+                cubic-bezier(.76,0,.24,1)
+                forwards;
+
+        }
+
+
+        .pageTransition.active
+        .transitionCircle:nth-child(2){
+
+            animation-delay:.04s;
+
+        }
+
+
+        .pageTransition.active
+        .transitionCircle:nth-child(3){
+
+            animation-delay:.08s;
+
+        }
+
+
+        .pageTransition.active
+        .transitionCircle:nth-child(4){
+
+            animation-delay:.06s;
+
+        }
+
+
+        .pageTransition.active
+        .transitionCircle:nth-child(5){
+
+            animation-delay:.11s;
+
+        }
+
+
+        .pageTransition.active
+        .transitionCircle:nth-child(6){
+
+            animation-delay:.02s;
+
+        }
+
+
+        @keyframes expandCircle{
+
+            from{
+
+                transform:
+                    scale(0);
+
+            }
+
+            to{
+
+                transform:
+                    scale(35);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           PÁGINA PRINCIPAL
+        ====================================================== */
+
+        #mainPage{
+
+            opacity:0;
+
+            visibility:hidden;
+
+        }
+
+
+        #mainPage.ready{
+
+            opacity:1;
+
+            visibility:visible;
+
+        }
+
+
+        .reveal{
+
+            opacity:0;
+
+            transform:
+                translateY(20px);
+
+            transition:
+
+                opacity .45s ease,
+
+                transform .5s
+                cubic-bezier(.22,1,.36,1);
+
+        }
+
+
+        .reveal.show{
+
+            opacity:1;
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        /* =====================================================
+           HERO
+        ====================================================== */
+
+        .hero{
+
+            position:relative;
+
+            min-height:100vh;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            overflow:hidden;
+
+            background:
+                var(--primary-deep);
+
+            isolation:isolate;
+
+        }
+
+
+        .heroBackground{
+
+            position:absolute;
+
+            inset:0;
+
+            background:
+
+                linear-gradient(
+                    120deg,
+                    rgba(5,25,42,.94),
+                    rgba(8,76,126,.62),
+                    rgba(224,159,62,.24)
+                ),
+
+                url("img/fundos/senac.jpg")
+                center/cover no-repeat;
+
+            transform:
+                scale(1.03);
+
+            z-index:-3;
+
+        }
+
+
+        .heroOverlay{
+
+            position:absolute;
+
+            inset:0;
+
+            background:
+
+                radial-gradient(
+                    circle at 50% 50%,
+                    rgba(255,255,255,.12),
+                    transparent 30%
+                ),
+
+                linear-gradient(
+                    180deg,
+                    transparent 55%,
+                    rgba(0,0,0,.25)
+                );
+
+            z-index:-2;
+
+        }
+
+
+        .heroNoise{
+
+            position:absolute;
+
+            inset:0;
+
+            background:
+
+                radial-gradient(
+                    circle at 16% 20%,
+                    rgba(255,255,255,.13),
+                    transparent 20%
+                ),
+
+                radial-gradient(
+                    circle at 85% 78%,
+                    rgba(224,159,62,.18),
+                    transparent 23%
+                );
+
+            z-index:-1;
+
+        }
+
+
+        .heroContent{
+
+            position:relative;
+
+            width:min(
+                1150px,
+                88vw
+            );
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+        }
+
+
+        .logoHalo{
+
+            position:absolute;
+
+            width:500px;
+
+            height:500px;
+
+            border-radius:50%;
+
+            background:
+
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,.30),
+                    rgba(26,108,176,.10) 45%,
+                    transparent 72%
+                );
+
+            filter:
+                blur(8px);
+
+            animation:
+                haloPulse
+                4.5s
+                ease-in-out
+                infinite;
+
+        }
+
+
+        .logoHalo::before{
+
+            content:"";
+
+            position:absolute;
+
+            inset:8%;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(255,255,255,.24);
+
+        }
+
+
+        .logoHalo::after{
+
+            content:"";
+
+            position:absolute;
+
+            inset:18%;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(224,159,62,.30);
+
+        }
+
+
+        @keyframes haloPulse{
+
+            0%,
+            100%{
+
+                transform:
+                    scale(.95);
+
+                opacity:.62;
+
+            }
+
+            50%{
+
+                transform:
+                    scale(1.05);
+
+                opacity:1;
+
+            }
+
+        }
+
+
+        .heroLogo{
+
+            position:relative;
+
+            width:320px;
+
+            height:320px;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            border-radius:50%;
+
+            background:#FFFFFF;
+
+            box-shadow:
+
+                0 0 25px
+                rgba(255,255,255,.82),
+
+                0 0 70px
+                rgba(26,108,176,.72),
+
+                0 0 120px
+                rgba(224,159,62,.32);
+
+            animation:
+
+                heroLogoIntro
+                .85s
+                cubic-bezier(.22,1,.36,1)
+                both;
+
+        }
+
+
+        .heroLogo::before{
+
+            content:"";
+
+            position:absolute;
+
+            inset:-14px;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(255,255,255,.62);
+
+        }
+
+
+        .heroLogo::after{
+
+            content:"";
+
+            position:absolute;
+
+            inset:-28px;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(224,159,62,.25);
+
+        }
+
+
+        @keyframes heroLogoIntro{
+
+            from{
+
+                opacity:0;
+
+                transform:
+                    scale(.72);
+
+            }
+
+            to{
+
+                opacity:1;
+
+                transform:
+                    scale(1);
+
+            }
+
+        }
+
+
+        .heroLogo img{
+
+            width:68%;
+
+            height:68%;
+
+            object-fit:contain;
+
+        }
+
+
+        /* =====================================================
+           AVISO
+        ====================================================== */
+
+        .noticeSection{
+
+            position:relative;
+
+            min-height:100vh;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            padding:
+                100px 7vw;
+
+            overflow:hidden;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #FFFFFF,
+                    #F5F9FC
+                );
+
+        }
+
+
+        .noticeSection::before{
+
+            content:"COURSES A-Z / SENAC";
+
+            position:absolute;
+
+            left:7vw;
+
+            top:38px;
+
+            font-family:
+                var(--body);
+
+            font-size:8px;
+
+            font-weight:800;
+
+            letter-spacing:4px;
+
+            color:#A2ADB5;
+
+        }
+
+
+        .noticeShape{
+
+            position:absolute;
+
+            border-radius:50%;
+
+            pointer-events:none;
+
+        }
+
+
+        .noticeShape.one{
+
+            width:350px;
+
+            height:350px;
+
+            right:-150px;
+
+            top:-135px;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            opacity:.90;
+
+            box-shadow:
+
+                0 0 0 30px
+                rgba(26,108,176,.035);
+
+        }
+
+
+        .noticeShape.two{
+
+            width:250px;
+
+            height:250px;
+
+            left:-120px;
+
+            bottom:-120px;
+
+            border:
+                38px solid
+                var(--primary);
+
+            opacity:.12;
+
+        }
+
+
+        .noticeShape.three{
+
+            width:110px;
+
+            height:110px;
+
+            right:18%;
+
+            bottom:14%;
+
+            background:
+                var(--secondary);
+
+            opacity:.13;
+
+        }
+
+
+        .noticeWrap{
+
+            position:relative;
+
+            width:min(
+                920px,
+                90vw
+            );
+
+            min-height:440px;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            overflow:hidden;
+
+        }
+
+
+        .noticeInitial,
+        .noticeMessage,
+        .noticeThanks{
+
+            position:absolute;
+
+            width:100%;
+
+            text-align:center;
+
+            transition:
+
+                opacity .45s ease,
+
+                transform .5s
+                cubic-bezier(.76,0,.24,1);
+
+        }
+
+
+        .noticeInitial{
+
+            opacity:1;
+
+            transform:
+                translateX(0);
+
+        }
+
+
+        .noticeInitial.hidden{
+
+            opacity:0;
+
+            transform:
+                translateX(-100%);
+
+        }
+
+
+        .noticeInitial h1,
+        .noticeThanks h1{
+
+            font-family:
+                var(--title);
+
+            font-size:
+                clamp(
+                    58px,
+                    9vw,
+                    112px
+                );
+
+            line-height:.84;
+
+            letter-spacing:-5px;
+
+            margin-bottom:38px;
+
+        }
+
+
+        .noticeButton{
+
+            border:0;
+
+            padding:
+                17px 40px;
+
+            border-radius:100px;
+
+            background:
+
+                linear-gradient(
+                    110deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            color:#FFFFFF;
+
+            font-size:10px;
+
+            font-weight:800;
+
+            letter-spacing:2px;
+
+            cursor:pointer;
+
+            box-shadow:
+
+                0 15px 40px
+                rgba(26,108,176,.23);
+
+            transition:
+
+                transform .25s ease,
+
+                box-shadow .25s ease;
+
+        }
+
+
+        .noticeButton:hover{
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+
+                0 22px 50px
+                rgba(26,108,176,.30);
+
+        }
+
+
+        .noticeMessage{
+
+            opacity:0;
+
+            transform:
+                translateX(100%);
+
+        }
+
+
+        .noticeMessage.visible{
+
+            opacity:1;
+
+            transform:
+                translateX(0);
+
+        }
+
+
+        .noticeMessage p{
+
+            max-width:720px;
+
+            margin:
+                0 auto 30px;
+
+            font-size:16px;
+
+            font-weight:500;
+
+            line-height:1.9;
+
+            color:
+                var(--muted);
+
+        }
+
+
+        .noticeMessage .noticeButton{
+
+            background:
+                var(--primary);
+
+        }
+
+
+        .noticeThanks{
+
+            opacity:0;
+
+            transform:
+                translateX(100%);
+
+        }
+
+
+        .noticeThanks.visible{
+
+            opacity:1;
+
+            transform:
+                translateX(0);
+
+        }
+
+
+        .scrollArrow{
+
+            position:absolute;
+
+            bottom:35px;
+
+            left:50%;
+
+            width:54px;
+
+            height:54px;
+
+            border:
+                1px solid
+                rgba(16,24,32,.16);
+
+            border-radius:50%;
+
+            background:#FFFFFF;
+
+            color:
+                var(--primary);
+
+            cursor:pointer;
+
+            transform:
+                translateX(-50%);
+
+            opacity:0;
+
+            pointer-events:none;
+
+            transition:
+
+                opacity .4s ease,
+
+                background .25s ease,
+
+                color .25s ease;
+
+        }
+
+
+        .scrollArrow.visible{
+
+            opacity:1;
+
+            pointer-events:auto;
+
+            animation:
+                arrowFloat
+                1.8s
+                ease-in-out
+                infinite;
+
+        }
+
+
+        .scrollArrow:hover{
+
+            background:
+                var(--primary);
+
+            color:#FFFFFF;
+
+        }
+
+
+        @keyframes arrowFloat{
+
+            0%,
+            100%{
+
+                transform:
+                    translateX(-50%)
+                    translateY(0);
+
+            }
+
+            50%{
+
+                transform:
+                    translateX(-50%)
+                    translateY(7px);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CURSOS
+        ====================================================== */
+
+        .coursesSection{
+
+            position:relative;
+
+            min-height:100vh;
+
+            padding:
+                125px 6vw
+                120px;
+
+            overflow:hidden;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #F5F9FC,
+                    #FFFFFF
+                );
+
+        }
+
+
+        .coursesSection::before{
+
+            content:"";
+
+            position:absolute;
+
+            width:620px;
+
+            height:620px;
+
+            right:-310px;
+
+            top:8%;
+
+            border-radius:50%;
+
+            background:
+
+                radial-gradient(
+                    circle,
+                    rgba(26,108,176,.12),
+                    transparent 70%
+                );
+
+            pointer-events:none;
+
+        }
+
+
+        .coursesSection::after{
+
+            content:"";
+
+            position:absolute;
+
+            width:180px;
+
+            height:180px;
+
+            left:-100px;
+
+            bottom:8%;
+
+            border-radius:50%;
+
+            border:
+                25px solid
+                rgba(224,159,62,.10);
+
+        }
+
+
+        .coursesHeader{
+
+            position:relative;
+
+            z-index:2;
+
+            width:min(
+                1050px,
+                90vw
+            );
+
+            margin:
+                0 auto 68px;
+
+            text-align:center;
+
+        }
+
+
+        .coursesEyebrow{
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            gap:13px;
+
+            margin-bottom:22px;
+
+            color:
+                var(--primary);
+
+            font-size:9px;
+
+            font-weight:800;
+
+            letter-spacing:4px;
+
+        }
+
+
+        .coursesEyebrow::before,
+        .coursesEyebrow::after{
+
+            content:"";
+
+            width:50px;
+
+            height:1px;
+
+            background:
+                var(--primary);
+
+        }
+
+
+        .coursesEyebrow::after{
+
+            background:
+                var(--secondary);
+
+        }
+
+
+        .coursesHeader h1{
+
+            font-family:
+                var(--title);
+
+            font-size:
+                clamp(
+                    62px,
+                    10vw,
+                    128px
+                );
+
+            line-height:.80;
+
+            letter-spacing:-7px;
+
+        }
+
+
+        .coursesHeader p{
+
+            max-width:650px;
+
+            margin:
+                30px auto 0;
+
+            font-size:14px;
+
+            font-weight:500;
+
+            line-height:1.9;
+
+            color:
+                var(--muted);
+
+        }
+
+
+        /* =====================================================
+           CARROSSEL
+        ====================================================== */
+
+        .carouselShell{
+
+            position:relative;
+
+            width:100%;
+
+            display:flex;
+
+            justify-content:center;
+
+            z-index:2;
+
+        }
+
+
+        .coursesTrack{
+
+            width:min(
+                900px,
+                90vw
+            );
+
+            display:flex;
+
+            justify-content:center;
+
+            gap:30px;
+
+            overflow-x:auto;
+
+            padding:
+                20px 0 55px;
+
+            scroll-snap-type:
+                x mandatory;
+
+            scrollbar-width:none;
+
+        }
+
+
+        .coursesTrack::-webkit-scrollbar{
+
+            display:none;
+
+        }
+
+
+        .courseCard{
+
+            position:relative;
+
+            flex:
+                0 0 390px;
+
+            height:500px;
+
+            padding:27px;
+
+            display:flex;
+
+            flex-direction:column;
+
+            justify-content:space-between;
+
+            border:
+                1px solid
+                rgba(16,24,32,.08);
+
+            border-radius:30px;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    #FFFFFF,
+                    #F0F5F8
+                );
+
+            box-shadow:
+
+                0 20px 60px
+                rgba(15,30,45,.08);
+
+            overflow:hidden;
+
+            cursor:pointer;
+
+            scroll-snap-align:center;
+
+            opacity:0;
+
+            transform:
+                translateY(22px);
+
+            transition:
+
+                opacity .45s ease,
+
+                transform .45s
+                cubic-bezier(.22,1,.36,1),
+
+                box-shadow .35s ease,
+
+                border-color .35s ease;
+
+        }
+
+
+        .courseCard.show{
+
+            opacity:1;
+
+            transform:
+                translateY(0);
+
+        }
+
+
+        .courseCard::before{
+
+            content:"";
+
+            position:absolute;
+
+            inset:0;
+
+            background:
+
+                linear-gradient(
+                    145deg,
+                    rgba(26,108,176,.10),
+                    transparent 48%,
+                    rgba(224,159,62,.13)
+                );
+
+            opacity:.65;
+
+            transition:
+                opacity .35s ease;
+
+        }
+
+
+        .courseCard::after{
+
+            content:"";
+
+            position:absolute;
+
+            width:200px;
+
+            height:200px;
+
+            right:-120px;
+
+            bottom:-120px;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(26,108,176,.17);
+
+            box-shadow:
+
+                0 0 0 25px
+                rgba(224,159,62,.035);
+
+        }
+
+
+        .courseCard:hover{
+
+            transform:
+                translateY(-12px);
+
+            border-color:
+                rgba(26,108,176,.35);
+
+            box-shadow:
+
+                0 35px 80px
+                rgba(15,30,45,.15);
+
+        }
+
+
+        .courseCard:hover::before{
+
+            opacity:1;
+
+        }
+
+
+        .courseTop{
+
+            position:relative;
+
+            z-index:2;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:space-between;
+
+        }
+
+
+        .courseNumber{
+
+            font-family:
+                var(--title);
+
+            font-size:11px;
+
+            font-weight:700;
+
+            letter-spacing:3px;
+
+            color:
+                var(--primary);
+
+        }
+
+
+        .courseOpen{
+
+            font-size:8px;
+
+            font-weight:800;
+
+            letter-spacing:2px;
+
+            color:#89949C;
+
+            transition:
+                color .25s ease;
+
+        }
+
+
+        .courseCard:hover
+        .courseOpen{
+
+            color:
+                var(--primary);
+
+        }
+
+
+        .courseLogo{
+
+            position:absolute;
+
+            left:50%;
+
+            top:50%;
+
+            width:185px;
+
+            height:185px;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            border-radius:50%;
+
+            background:#FFFFFF;
+
+            transform:
+                translate(-50%,-55%);
+
+            box-shadow:
+
+                0 20px 60px
+                rgba(0,0,0,.08);
+
+            transition:
+
+                transform .45s
+                cubic-bezier(.22,1,.36,1),
+
+                box-shadow .45s ease;
+
+        }
+
+
+        .courseLogo::before{
+
+            content:"";
+
+            position:absolute;
+
+            inset:-9px;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(26,108,176,.20);
+
+        }
+
+
+        .courseLogo::after{
+
+            content:"";
+
+            position:absolute;
+
+            inset:-19px;
+
+            border-radius:50%;
+
+            border:
+                1px solid
+                rgba(224,159,62,.18);
+
+        }
+
+
+        .courseCard:hover
+        .courseLogo{
+
+            transform:
+                translate(-50%,-55%)
+                scale(1.08);
+
+            box-shadow:
+
+                0 25px 75px
+                rgba(26,108,176,.20);
+
+        }
+
+
+        .courseLogo img{
+
+            width:67%;
+
+            height:67%;
+
+            object-fit:contain;
+
+        }
+
+
+        .courseBottom{
+
+            position:relative;
+
+            z-index:2;
+
+        }
+
+
+        .courseBottom span{
+
+            display:block;
+
+            margin-bottom:11px;
+
+            font-size:8px;
+
+            font-weight:800;
+
+            letter-spacing:3px;
+
+            color:#8A959D;
+
+        }
+
+
+        .courseBottom h2{
+
+            max-width:310px;
+
+            font-family:
+                var(--title);
+
+            font-size:28px;
+
+            font-weight:700;
+
+            line-height:1.02;
+
+        }
+
+
+        .courseArrow{
+
+            position:absolute;
+
+            right:24px;
+
+            bottom:25px;
+
+            width:50px;
+
+            height:50px;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            border-radius:50%;
+
+            background:
+                var(--primary);
+
+            color:#FFFFFF;
+
+            font-size:19px;
+
+            transform:
+                translateX(8px);
+
+            opacity:.65;
+
+            transition:
+
+                transform .3s ease,
+
+                opacity .3s ease,
+
+                background .3s ease;
+
+        }
+
+
+        .courseCard:hover
+        .courseArrow{
+
+            transform:
+                translateX(0);
+
+            opacity:1;
+
+            background:
+                var(--secondary);
+
+        }
+
+
+        /* =====================================================
+           BOTÕES DO CARROSSEL
+        ====================================================== */
+
+        .carouselButton{
+
+            position:absolute;
+
+            top:50%;
+
+            width:56px;
+
+            height:56px;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            border:
+                1px solid
+                rgba(16,24,32,.10);
+
+            border-radius:50%;
+
+            background:#FFFFFF;
+
+            color:
+                var(--primary);
+
+            cursor:pointer;
+
+            box-shadow:
+
+                0 15px 35px
+                rgba(0,0,0,.10);
+
+            transform:
+                translateY(-50%);
+
+            z-index:5;
+
+            transition:
+
+                transform .25s ease,
+
+                background .25s ease,
+
+                color .25s ease,
+
+                box-shadow .25s ease;
+
+        }
+
+
+        .carouselButton:hover{
+
+            background:
+                var(--primary);
+
+            color:#FFFFFF;
+
+            transform:
+                translateY(-50%)
+                scale(1.08);
+
+            box-shadow:
+
+                0 20px 45px
+                rgba(26,108,176,.20);
+
+        }
+
+
+        .carouselButton.prev{
+
+            left:18px;
+
+        }
+
+
+        .carouselButton.next{
+
+            right:18px;
+
+        }
+
+
+        /* =====================================================
+           OVERLAY DE ABERTURA
+        ====================================================== */
+
+        .courseOverlay{
+
+            position:fixed;
+
+            inset:0;
+
+            z-index:15000;
+
+            display:flex;
+
+            align-items:center;
+
+            justify-content:center;
+
+            background:
+                rgba(255,255,255,.985);
+
+            opacity:0;
+
+            visibility:hidden;
+
+            pointer-events:none;
+
+            transition:
+
+                opacity .35s ease,
+
+                visibility .35s ease;
+
+        }
+
+
+        .courseOverlay.active{
+
+            opacity:1;
+
+            visibility:visible;
+
+            pointer-events:auto;
+
+        }
+
+
+        .courseOverlayLine{
+
+            width:0;
+
+            height:2px;
+
+            background:
+
+                linear-gradient(
+                    90deg,
+                    var(--primary),
+                    var(--secondary)
+                );
+
+            transition:
+
+                width .60s
+                cubic-bezier(.76,0,.24,1);
+
+        }
+
+
+        .courseOverlay.active
+        .courseOverlayLine{
+
+            width:190px;
+
+        }
+
+
+        .courseOverlayText{
+
+            position:absolute;
+
+            bottom:50px;
+
+            left:50%;
+
+            transform:
+                translateX(-50%);
+
+            font-size:8px;
+
+            font-weight:800;
+
+            letter-spacing:4px;
+
+            color:#7C858C;
+
+        }
+
+
+        /* =====================================================
+           RETORNO DOS CURSOS
+        ====================================================== */
+
+        body.courseReturn{
+
+            animation:
+                returnPage
+                .45s
+                ease-out;
+
+        }
+
+
+        @keyframes returnPage{
+
+            from{
+
+                opacity:0;
+
+            }
+
+            to{
+
+                opacity:1;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVO
+        ====================================================== */
+
+        @media(max-width:900px){
+
+            .heroLogo{
+
+                width:250px;
+
+                height:250px;
+
+            }
+
+
+            .logoHalo{
+
+                width:370px;
+
+                height:370px;
+
+            }
+
+
+            .carouselButton{
+
+                display:none;
+
+            }
+
+
+            .courseCard{
+
+                height:450px;
+
+            }
+
+
+            .coursesTrack{
+
+                justify-content:flex-start;
+
+            }
+
+        }
+
+
+        @media(max-width:600px){
+
+            .searchBox{
+
+                height:62px;
+
+                padding:
+                    0 20px;
+
+            }
+
+
+            .searchText{
+
+                font-size:16px;
+
+            }
+
+
+            .heroLogo{
+
+                width:210px;
+
+                height:210px;
+
+            }
+
+
+            .noticeSection{
+
+                padding:
+                    80px 6vw;
+
+            }
+
+
+            .noticeInitial h1,
+            .noticeThanks h1{
+
+                font-size:
+                    clamp(
+                        50px,
+                        16vw,
+                        80px
+                    );
+
+                letter-spacing:-3px;
+
+            }
+
+
+            .noticeMessage p{
+
+                font-size:15px;
+
+            }
+
+
+            .coursesSection{
+
+                padding:
+                    100px 0;
+
+            }
+
+
+            .coursesHeader{
+
+                padding:
+                    0 7vw;
+
+            }
+
+
+            .coursesHeader h1{
+
+                font-size:
+                    clamp(
+                        58px,
+                        17vw,
+                        90px
+                    );
+
+                letter-spacing:-4px;
+
+            }
+
+
+            .coursesTrack{
+
+                padding:
+                    20px 7vw 50px;
+
+            }
+
+
+            .courseCard{
+
+                flex-basis:82vw;
+
+                height:420px;
+
+            }
+
+
+            .courseLogo{
+
+                width:160px;
+
+                height:160px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         ENTRADA
+    ====================================================== -->
+
+    <section
+        id="institutionEntry"
+    >
+
+        <div
+            class="entryContent"
+        >
+
+            <div
+                class="searchBox"
+            >
+
+                <div
+                    class="searchIcon"
+                ></div>
+
+                <span
+                    class="searchText"
+                    id="searchText"
+                ></span>
+
+                <span
+                    class="searchCaret"
+                ></span>
+
+            </div>
+
+
+            <button
+                class="searchResult"
+                id="searchResult"
+                type="button"
+            >
+
+                <span
+                    class="resultLogo"
+                >
+
+                    <img
+                        src="img/logos/senac.png"
+                        alt="SENAC"
+                    >
+
+                </span>
+
+
+                <span
+                    class="resultInfo"
+                >
+
+                    <strong>
+                        SENAC
+                    </strong>
+
+                    <span>
+                        senac.br
+                    </span>
+
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         TRANSIÇÃO
+    ====================================================== -->
+
+    <div
+        class="pageTransition"
+        id="pageTransition"
+    >
+
+        <div
+            class="transitionCircle"
+        ></div>
+
+        <div
+            class="transitionCircle"
+        ></div>
+
+        <div
+            class="transitionCircle"
+        ></div>
+
+        <div
+            class="transitionCircle"
+        ></div>
+
+        <div
+            class="transitionCircle"
+        ></div>
+
+        <div
+            class="transitionCircle"
+        ></div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         PÁGINA PRINCIPAL
+    ====================================================== -->
+
+    <main
+        id="mainPage"
+    >
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section
+            class="hero"
+        >
+
+            <div
+                class="heroBackground"
+            ></div>
+
+            <div
+                class="heroOverlay"
+            ></div>
+
+            <div
+                class="heroNoise"
+            ></div>
+
+
+            <div
+                class="heroContent"
+            >
+
+                <div
+                    class="logoHalo"
+                ></div>
+
+
+                <div
+                    class="heroLogo"
+                >
+
+                    <img
+                        src="img/logos/senac.png"
+                        alt="Logo SENAC"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             AVISO
+        ================================================== -->
+
+        <section
+            class="noticeSection"
+            id="notice"
+        >
+
+            <div
+                class="noticeShape one"
+            ></div>
+
+            <div
+                class="noticeShape two"
+            ></div>
+
+            <div
+                class="noticeShape three"
+            ></div>
+
+
+            <div
+                class="noticeWrap"
+            >
+
+
+                <div
+                    class="noticeInitial"
+                    id="noticeInitial"
+                >
+
+                    <h1>
+                        AVISO
+                    </h1>
+
+
+                    <button
+                        class="noticeButton"
+                        id="noticeButton"
+                        type="button"
+                    >
+                        CONTINUAR
+                    </button>
+
+                </div>
+
+
+
+                <div
+                    class="noticeMessage"
+                    id="noticeMessage"
+                >
+
+                    <p>
+                        Este conteúdo não representa propaganda
+                        institucional. Trata-se de uma amostra da
+                        trajetória acadêmica e das certificações
+                        realizadas pelo desenvolvedor.
+                    </p>
+
+
+                    <button
+                        class="noticeButton"
+                        id="noticeOk"
+                        type="button"
+                    >
+                        OK
+                    </button>
+
+                </div>
+
+
+
+                <div
+                    class="noticeThanks"
+                    id="noticeThanks"
+                >
+
+                    <h1>
+                        Obrigado por ler!
+                    </h1>
+
+                </div>
+
+
+
+                <button
+                    class="scrollArrow"
+                    id="scrollArrow"
+                    type="button"
+                    aria-label="Ver cursos"
+                >
+                    ↓
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             CURSOS
+        ================================================== -->
+
+        <section
+            class="coursesSection"
+            id="courses"
+        >
+
+
+            <div
+                class="coursesHeader reveal"
+            >
+
+                <div
+                    class="coursesEyebrow"
+                >
+                    COURSES A-Z
+                </div>
+
+
+                <h1>
+                    CURSOS
+                </h1>
+
+
+                <p>
+                    Conheça os cursos que fazem parte da trajetória
+                    acadêmica apresentada nesta instituição.
+                </p>
+
+            </div>
+
+
+
+            <div
+                class="carouselShell"
+            >
+
+
+                <button
+                    class="carouselButton prev"
+                    id="carouselPrev"
+                    type="button"
+                    aria-label="Cursos anteriores"
+                >
+                    ←
+                </button>
+
+
+
+                <div
+                    class="coursesTrack"
+                    id="coursesTrack"
+                >
+
+
+                    <!-- =====================================
+                         DESENVOLVIMENTO DE SISTEMAS
+                    ====================================== -->
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/ds.html"
+                    >
+
+                        <div
+                            class="courseTop"
+                        >
+
+                            <span
+                                class="courseNumber"
+                            >
+                                01
+                            </span>
+
+
+                            <span
+                                class="courseOpen"
+                            >
+                                ABRIR CURSO
+                            </span>
+
+                        </div>
+
+
+
+                        <div
+                            class="courseLogo"
+                        >
+
+                            <img
+                                src="img/logos/senac.png"
+                                alt="SENAC"
+                            >
+
+                        </div>
+
+
+
+                        <div
+                            class="courseBottom"
+                        >
+
+                            <span>
+                                FORMAÇÃO / 001
+                            </span>
+
+
+                            <h2>
+                                Desenvolvimento
+                                de Sistemas
+                            </h2>
+
+                        </div>
+
+
+
+                        <div
+                            class="courseArrow"
+                        >
+                            →
+                        </div>
+
+                    </article>
+
+
+
+                    <!-- =====================================
+                         ADMINISTRAÇÃO
+                    ====================================== -->
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/adm.html"
+                    >
+
+                        <div
+                            class="courseTop"
+                        >
+
+                            <span
+                                class="courseNumber"
+                            >
+                                02
+                            </span>
+
+
+                            <span
+                                class="courseOpen"
+                            >
+                                ABRIR CURSO
+                            </span>
+
+                        </div>
+
+
+
+                        <div
+                            class="courseLogo"
+                        >
+
+                            <img
+                                src="img/logos/senac.png"
+                                alt="SENAC"
+                            >
+
+                        </div>
+
+
+
+                        <div
+                            class="courseBottom"
+                        >
+
+                            <span>
+                                FORMAÇÃO / 002
+                            </span>
+
+
+                            <h2>
+                                Administração
+                            </h2>
+
+                        </div>
+
+
+
+                        <div
+                            class="courseArrow"
+                        >
+                            →
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+
+
+                <button
+                    class="carouselButton next"
+                    id="carouselNext"
+                    type="button"
+                    aria-label="Próximos cursos"
+                >
+                    →
+                </button>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         OVERLAY DE ABERTURA
+    ====================================================== -->
+
+    <div
+        class="courseOverlay"
+        id="courseOverlay"
+    >
+
+        <div
+            class="courseOverlayLine"
+        ></div>
+
+
+        <span
+            class="courseOverlayText"
+        >
+            ABRINDO CURSO
+        </span>
+
+    </div>
+
+
+
+    <script>
+
+
+        /* =====================================================
+           ELEMENTOS PRINCIPAIS
+        ====================================================== */
+
+        const institutionEntry =
+            document.getElementById(
+                "institutionEntry"
+            );
+
+
+        const searchText =
+            document.getElementById(
+                "searchText"
+            );
+
+
+        const searchResult =
+            document.getElementById(
+                "searchResult"
+            );
+
+
+        const pageTransition =
+            document.getElementById(
+                "pageTransition"
+            );
+
+
+        const mainPage =
+            document.getElementById(
+                "mainPage"
+            );
+
+
+        /* =====================================================
+           VERIFICAÇÃO DO RETORNO DOS CURSOS
+        ====================================================== */
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const skipIntro =
+            urlParams.get(
+                "skipIntro"
+            ) === "1";
+
+
+        /* =====================================================
+           FUNÇÃO DE ENTRADA DOS ELEMENTOS
+        ====================================================== */
+
+        function revealPage(){
+
+            const revealElements =
+                document.querySelectorAll(
+                    ".reveal"
+                );
+
+
+            revealElements.forEach(
+                (
+                    element,
+                    index
+                ) => {
+
+                    setTimeout(
+                        () => {
+
+                            element.classList.add(
+                                "show"
+                            );
+
+                        },
+
+                        Math.min(
+                            index * 70,
+                            280
+                        )
+
+                    );
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           ENTRADA DIRETA
+           VOLTA DE DS.HTML / ADM.HTML
+        ====================================================== */
+
+        if(skipIntro){
+
+            institutionEntry.classList.add(
+                "hidden"
+            );
+
+
+            mainPage.classList.add(
+                "ready"
+            );
+
+
+            document.body.style.overflow =
+                "";
+
+
+            document.body.classList.add(
+                "courseReturn"
+            );
+
+
+            requestAnimationFrame(
+                () => {
+
+                    revealPage();
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           ENTRADA NORMAL
+        ====================================================== */
+
+        else{
+
+            const institutionName =
+                "SENAC";
+
+
+            let typingIndex = 0;
+
+
+            function typeInstitution(){
+
+                if(
+                    typingIndex <
+                    institutionName.length
+                ){
+
+                    searchText.textContent +=
+                        institutionName[
+                            typingIndex
+                        ];
+
+
+                    typingIndex++;
+
+
+                    setTimeout(
+                        typeInstitution,
+                        115
+                    );
+
+
+                    return;
+
+                }
+
+
+                setTimeout(
+                    () => {
+
+                        searchResult.classList.add(
+                            "visible"
+                        );
+
+                    },
+                    350
+                );
+
+            }
+
+
+            setTimeout(
+                typeInstitution,
+                550
+            );
+
+
+            /* =============================================
+               ENTRADA → PÁGINA PRINCIPAL
+            ============================================== */
+
+            searchResult.addEventListener(
+                "click",
+                () => {
+
+                    if(
+                        !searchResult.classList.contains(
+                            "visible"
+                        )
+                    ){
+
+                        return;
+
+                    }
+
+
+                    pageTransition.classList.add(
+                        "active"
+                    );
+
+
+                    setTimeout(
+                        () => {
+
+                            mainPage.classList.add(
+                                "ready"
+                            );
+
+                        },
+                        760
+                    );
+
+
+                    setTimeout(
+                        () => {
+
+                            institutionEntry.classList.add(
+                                "hidden"
+                            );
+
+                        },
+                        980
+                    );
+
+
+                    setTimeout(
+                        () => {
+
+                            pageTransition.classList.remove(
+                                "active"
+                            );
+
+
+                            revealPage();
+
+                        },
+                        1250
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =====================================================
+           AVISO
+        ====================================================== */
+
+        const noticeInitial =
+            document.getElementById(
+                "noticeInitial"
+            );
+
+
+        const noticeMessage =
+            document.getElementById(
+                "noticeMessage"
+            );
+
+
+        const noticeThanks =
+            document.getElementById(
+                "noticeThanks"
+            );
+
+
+        const noticeButton =
+            document.getElementById(
+                "noticeButton"
+            );
+
+
+        const noticeOk =
+            document.getElementById(
+                "noticeOk"
+            );
+
+
+        const scrollArrow =
+            document.getElementById(
+                "scrollArrow"
+            );
+
+
+        noticeButton.addEventListener(
+            "click",
+            () => {
+
+                noticeInitial.classList.add(
+                    "hidden"
+                );
+
+
+                setTimeout(
+                    () => {
+
+                        noticeMessage.classList.add(
+                            "visible"
+                        );
+
+                    },
+                    280
+                );
+
+            }
+        );
+
+
+        noticeOk.addEventListener(
+            "click",
+            () => {
+
+                noticeMessage.classList.remove(
+                    "visible"
+                );
+
+
+                setTimeout(
+                    () => {
+
+                        noticeThanks.classList.add(
+                            "visible"
+                        );
+
+
+                        scrollArrow.classList.add(
+                            "visible"
+                        );
+
+                    },
+                    350
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           SETA → CURSOS
+        ====================================================== */
+
+        scrollArrow.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .getElementById(
+                        "courses"
+                    )
+                    .scrollIntoView({
+
+                        behavior:
+                            "smooth"
+
+                    });
+
+            }
+        );
+
+
+
+        /* =====================================================
+           CARROSSEL
+        ====================================================== */
+
+        const coursesTrack =
+            document.getElementById(
+                "coursesTrack"
+            );
+
+
+        const carouselPrev =
+            document.getElementById(
+                "carouselPrev"
+            );
+
+
+        const carouselNext =
+            document.getElementById(
+                "carouselNext"
+            );
+
+
+        carouselNext.addEventListener(
+            "click",
+            () => {
+
+                coursesTrack.scrollBy({
+
+                    left:420,
+
+                    behavior:
+                        "smooth"
+
+                });
+
+            }
+        );
+
+
+        carouselPrev.addEventListener(
+            "click",
+            () => {
+
+                coursesTrack.scrollBy({
+
+                    left:-420,
+
+                    behavior:
+                        "smooth"
+
+                });
+
+            }
+        );
+
+
+
+        /* =====================================================
+           INTRODUÇÃO DOS CARDS
+        ====================================================== */
+
+        const courseCards =
+            document.querySelectorAll(
+                ".courseCard"
+            );
+
+
+        const cardObserver =
+            new IntersectionObserver(
+                (
+                    entries
+                ) => {
+
+                    entries.forEach(
+                        (
+                            entry
+                        ) => {
+
+                            if(
+                                entry.isIntersecting
+                            ){
+
+                                entry.target.classList.add(
+                                    "show"
+                                );
+
+
+                                cardObserver.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+
+                    threshold:.15
+
+                }
+            );
+
+
+        courseCards.forEach(
+            (
+                card,
+                index
+            ) => {
+
+                card.style.transitionDelay =
+                    `${index * 70}ms`;
+
+
+                cardObserver.observe(
+                    card
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           ABERTURA DOS CURSOS
+        ====================================================== */
+
+        const courseOverlay =
+            document.getElementById(
+                "courseOverlay"
+            );
+
+
+        courseCards.forEach(
+            (
+                card
+            ) => {
+
+                card.addEventListener(
+                    "click",
+                    () => {
+
+                        const destination =
+                            card.dataset.courseUrl;
+
+
+                        if(!destination){
+
+                            return;
+
+                        }
+
+
+                        courseOverlay.classList.add(
+                            "active"
+                        );
+
+
+                        document.body.style.overflow =
+                            "hidden";
+
+
+                        setTimeout(
+                            () => {
+
+                                window.location.href =
+                                    destination;
+
+                            },
+                            650
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* =====================================================
+           HISTÓRICO
+        ====================================================== */
+
+        window.addEventListener(
+            "pageshow",
+            () => {
+
+                document.body.style.overflow =
+                    "";
+
+            }
+        );
+
+
+    </script>
+
+</body>
+
+</html>

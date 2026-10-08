@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>BairesDev Machine Learning | DIO</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+    <link rel="icon" href="../favicondio.jpg">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --blue:#2364AA;
+            --pink:#B8336A;
+            --purple:#7257D9;
+            --dark:#070B18;
+            --text:#151D29;
+            --muted:#69737F;
+        }
+
+        * {
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html {
+            scroll-behavior:smooth;
+        }
+
+        body {
+            font-family:"Manrope",sans-serif;
+            color:var(--text);
+            background:#F5F6FA;
+            overflow-x:hidden;
+        }
+
+        h1,h2,h3 {
+            font-family:"Space Grotesk",sans-serif;
+        }
+
+        .hero {
+            min-height:100vh;
+            position:relative;
+            display:flex;
+            align-items:center;
+            overflow:hidden;
+            color:#fff;
+            background:
+                radial-gradient(
+                    circle at 72% 45%,
+                    rgba(114,87,217,.4),
+                    transparent 27%
+                ),
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(184,51,106,.3),
+                    transparent 25%
+                ),
+                linear-gradient(
+                    135deg,
+                    #050914,
+                    #111C35 58%,
+                    #2364AA
+                );
+        }
+
+        .hero::before {
+            content:"";
+            position:absolute;
+            inset:0;
+            background-image:
+                radial-gradient(
+                    rgba(255,255,255,.5) 1px,
+                    transparent 1px
+                );
+            background-size:38px 38px;
+            opacity:.08;
+        }
+
+        .hero-content {
+            width:min(1180px,88vw);
+            margin:auto;
+            position:relative;
+            z-index:2;
+            display:grid;
+            grid-template-columns:1fr .9fr;
+            gap:70px;
+            align-items:center;
+        }
+
+        .eyebrow,
+        .section-label {
+            font-size:10px;
+            font-weight:800;
+            letter-spacing:4px;
+            color:#A9CFFF;
+        }
+
+        .eyebrow {
+            margin-bottom:25px;
+        }
+
+        .hero h1 {
+            font-size:clamp(52px,7vw,100px);
+            line-height:.88;
+            letter-spacing:-6px;
+            margin-bottom:32px;
+            animation:appear .65s ease both;
+        }
+
+        .hero h1 span {
+            color:#9A82FF;
+        }
+
+        .description {
+            max-width:650px;
+            color:#C1CBD9;
+            line-height:1.85;
+            animation:appear .7s .1s ease both;
+        }
+
+        .tags {
+            display:flex;
+            gap:10px;
+            flex-wrap:wrap;
+            margin-top:32px;
+        }
+
+        .tag {
+            padding:10px 15px;
+            border:1px solid rgba(255,255,255,.14);
+            background:rgba(255,255,255,.05);
+            border-radius:100px;
+            font-size:10px;
+            letter-spacing:1px;
+            color:#D9E2EE;
+        }
+
+        .brain {
+            position:relative;
+            width:min(430px,80vw);
+            height:430px;
+            margin:auto;
+            border-radius:45px;
+            border:1px solid rgba(255,255,255,.13);
+            background:rgba(255,255,255,.045);
+            backdrop-filter:blur(18px);
+            box-shadow:0 30px 90px rgba(0,0,0,.35);
+            overflow:hidden;
+            animation:visual .8s .15s ease both;
+        }
+
+        .brain-center {
+            position:absolute;
+            width:155px;
+            height:155px;
+            left:50%;
+            top:50%;
+            transform:translate(-50%,-50%);
+            border-radius:50%;
+            background:
+                radial-gradient(
+                    circle at 35% 30%,
+                    #D9D1FF,
+                    #7257D9 42%,
+                    #2364AA 72%
+                );
+            box-shadow:
+                0 0 80px rgba(114,87,217,.75);
+        }
+
+        .brain-center::after {
+            content:"ML";
+            position:absolute;
+            inset:0;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-size:45px;
+            font-weight:800;
+            color:white;
+        }
+
+        .point {
+            position:absolute;
+            width:16px;
+            height:16px;
+            border-radius:50%;
+            background:#fff;
+            box-shadow:0 0 25px #9A82FF;
+        }
+
+        .point:nth-child(1) {
+            left:16%;
+            top:24%;
+        }
+
+        .point:nth-child(2) {
+            right:16%;
+            top:24%;
+        }
+
+        .point:nth-child(3) {
+            left:13%;
+            bottom:22%;
+        }
+
+        .point:nth-child(4) {
+            right:14%;
+            bottom:20%;
+        }
+
+        .information {
+            padding:130px 6vw;
+            background:#fff;
+        }
+
+        .header {
+            width:min(1000px,90vw);
+            margin:0 auto 65px;
+        }
+
+        .header h2 {
+            margin-top:18px;
+            font-size:clamp(43px,6vw,78px);
+            line-height:.95;
+            letter-spacing:-4px;
+        }
+
+        .header p {
+            max-width:730px;
+            margin-top:25px;
+            color:var(--muted);
+            line-height:1.85;
+        }
+
+        .grid {
+            width:min(1100px,90vw);
+            margin:auto;
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:24px;
+        }
+
+        .card {
+            min-height:250px;
+            padding:35px;
+            border-radius:28px;
+            background:
+                linear-gradient(
+                    145deg,
+                    #fff,
+                    #F5F5FA
+                );
+            border:1px solid rgba(114,87,217,.09);
+            box-shadow:0 18px 55px rgba(15,20,45,.07);
+            opacity:0;
+            transform:translateY(22px);
+            transition:
+                opacity .5s ease,
+                transform .5s ease,
+                box-shadow .3s ease;
+        }
+
+        .card.show {
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        .card:hover {
+            transform:translateY(-7px);
+            box-shadow:0 28px 65px rgba(15,20,45,.13);
+        }
+
+        .card h3 {
+            font-size:25px;
+            margin-bottom:18px;
+        }
+
+        .card p {
+            color:var(--muted);
+            line-height:1.8;
+            font-size:15px;
+        }
+
+        .skills {
+            display:flex;
+            flex-wrap:wrap;
+            gap:9px;
+            margin-top:20px;
+        }
+
+        .skill {
+            padding:9px 13px;
+            border-radius:100px;
+            background:#F0EDFF;
+            color:#604AC3;
+            font-size:11px;
+            font-weight:700;
+        }
+
+        .skill:nth-child(even) {
+            background:#FCEBF3;
+            color:#A52D60;
+        }
+
+        .difference {
+            padding:130px 6vw;
+            background:
+                linear-gradient(
+                    135deg,
+                    #080D1D,
+                    #151E3C
+                );
+            color:white;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .difference::after {
+            content:"MACHINE";
+            position:absolute;
+            right:-50px;
+            bottom:-70px;
+            font-family:"Space Grotesk";
+            font-size:180px;
+            font-weight:800;
+            color:rgba(255,255,255,.025);
+        }
+
+        .difference-inner {
+            width:min(1100px,90vw);
+            margin:auto;
+            position:relative;
+            z-index:2;
+        }
+
+        .difference h2 {
+            max-width:900px;
+            margin:20px 0 30px;
+            font-size:clamp(44px,6vw,80px);
+            line-height:.95;
+            letter-spacing:-4px;
+        }
+
+        .difference h2 span {
+            color:#9A82FF;
+        }
+
+        .difference p {
+            max-width:770px;
+            color:#B9C4D5;
+            line-height:1.9;
+        }
+
+        .line {
+            width:90px;
+            height:4px;
+            margin:30px 0;
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--blue),
+                    var(--pink)
+                );
+        }
+
+        .footer {
+            padding:65px;
+            text-align:center;
+            background:#fff;
+        }
+
+        .back {
+            display:inline-flex;
+            padding:16px 25px;
+            border-radius:100px;
+            border:1px solid rgba(16,24,32,.12);
+            color:#26343D;
+            text-decoration:none;
+            font-size:11px;
+            font-weight:800;
+            letter-spacing:1px;
+            transition:.3s;
+        }
+
+        .back:hover {
+            color:#fff;
+            background:var(--blue);
+            transform:translateY(-3px);
+        }
+
+        @keyframes appear {
+            from {
+                opacity:0;
+                transform:translateY(25px);
+            }
+            to {
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        @keyframes visual {
+            from {
+                opacity:0;
+                transform:translateX(30px);
+            }
+            to {
+                opacity:1;
+                transform:translateX(0);
+            }
+        }
+
+        @media(max-width:800px) {
+            .hero-content {
+                grid-template-columns:1fr;
+                padding:100px 0;
+            }
+
+            .grid {
+                grid-template-columns:1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div>
+
+                    <div class="eyebrow">
+                        DIO · BOOTCAMP 003
+                    </div>
+
+                    <h1>
+                        BairesDev
+                        <span>Machine Learning</span>
+                    </h1>
+
+                    <p class="description">
+                        Uma experiência de aprendizagem voltada
+                        aos fundamentos de Machine Learning,
+                        explorando conceitos essenciais para
+                        compreender como máquinas podem aprender
+                        a partir de dados.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            MACHINE LEARNING
+                        </span>
+
+                        <span class="tag">
+                            DADOS
+                        </span>
+
+                        <span class="tag">
+                            IA
+                        </span>
+
+                        <span class="tag">
+                            PYTHON
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="brain">
+
+                    <div class="point"></div>
+                    <div class="point"></div>
+                    <div class="point"></div>
+                    <div class="point"></div>
+
+                    <div class="brain-center"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="information">
+
+            <div class="header">
+
+                <div class="section-label">
+                    SOBRE O BOOTCAMP
+                </div>
+
+                <h2>
+                    Dados que
+                    aprendem.
+                </h2>
+
+                <p>
+                    Machine Learning representa uma das principais
+                    áreas da Inteligência Artificial, permitindo
+                    construir sistemas capazes de identificar
+                    padrões e gerar previsões a partir de dados.
+                </p>
+
+            </div>
+
+
+            <div class="grid">
+
+                <article class="card">
+
+                    <h3>
+                        O que é?
+                    </h3>
+
+                    <p>
+                        Uma formação direcionada aos fundamentos
+                        de aprendizado de máquina, apresentando
+                        conceitos que ajudam a compreender o ciclo
+                        de construção de soluções baseadas em dados.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Conceitos
+                    </h3>
+
+                    <div class="skills">
+
+                        <span class="skill">
+                            Dados
+                        </span>
+
+                        <span class="skill">
+                            Algoritmos
+                        </span>
+
+                        <span class="skill">
+                            Modelos
+                        </span>
+
+                        <span class="skill">
+                            Treinamento
+                        </span>
+
+                        <span class="skill">
+                            Predição
+                        </span>
+
+                        <span class="skill">
+                            Python
+                        </span>
+
+                    </div>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Como funciona?
+                    </h3>
+
+                    <p>
+                        O aprendizado de máquina utiliza dados para
+                        identificar padrões e construir modelos que
+                        podem ser utilizados posteriormente em
+                        análises, classificações e previsões.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Aplicações
+                    </h3>
+
+                    <p>
+                        Os conceitos estudados podem aparecer em
+                        sistemas de recomendação, análise de dados,
+                        automação, reconhecimento de padrões e
+                        diversas outras soluções inteligentes.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <section class="difference">
+
+            <div class="difference-inner">
+
+                <div class="section-label">
+                    DIFERENCIAL
+                </div>
+
+                <h2>
+                    Transformar
+                    <span>dados</span>
+                    em inteligência.
+                </h2>
+
+                <div class="line"></div>
+
+                <p>
+                    O diferencial está na aproximação entre
+                    programação, dados e Inteligência Artificial.
+                    Em vez de tratar Machine Learning como uma
+                    tecnologia isolada, a formação permite enxergar
+                    a relação entre dados, modelos e problemas reais.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <footer class="footer">
+
+            <a
+               href="../dio.html?skipIntro=1"
+                class="back"
+            >
+                ← VOLTAR PARA DIO
+            </a>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        const cards =
+            document.querySelectorAll(".card");
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(
+                        (entry,index) => {
+
+                            if(
+                                entry.isIntersecting
+                            ){
+
+                                setTimeout(
+                                    () => {
+
+                                        entry.target.classList.add(
+                                            "show"
+                                        );
+
+                                    },
+                                    index * 70
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold:.12
+                }
+            );
+
+        cards.forEach(
+            card => observer.observe(card)
+        );
+
+    </script>
+
+</body>
+
+</html>

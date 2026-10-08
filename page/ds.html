@@ -1,0 +1,2216 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>SENAC | Desenvolvimento de Sistemas</title>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&display=swap"
+    rel="stylesheet"
+>
+<link rel="icon" href="../faviconsenac.jpg">
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
+:root{
+
+    --senac-blue:#1A6CB0;
+    --senac-blue-dark:#073B69;
+    --senac-blue-deep:#062A4B;
+
+    --senac-orange:#E09F3E;
+    --senac-orange-dark:#C98027;
+
+    --paper:#FCFCFA;
+    --white:#FFFFFF;
+
+    --ink:#101820;
+    --gray:#65727B;
+    --gray-light:#9AA5AC;
+
+    --line:#DDE5EB;
+
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+
+    margin:0;
+    padding:0;
+
+    box-sizing:border-box;
+
+}
+
+
+html{
+
+    scroll-behavior:smooth;
+
+}
+
+
+body{
+
+    min-height:100vh;
+
+    overflow-x:hidden;
+
+    color:var(--ink);
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    background:
+
+        radial-gradient(
+            circle at 8% 12%,
+            rgba(26,108,176,.12),
+            transparent 27%
+        ),
+
+        radial-gradient(
+            circle at 92% 86%,
+            rgba(224,159,62,.13),
+            transparent 28%
+        ),
+
+        #E8EDF1;
+
+}
+
+
+/* =========================================================
+   FUNDO DECORATIVO
+========================================================= */
+
+body::before{
+
+    content:"";
+
+    position:fixed;
+
+    width:520px;
+    height:520px;
+
+    top:-300px;
+    right:-260px;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            145deg,
+            var(--senac-blue),
+            var(--senac-orange)
+        );
+
+    opacity:.12;
+
+    pointer-events:none;
+
+}
+
+
+body::after{
+
+    content:"";
+
+    position:fixed;
+
+    width:300px;
+    height:300px;
+
+    left:-170px;
+    bottom:-170px;
+
+    border-radius:50%;
+
+    border:
+        55px solid
+        var(--senac-blue);
+
+    opacity:.07;
+
+    pointer-events:none;
+
+}
+
+
+/* =========================================================
+   CARTA
+========================================================= */
+
+.page{
+
+    position:relative;
+
+    width:min(
+        1240px,
+        calc(100% - 42px)
+    );
+
+    margin:21px auto;
+
+    overflow:hidden;
+
+    background:var(--paper);
+
+    box-shadow:
+        0 35px 90px
+        rgba(20,40,55,.18);
+
+}
+
+
+/* =========================================================
+   CABEÇALHO
+========================================================= */
+
+.header{
+
+    position:relative;
+
+    min-height:460px;
+
+    padding:
+        44px
+        clamp(30px,6vw,85px)
+        70px;
+
+    overflow:hidden;
+
+    color:#fff;
+
+    background:
+
+        linear-gradient(
+            120deg,
+            #062A4B 0%,
+            #073B69 34%,
+            #1A6CB0 74%,
+            #347FAF 100%
+        );
+
+}
+
+
+/* linhas decorativas */
+
+.header::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:540px;
+    height:540px;
+
+    right:-245px;
+    top:-285px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.25);
+
+    box-shadow:
+
+        0 0 0 32px
+        rgba(255,255,255,.035),
+
+        0 0 0 70px
+        rgba(255,255,255,.025);
+
+}
+
+
+.header::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    left:-80px;
+    bottom:-85px;
+
+    border-radius:50%;
+
+    background:
+        rgba(224,159,62,.22);
+
+}
+
+
+/* =========================================================
+   TOPO
+========================================================= */
+
+.headerTop{
+
+    position:relative;
+
+    z-index:5;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+}
+
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+}
+
+
+.brandLogo{
+
+    width:58px;
+    height:58px;
+
+    padding:9px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.12);
+
+}
+
+
+.brandLogo img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+}
+
+
+.brandText{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+
+.brandText strong{
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:15px;
+
+    letter-spacing:2px;
+
+}
+
+
+.brandText span{
+
+    font-size:8px;
+
+    letter-spacing:3px;
+
+    opacity:.62;
+
+}
+
+
+.backButton{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:
+        12px 19px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.28);
+
+    border-radius:50px;
+
+    color:#fff;
+
+    background:
+        rgba(255,255,255,.07);
+
+    text-decoration:none;
+
+    font-size:9px;
+
+    letter-spacing:2px;
+
+    transition:
+        .25s ease;
+
+}
+
+
+.backButton:hover{
+
+    background:
+        rgba(255,255,255,.17);
+
+    border-color:
+        rgba(255,255,255,.55);
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.headerContent{
+
+    position:relative;
+
+    z-index:4;
+
+    max-width:900px;
+
+    margin-top:88px;
+
+}
+
+
+.eyebrow{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:13px;
+
+    margin-bottom:25px;
+
+    color:#BFDDF3;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:9px;
+
+    letter-spacing:4px;
+
+}
+
+
+.eyebrow::before{
+
+    content:"";
+
+    width:40px;
+    height:2px;
+
+    background:
+        var(--senac-orange);
+
+}
+
+
+.header h1{
+
+    max-width:850px;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:
+        clamp(43px,7vw,88px);
+
+    font-weight:700;
+
+    line-height:.91;
+
+    letter-spacing:-4px;
+
+}
+
+
+.headerDescription{
+
+    max-width:650px;
+
+    margin-top:30px;
+
+    color:#DCECF7;
+
+    font-size:15px;
+
+    line-height:1.85;
+
+}
+
+
+.headerNumber{
+
+    position:absolute;
+
+    z-index:4;
+
+    right:55px;
+    bottom:38px;
+
+    color:
+        rgba(255,255,255,.48);
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:8px;
+
+    letter-spacing:4px;
+
+}
+
+
+/* =========================================================
+   CONTEÚDO
+========================================================= */
+
+.content{
+
+    padding:
+        92px
+        clamp(30px,7vw,95px)
+        105px;
+
+}
+
+
+/* =========================================================
+   ENTRADA
+========================================================= */
+
+.animate{
+
+    opacity:0;
+
+    transform:
+        translateY(16px);
+
+    animation:
+        reveal .48s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+
+}
+
+
+.delay1{
+    animation-delay:.04s;
+}
+
+.delay2{
+    animation-delay:.08s;
+}
+
+.delay3{
+    animation-delay:.12s;
+}
+
+.delay4{
+    animation-delay:.16s;
+}
+
+
+@keyframes reveal{
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   SEÇÕES
+========================================================= */
+
+.section{
+
+    margin-bottom:105px;
+
+}
+
+
+.sectionHeader{
+
+    display:grid;
+
+    grid-template-columns:
+        95px
+        1fr;
+
+    gap:30px;
+
+    margin-bottom:42px;
+
+}
+
+
+.sectionIndex{
+
+    padding-top:8px;
+
+    color:
+        var(--senac-blue);
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:10px;
+
+    letter-spacing:3px;
+
+}
+
+
+.sectionTitle h2{
+
+    max-width:800px;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:
+        clamp(32px,5vw,58px);
+
+    line-height:.96;
+
+    letter-spacing:-2px;
+
+}
+
+
+.sectionTitle p{
+
+    max-width:670px;
+
+    margin-top:19px;
+
+    color:var(--gray);
+
+    font-size:14px;
+
+    line-height:1.85;
+
+}
+
+
+/* =========================================================
+   CARTA
+========================================================= */
+
+.letter{
+
+    position:relative;
+
+    padding:
+        58px
+        clamp(28px,6vw,70px);
+
+    border:
+        1px solid var(--line);
+
+    background:#fff;
+
+    box-shadow:
+
+        12px 14px 0
+        rgba(26,108,176,.055),
+
+        0 20px 50px
+        rgba(30,55,70,.05);
+
+}
+
+
+.letter::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:0;
+    bottom:0;
+
+    width:5px;
+
+    background:
+        linear-gradient(
+            180deg,
+            var(--senac-blue),
+            var(--senac-orange)
+        );
+
+}
+
+
+.letter::after{
+
+    content:"SENAC / DS";
+
+    position:absolute;
+
+    top:26px;
+    right:28px;
+
+    color:#B5BEC5;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:7px;
+
+    letter-spacing:3px;
+
+}
+
+
+.letter p{
+
+    color:#4E5A62;
+
+    font-size:15px;
+
+    line-height:2;
+
+}
+
+
+.letter p + p{
+
+    margin-top:23px;
+
+}
+
+
+.letter strong{
+
+    color:
+        var(--senac-blue-dark);
+
+}
+
+
+/* =========================================================
+   PROCESSO
+========================================================= */
+
+.process{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:1px;
+
+    overflow:hidden;
+
+    border:
+        1px solid var(--line);
+
+    background:
+        var(--line);
+
+}
+
+
+.processItem{
+
+    position:relative;
+
+    min-height:235px;
+
+    padding:32px 29px;
+
+    background:#fff;
+
+    transition:
+        background .3s ease;
+
+}
+
+
+.processItem:hover{
+
+    background:
+        #F5F9FC;
+
+}
+
+
+.processNumber{
+
+    display:block;
+
+    margin-bottom:55px;
+
+    color:
+        var(--senac-orange);
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:8px;
+
+    letter-spacing:3px;
+
+}
+
+
+.processItem h3{
+
+    margin-bottom:12px;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:20px;
+
+}
+
+
+.processItem p{
+
+    color:var(--gray);
+
+    font-size:12px;
+
+    line-height:1.8;
+
+}
+
+
+/* =========================================================
+   VISÃO SENAC
+========================================================= */
+
+.senacView{
+
+    display:grid;
+
+    grid-template-columns:
+        1.15fr .85fr;
+
+    gap:22px;
+
+}
+
+
+.viewCard{
+
+    position:relative;
+
+    min-height:285px;
+
+    padding:38px;
+
+    overflow:hidden;
+
+    color:#fff;
+
+}
+
+
+.viewCard.blue{
+
+    background:
+        linear-gradient(
+            140deg,
+            #062A4B,
+            #1A6CB0
+        );
+
+}
+
+
+.viewCard.orange{
+
+    background:
+        linear-gradient(
+            140deg,
+            #C98027,
+            #E09F3E
+        );
+
+}
+
+
+.viewCard::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:190px;
+    height:190px;
+
+    right:-90px;
+    bottom:-90px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.28);
+
+    box-shadow:
+        0 0 0 28px
+        rgba(255,255,255,.035);
+
+}
+
+
+.viewCard small{
+
+    display:block;
+
+    margin-bottom:48px;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:8px;
+
+    letter-spacing:3px;
+
+    opacity:.66;
+
+}
+
+
+.viewCard h3{
+
+    max-width:470px;
+
+    margin-bottom:16px;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:26px;
+
+    line-height:1.1;
+
+}
+
+
+.viewCard p{
+
+    max-width:480px;
+
+    font-size:13px;
+
+    line-height:1.85;
+
+    opacity:.82;
+
+}
+
+
+/* =========================================================
+   COMPONENTES
+========================================================= */
+
+.components{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    border-top:
+        1px solid var(--line);
+
+}
+
+
+.component{
+
+    position:relative;
+
+    min-height:155px;
+
+    padding:31px;
+
+    border-bottom:
+        1px solid var(--line);
+
+}
+
+
+.component:nth-child(odd){
+
+    border-right:
+        1px solid var(--line);
+
+}
+
+
+.component::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:20px;
+    bottom:20px;
+
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:
+        var(--senac-orange);
+
+    opacity:.6;
+
+}
+
+
+.component span{
+
+    display:block;
+
+    margin-bottom:18px;
+
+    color:
+        var(--senac-blue);
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:8px;
+
+    letter-spacing:3px;
+
+}
+
+
+.component h3{
+
+    margin-bottom:10px;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:19px;
+
+}
+
+
+.component p{
+
+    color:var(--gray);
+
+    font-size:12px;
+
+    line-height:1.75;
+
+}
+
+
+/* =========================================================
+   FERRAMENTAS
+========================================================= */
+
+.tools{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:20px;
+
+}
+
+
+.tool{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:24px;
+
+    padding:25px;
+
+    border:
+        1px solid var(--line);
+
+    background:#fff;
+
+    box-shadow:
+        0 10px 25px
+        rgba(20,50,70,.035);
+
+    transition:
+        .3s ease;
+
+}
+
+
+.tool:hover{
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 20px 40px
+        rgba(20,50,70,.09);
+
+}
+
+
+.toolLogo{
+
+    width:78px;
+    height:78px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:19px;
+
+    background:
+        var(--senac-blue-soft);
+
+    background:
+        #EAF4FC;
+
+}
+
+
+.toolLogo img{
+
+    width:52px;
+    height:52px;
+
+    object-fit:contain;
+
+}
+
+
+.toolInfo h3{
+
+    margin-bottom:7px;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:21px;
+
+}
+
+
+.toolInfo p{
+
+    color:var(--gray);
+
+    font-size:11px;
+
+    line-height:1.65;
+
+}
+
+
+/* =========================================================
+   DIFERENCIAL
+========================================================= */
+
+.differential{
+
+    position:relative;
+
+    padding:
+        60px;
+
+    overflow:hidden;
+
+    color:#fff;
+
+    background:
+        linear-gradient(
+            130deg,
+            #062A4B,
+            #073B69 42%,
+            #1A6CB0 100%
+        );
+
+    box-shadow:
+        14px 16px 0
+        rgba(224,159,62,.11);
+
+}
+
+
+.differential::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:430px;
+    height:430px;
+
+    right:-205px;
+    top:-205px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,.21);
+
+    box-shadow:
+
+        0 0 0 35px
+        rgba(255,255,255,.025),
+
+        0 0 0 75px
+        rgba(255,255,255,.018);
+
+}
+
+
+.differentialLabel{
+
+    display:block;
+
+    margin-bottom:35px;
+
+    color:#A9D0E9;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:8px;
+
+    letter-spacing:4px;
+
+}
+
+
+.differential h2{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:850px;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:
+        clamp(31px,5vw,57px);
+
+    line-height:1;
+
+    letter-spacing:-2px;
+
+}
+
+
+.differential p{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:750px;
+
+    margin-top:27px;
+
+    color:#C9DDEB;
+
+    font-size:14px;
+
+    line-height:1.9;
+
+}
+
+
+/* =========================================================
+   ASSINATURA
+========================================================= */
+
+.signature{
+
+    display:flex;
+
+    align-items:flex-end;
+
+    justify-content:space-between;
+
+    gap:30px;
+
+    padding-top:60px;
+
+    border-top:
+        1px solid var(--line);
+
+}
+
+
+.signatureText small{
+
+    display:block;
+
+    margin-bottom:12px;
+
+    color:#87939B;
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:7px;
+
+    letter-spacing:3px;
+
+}
+
+
+.signatureText strong{
+
+    font-family:
+        "Goldman",
+        sans-serif;
+
+    font-size:22px;
+
+}
+
+
+.signatureMark{
+
+    width:76px;
+    height:76px;
+
+    padding:12px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:50%;
+
+    background:#fff;
+
+}
+
+
+.signatureMark img{
+
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+}
+
+
+/* =========================================================
+   RESPONSIVO
+========================================================= */
+
+@media(max-width:800px){
+
+    .page{
+
+        width:
+            calc(100% - 20px);
+
+        margin:10px auto;
+
+    }
+
+
+    .header{
+
+        min-height:510px;
+
+        padding:
+            30px
+            25px
+            50px;
+
+    }
+
+
+    .headerContent{
+
+        margin-top:78px;
+
+    }
+
+
+    .header h1{
+
+        letter-spacing:-3px;
+
+    }
+
+
+    .content{
+
+        padding:
+            65px
+            22px
+            75px;
+
+    }
+
+
+    .sectionHeader{
+
+        grid-template-columns:1fr;
+
+        gap:12px;
+
+    }
+
+
+    .process{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .senacView{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .components{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .component:nth-child(odd){
+
+        border-right:0;
+
+    }
+
+
+    .tools{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .differential{
+
+        padding:40px 28px;
+
+    }
+
+}
+
+
+@media(max-width:500px){
+
+    .brandText{
+
+        display:none;
+
+    }
+
+
+    .header h1{
+
+        font-size:43px;
+
+    }
+
+
+    .letter{
+
+        padding:
+            42px 28px;
+
+    }
+
+
+    .tool{
+
+        padding:20px;
+
+    }
+
+
+    .toolLogo{
+
+        width:62px;
+        height:62px;
+
+    }
+
+
+    .toolLogo img{
+
+        width:42px;
+        height:42px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<main class="page">
+
+
+<header class="header">
+
+    <div class="headerTop animate">
+
+        <div class="brand">
+
+            <div class="brandLogo">
+
+                <img
+                    src="../img/logos/senac.png"
+                    alt="SENAC"
+                >
+
+            </div>
+
+            <div class="brandText">
+
+                <strong>SENAC</strong>
+
+                <span>COURSES A-Z</span>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="../senac.html?skipIntro=1"
+            class="backButton"
+        >
+
+            ← VOLTAR
+
+        </a>
+
+    </div>
+
+
+    <div class="headerContent">
+
+        <div class="eyebrow animate delay1">
+
+            FORMAÇÃO · 001
+
+        </div>
+
+
+        <h1 class="animate delay2">
+
+            Desenvolvimento
+            de Sistemas
+
+        </h1>
+
+
+        <p class="headerDescription animate delay3">
+
+            Uma formação voltada à construção de sistemas,
+            aplicações e soluções digitais, conectando
+            lógica, tecnologia, desenvolvimento e resolução
+            de problemas.
+
+        </p>
+
+    </div>
+
+
+    <span class="headerNumber">
+
+        SENAC / DS / 001
+
+    </span>
+
+</header>
+
+
+<div class="content">
+
+
+<section class="section">
+
+    <div class="sectionHeader animate">
+
+        <span class="sectionIndex">
+            01
+        </span>
+
+        <div class="sectionTitle">
+
+            <h2>
+                O que é o curso?
+            </h2>
+
+            <p>
+                Uma formação construída para compreender
+                o processo de desenvolvimento de sistemas
+                desde a lógica inicial até a construção
+                de aplicações.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="letter animate delay1">
+
+        <p>
+            O curso de
+            <strong>Desenvolvimento de Sistemas</strong>
+            trabalha a formação necessária para compreender
+            como sistemas são planejados, estruturados,
+            desenvolvidos e utilizados.
+        </p>
+
+
+        <p>
+            Na minha trajetória, ele representa principalmente
+            a aproximação entre tecnologia e resolução de
+            problemas: transformar uma necessidade em uma
+            solução que possa ser estruturada por meio de
+            código, dados e ferramentas digitais.
+        </p>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="sectionHeader animate">
+
+        <span class="sectionIndex">
+            02
+        </span>
+
+        <div class="sectionTitle">
+
+            <h2>
+                Como funciona
+            </h2>
+
+            <p>
+                O aprendizado passa por diferentes etapas
+                que se complementam durante a formação.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="process animate delay1">
+
+        <article class="processItem">
+
+            <span class="processNumber">
+                ETAPA / 01
+            </span>
+
+            <h3>
+                Lógica
+            </h3>
+
+            <p>
+                Desenvolvimento do raciocínio necessário
+                para compreender problemas e estruturar
+                soluções.
+            </p>
+
+        </article>
+
+
+        <article class="processItem">
+
+            <span class="processNumber">
+                ETAPA / 02
+            </span>
+
+            <h3>
+                Desenvolvimento
+            </h3>
+
+            <p>
+                Aplicação da lógica na construção de
+                sistemas e soluções utilizando diferentes
+                tecnologias.
+            </p>
+
+        </article>
+
+
+        <article class="processItem">
+
+            <span class="processNumber">
+                ETAPA / 03
+            </span>
+
+            <h3>
+                Projeto
+            </h3>
+
+            <p>
+                Organização dos conhecimentos para construir
+                soluções que representem situações práticas.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="sectionHeader animate">
+
+        <span class="sectionIndex">
+            03
+        </span>
+
+        <div class="sectionTitle">
+
+            <h2>
+                O curso no SENAC
+            </h2>
+
+            <p>
+                Minha visão sobre como a formação se conecta
+                com a prática.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="senacView">
+
+        <article class="viewCard blue animate delay1">
+
+            <small>
+                MINHA VISÃO / 01
+            </small>
+
+            <h3>
+                Tecnologia aplicada
+            </h3>
+
+            <p>
+                A formação não fica limitada à ideia de
+                aprender uma linguagem. O conhecimento
+                tecnológico passa a ser uma ferramenta para
+                construir soluções.
+            </p>
+
+        </article>
+
+
+        <article class="viewCard orange animate delay2">
+
+            <small>
+                MINHA VISÃO / 02
+            </small>
+
+            <h3>
+                Resolução de problemas
+            </h3>
+
+            <p>
+                O desenvolvimento passa a ser observado
+                como um processo de análise, planejamento,
+                construção e melhoria de uma solução.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="sectionHeader animate">
+
+        <span class="sectionIndex">
+            04
+        </span>
+
+        <div class="sectionTitle">
+
+            <h2>
+                Componentes
+            </h2>
+
+            <p>
+                Alguns dos conhecimentos que formam a base
+                dessa área.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="components animate delay1">
+
+        <article class="component">
+
+            <span>BASE</span>
+
+            <h3>
+                Lógica de programação
+            </h3>
+
+            <p>
+                Estruturação do raciocínio para criação
+                de soluções computacionais.
+            </p>
+
+        </article>
+
+
+        <article class="component">
+
+            <span>DESENVOLVIMENTO</span>
+
+            <h3>
+                Construção de sistemas
+            </h3>
+
+            <p>
+                Organização de estruturas e funcionalidades
+                para aplicações.
+            </p>
+
+        </article>
+
+
+        <article class="component">
+
+            <span>WEB</span>
+
+            <h3>
+                Tecnologias digitais
+            </h3>
+
+            <p>
+                Utilização de tecnologias voltadas à
+                construção de soluções digitais.
+            </p>
+
+        </article>
+
+
+        <article class="component">
+
+            <span>PROJETO</span>
+
+            <h3>
+                Análise e solução
+            </h3>
+
+            <p>
+                Compreensão de problemas e transformação
+                deles em soluções estruturadas.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="sectionHeader animate">
+
+        <span class="sectionIndex">
+            05
+        </span>
+
+        <div class="sectionTitle">
+
+            <h2>
+                Linguagens
+                & ferramentas
+            </h2>
+
+            <p>
+                Duas tecnologias que representam parte
+                importante da área de desenvolvimento.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="tools">
+
+        <article class="tool animate delay1">
+
+            <div class="toolLogo">
+
+                <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"
+                    alt="Python"
+                >
+
+            </div>
+
+
+            <div class="toolInfo">
+
+                <h3>
+                    Python
+                </h3>
+
+                <p>
+                    Linguagem utilizada para desenvolvimento
+                    de aplicações, automação e diferentes
+                    soluções computacionais.
+                </p>
+
+            </div>
+
+        </article>
+
+
+        <article class="tool animate delay2">
+
+            <div class="toolLogo">
+
+                <img
+                    src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg"
+                    alt="Java"
+                >
+
+            </div>
+
+
+            <div class="toolInfo">
+
+                <h3>
+                    Java
+                </h3>
+
+                <p>
+                    Linguagem utilizada na construção de
+                    aplicações e sistemas de diferentes
+                    escalas.
+                </p>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<section class="section">
+
+    <div class="differential animate">
+
+        <span class="differentialLabel">
+            DIFERENCIAL / SENAC
+        </span>
+
+        <h2>
+            Conhecimento técnico
+            conectado à prática.
+        </h2>
+
+        <p>
+            Na minha visão, o diferencial está em trabalhar
+            o desenvolvimento como uma competência aplicada:
+            compreender o problema, organizar a solução,
+            utilizar a tecnologia adequada e transformar
+            conhecimento em algo funcional.
+        </p>
+
+    </div>
+
+</section>
+
+
+<div class="signature animate">
+
+    <div class="signatureText">
+
+        <small>
+            REGISTRO DA TRAJETÓRIA
+        </small>
+
+        <strong>
+            Desenvolvimento de Sistemas
+        </strong>
+
+    </div>
+
+
+    <div class="signatureMark">
+
+        <img
+            src="../img/logos/senac.png"
+            alt="SENAC"
+        >
+
+    </div>
+
+</div>
+
+
+</div>
+
+</main>
+
+
+<script>
+
+<script>
+
+/* =========================================================
+   ENTRADA RÁPIDA DOS ELEMENTOS
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        const elements =
+            document.querySelectorAll(
+                ".animate"
+            );
+
+        elements.forEach(
+            (element, index) => {
+
+                const delay =
+                    Math.min(
+                        index * 28,
+                        220
+                    );
+
+                element.style.animationDelay =
+                    `${delay}ms`;
+
+            }
+        );
+
+    }
+);
+
+
+/* =========================================================
+   VOLTAR PARA A PÁGINA DA INSTITUIÇÃO
+========================================================= */
+
+const backButton =
+    document.querySelector(
+        ".backButton"
+    );
+
+
+if(backButton){
+
+    backButton.addEventListener(
+        "click",
+        (event) => {
+
+            event.preventDefault();
+
+            document.body.style.transition =
+                "opacity .3s ease";
+
+            document.body.style.opacity =
+                "0";
+
+
+            setTimeout(
+                () => {
+
+                    window.location.href =
+                        "../senac.html?skipIntro=1";
+
+                },
+                300
+            );
+
+        }
+    );
+
+}
+
+</script>
+
+
+/* =========================================================
+   VOLTAR PARA SENAC
+========================================================= */
+
+const backButton =
+    document.querySelector(
+        ".backButton"
+    );
+
+
+if(backButton){
+
+    backButton.addEventListener(
+        "click",
+        (event) => {
+
+            event.preventDefault();
+
+            sessionStorage.setItem(
+                "skipSenacIntro",
+                "true"
+            );
+
+            document.body.style.transition =
+                "opacity .3s ease";
+
+            document.body.style.opacity =
+                "0";
+
+            setTimeout(
+                () => {
+
+                    window.location.href =
+                        "../senac.html?skipIntro=1";
+
+                },
+                300
+            );
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+
+</html>

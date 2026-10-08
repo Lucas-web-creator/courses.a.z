@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nublify IA e Cloud | DIO</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+    <link rel="icon" href="../favicondio.jpg">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --blue:#2364AA;
+            --pink:#B8336A;
+            --cyan:#67C7FF;
+            --dark:#06131F;
+            --text:#16232D;
+            --muted:#687781;
+            --light:#F4F8FB;
+        }
+
+        * {
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html {
+            scroll-behavior:smooth;
+        }
+
+        body {
+            font-family:"Manrope",sans-serif;
+            color:var(--text);
+            background:var(--light);
+            overflow-x:hidden;
+        }
+
+        h1,h2,h3 {
+            font-family:"Space Grotesk",sans-serif;
+        }
+
+        .hero {
+            min-height:100vh;
+            position:relative;
+            overflow:hidden;
+            display:flex;
+            align-items:center;
+            background:
+                radial-gradient(
+                    circle at 75% 20%,
+                    rgba(103,199,255,.32),
+                    transparent 25%
+                ),
+                linear-gradient(
+                    135deg,
+                    #04111B,
+                    #0D2944 55%,
+                    #2364AA
+                );
+            color:white;
+        }
+
+        .hero::before {
+            content:"";
+            position:absolute;
+            inset:0;
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent 0 49%,
+                    rgba(255,255,255,.05) 50%,
+                    transparent 51%
+                ),
+                linear-gradient(
+                    0deg,
+                    transparent 0 49%,
+                    rgba(255,255,255,.04) 50%,
+                    transparent 51%
+                );
+            background-size:80px 80px;
+            mask-image:linear-gradient(
+                90deg,
+                transparent,
+                black,
+                transparent
+            );
+            opacity:.4;
+        }
+
+        .hero-content {
+            position:relative;
+            z-index:2;
+            width:min(1160px,88vw);
+            margin:auto;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:80px;
+            align-items:center;
+        }
+
+        .eyebrow,
+        .section-label {
+            color:#8FD8FF;
+            font-size:10px;
+            font-weight:800;
+            letter-spacing:4px;
+        }
+
+        .eyebrow {
+            margin-bottom:25px;
+        }
+
+        h1 {
+            font-size:clamp(55px,7vw,100px);
+            line-height:.9;
+            letter-spacing:-6px;
+            margin-bottom:30px;
+            animation:up .65s ease both;
+        }
+
+        h1 span {
+            color:var(--cyan);
+        }
+
+        .intro {
+            color:#C4D5E1;
+            line-height:1.85;
+            max-width:620px;
+            animation:up .7s .1s ease both;
+        }
+
+        .tags {
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            margin-top:30px;
+        }
+
+        .tag {
+            padding:10px 15px;
+            border:1px solid rgba(255,255,255,.15);
+            border-radius:100px;
+            background:rgba(255,255,255,.05);
+            font-size:10px;
+            letter-spacing:1px;
+            color:#DCEBF5;
+        }
+
+        .visual {
+            min-height:470px;
+            position:relative;
+            border-radius:38px;
+            border:1px solid rgba(255,255,255,.15);
+            background:rgba(255,255,255,.05);
+            backdrop-filter:blur(18px);
+            overflow:hidden;
+            animation:visual .8s .15s ease both;
+        }
+
+        .cloud {
+            position:absolute;
+            width:220px;
+            height:135px;
+            left:50%;
+            top:43%;
+            transform:translate(-50%,-50%);
+            border-radius:100px;
+            background:
+                linear-gradient(
+                    135deg,
+                    #BFEAFF,
+                    #4B9DDA
+                );
+            box-shadow:
+                0 0 80px rgba(103,199,255,.6);
+        }
+
+        .cloud::before,
+        .cloud::after {
+            content:"";
+            position:absolute;
+            border-radius:50%;
+            background:#A9E2FF;
+        }
+
+        .cloud::before {
+            width:120px;
+            height:120px;
+            left:30px;
+            top:-65px;
+        }
+
+        .cloud::after {
+            width:100px;
+            height:100px;
+            right:30px;
+            top:-48px;
+        }
+
+        .node {
+            position:absolute;
+            width:18px;
+            height:18px;
+            border-radius:50%;
+            background:#fff;
+            box-shadow:
+                0 0 25px #67C7FF;
+        }
+
+        .node:nth-child(1) {
+            left:22%;
+            top:25%;
+        }
+
+        .node:nth-child(2) {
+            right:20%;
+            top:30%;
+        }
+
+        .node:nth-child(3) {
+            left:16%;
+            bottom:22%;
+        }
+
+        .node:nth-child(4) {
+            right:15%;
+            bottom:18%;
+        }
+
+        .connection {
+            position:absolute;
+            height:1px;
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #67C7FF,
+                    transparent
+                );
+            transform-origin:left;
+        }
+
+        .connection.one {
+            width:220px;
+            left:24%;
+            top:28%;
+            transform:rotate(17deg);
+        }
+
+        .connection.two {
+            width:250px;
+            left:24%;
+            top:69%;
+            transform:rotate(-20deg);
+        }
+
+        .connection.three {
+            width:190px;
+            right:20%;
+            top:33%;
+            transform:rotate(150deg);
+        }
+
+        .information {
+            padding:130px 6vw;
+            position:relative;
+            background:#fff;
+        }
+
+        .header {
+            width:min(1000px,90vw);
+            margin:auto auto 65px;
+        }
+
+        .header h2 {
+            font-size:clamp(43px,6vw,78px);
+            line-height:.95;
+            letter-spacing:-4px;
+            margin-top:18px;
+        }
+
+        .header p {
+            max-width:720px;
+            color:var(--muted);
+            line-height:1.85;
+            margin-top:25px;
+        }
+
+        .grid {
+            width:min(1100px,90vw);
+            margin:auto;
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:24px;
+        }
+
+        .card {
+            min-height:250px;
+            padding:35px;
+            border-radius:28px;
+            background:
+                linear-gradient(
+                    145deg,
+                    #fff,
+                    #F2F7FB
+                );
+            border:1px solid rgba(35,100,170,.09);
+            box-shadow:0 18px 55px rgba(15,30,45,.07);
+            opacity:0;
+            transform:translateY(22px);
+            transition:
+                opacity .5s ease,
+                transform .5s ease,
+                box-shadow .3s ease;
+        }
+
+        .card.show {
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        .card:hover {
+            transform:translateY(-7px);
+            box-shadow:0 30px 65px rgba(15,30,45,.12);
+        }
+
+        .card h3 {
+            font-size:25px;
+            margin-bottom:18px;
+        }
+
+        .card p {
+            color:var(--muted);
+            line-height:1.8;
+            font-size:15px;
+        }
+
+        .list {
+            display:grid;
+            gap:13px;
+            margin-top:18px;
+        }
+
+        .list div {
+            color:#53636D;
+            font-size:13px;
+            display:flex;
+            align-items:center;
+            gap:12px;
+        }
+
+        .list div::before {
+            content:"";
+            width:8px;
+            height:8px;
+            border-radius:50%;
+            background:var(--blue);
+            box-shadow:0 0 0 5px rgba(35,100,170,.1);
+        }
+
+        .list div:nth-child(even)::before {
+            background:var(--pink);
+            box-shadow:0 0 0 5px rgba(184,51,106,.1);
+        }
+
+        .difference {
+            padding:130px 6vw;
+            background:
+                linear-gradient(
+                    135deg,
+                    #071723,
+                    #102D4D
+                );
+            color:#fff;
+        }
+
+        .difference-inner {
+            width:min(1100px,90vw);
+            margin:auto;
+        }
+
+        .difference h2 {
+            max-width:850px;
+            margin:20px 0 30px;
+            font-size:clamp(44px,6vw,80px);
+            line-height:.95;
+            letter-spacing:-4px;
+        }
+
+        .difference h2 span {
+            color:var(--cyan);
+        }
+
+        .difference p {
+            max-width:760px;
+            color:#B9CBD8;
+            line-height:1.9;
+        }
+
+        .line {
+            width:90px;
+            height:4px;
+            margin:30px 0;
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--blue),
+                    var(--pink)
+                );
+        }
+
+        .footer {
+            padding:65px;
+            background:#fff;
+            text-align:center;
+        }
+
+        .back {
+            display:inline-flex;
+            padding:16px 25px;
+            border-radius:100px;
+            border:1px solid rgba(16,24,32,.12);
+            color:#26343D;
+            text-decoration:none;
+            font-size:11px;
+            font-weight:800;
+            letter-spacing:1px;
+            transition:.3s;
+        }
+
+        .back:hover {
+            color:#fff;
+            background:var(--blue);
+            transform:translateY(-3px);
+        }
+
+        @keyframes up {
+            from {
+                opacity:0;
+                transform:translateY(25px);
+            }
+            to {
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        @keyframes visual {
+            from {
+                opacity:0;
+                transform:translateX(30px);
+            }
+            to {
+                opacity:1;
+                transform:translateX(0);
+            }
+        }
+
+        @media(max-width:800px) {
+            .hero-content {
+                grid-template-columns:1fr;
+                padding:100px 0;
+            }
+
+            .grid {
+                grid-template-columns:1fr;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div>
+
+                    <div class="eyebrow">
+                        DIO · BOOTCAMP 002
+                    </div>
+
+                    <h1>
+                        Nublify
+                        <span>IA + Cloud</span>
+                    </h1>
+
+                    <p class="intro">
+                        Uma jornada pelos primeiros passos em
+                        Inteligência Artificial e computação em
+                        nuvem, conectando conceitos tecnológicos
+                        atuais com possibilidades práticas de
+                        aplicação.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">IA</span>
+                        <span class="tag">CLOUD</span>
+                        <span class="tag">TECNOLOGIA</span>
+                        <span class="tag">INOVAÇÃO</span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="visual">
+
+                    <div class="node"></div>
+                    <div class="node"></div>
+                    <div class="node"></div>
+                    <div class="node"></div>
+
+                    <div class="connection one"></div>
+                    <div class="connection two"></div>
+                    <div class="connection three"></div>
+
+                    <div class="cloud"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="information">
+
+            <div class="header">
+
+                <div class="section-label">
+                    SOBRE O BOOTCAMP
+                </div>
+
+                <h2>
+                    IA encontra
+                    a nuvem.
+                </h2>
+
+                <p>
+                    O bootcamp apresenta fundamentos que ajudam
+                    a compreender como Inteligência Artificial e
+                    Cloud Computing fazem parte do ecossistema
+                    tecnológico atual.
+                </p>
+
+            </div>
+
+
+            <div class="grid">
+
+                <article class="card">
+
+                    <h3>
+                        O que é?
+                    </h3>
+
+                    <p>
+                        Uma formação introdutória voltada aos
+                        conceitos de Inteligência Artificial e
+                        computação em nuvem, permitindo construir
+                        uma visão mais ampla dessas tecnologias.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        O que entra em cena?
+                    </h3>
+
+                    <div class="list">
+
+                        <div>
+                            Fundamentos de IA
+                        </div>
+
+                        <div>
+                            Computação em nuvem
+                        </div>
+
+                        <div>
+                            Serviços tecnológicos
+                        </div>
+
+                        <div>
+                            Aplicações práticas
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Por que Cloud?
+                    </h3>
+
+                    <p>
+                        A nuvem permite disponibilizar recursos
+                        computacionais, dados e serviços de maneira
+                        escalável, tornando-se uma das bases da
+                        infraestrutura tecnológica moderna.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Por que IA?
+                    </h3>
+
+                    <p>
+                        A Inteligência Artificial amplia a capacidade
+                        de analisar dados, automatizar tarefas e
+                        desenvolver soluções inteligentes para
+                        diferentes contextos.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <section class="difference">
+
+            <div class="difference-inner">
+
+                <div class="section-label">
+                    DIFERENCIAL
+                </div>
+
+                <h2>
+                    Começar entendendo
+                    o <span>ecossistema.</span>
+                </h2>
+
+                <div class="line"></div>
+
+                <p>
+                    O principal diferencial está em aproximar dois
+                    pilares que aparecem constantemente juntos no
+                    mercado tecnológico: inteligência artificial e
+                    infraestrutura em nuvem. Essa visão integrada
+                    ajuda a compreender não apenas a tecnologia,
+                    mas também onde ela pode ser aplicada.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <footer class="footer">
+
+            <a
+               href="../dio.html?skipIntro=1"
+                class="back"
+            >
+                ← VOLTAR PARA DIO
+            </a>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        const cards =
+            document.querySelectorAll(".card");
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(
+                        (entry,index) => {
+
+                            if(
+                                entry.isIntersecting
+                            ){
+
+                                setTimeout(
+                                    () => {
+
+                                        entry.target.classList.add(
+                                            "show"
+                                        );
+
+                                    },
+                                    index * 70
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold:.12
+                }
+            );
+
+        cards.forEach(
+            card => observer.observe(card)
+        );
+
+    </script>
+
+</body>
+
+</html>

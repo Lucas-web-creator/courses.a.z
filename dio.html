@@ -1,0 +1,2295 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DIO | Courses A-Z</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="icon" href="favicondio.jpg">
+
+    <style>
+
+        :root{
+            --primary:#2364AA;
+            --secondary:#B8336A;
+            --dark:#182B49;
+            --soft:#F5F7FA;
+            --text:#101820;
+        }
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+            scrollbar-width:thin;
+            scrollbar-color:var(--primary) #e8edf2;
+        }
+
+        html::-webkit-scrollbar{
+            width:10px;
+        }
+
+        html::-webkit-scrollbar-track{
+            background:#e8edf2;
+        }
+
+        html::-webkit-scrollbar-thumb{
+            background:linear-gradient(
+                180deg,
+                var(--primary),
+                var(--secondary)
+            );
+            border-radius:20px;
+        }
+
+        body{
+            min-height:100vh;
+            font-family:"Manrope",Arial,Helvetica,sans-serif;
+            color:var(--text);
+            background:#fff;
+            overflow-x:hidden;
+        }
+
+        h1,h2,h3,h4,h5,h6{
+            font-family:"Space Grotesk",sans-serif;
+        }
+
+        button{
+            font:inherit;
+        }
+
+        img{
+            display:block;
+            max-width:100%;
+        }
+
+        /* =====================================================
+           ENTRADA
+        ====================================================== */
+
+        #institutionEntry{
+            position:fixed;
+            inset:0;
+            z-index:10000;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:linear-gradient(
+                145deg,
+                #2364AA 0%,
+                #315DA2 38%,
+                #8E427F 70%,
+                #B8336A 100%
+            );
+            transition:
+                opacity .9s ease,
+                visibility .9s ease;
+        }
+
+        #institutionEntry.hidden{
+            opacity:0;
+            visibility:hidden;
+            pointer-events:none;
+        }
+
+        .entryContent{
+            width:min(650px,88vw);
+        }
+
+        .searchBox{
+            position:relative;
+            width:100%;
+            height:72px;
+            display:flex;
+            align-items:center;
+            padding:0 28px;
+            border-radius:18px;
+            background:rgba(255,255,255,.97);
+            box-shadow:0 30px 90px rgba(0,0,0,.25);
+        }
+
+        .searchIcon{
+            position:relative;
+            width:22px;
+            height:22px;
+            margin-right:18px;
+            border:3px solid #26333d;
+            border-radius:50%;
+            flex-shrink:0;
+        }
+
+        .searchIcon::after{
+            content:"";
+            position:absolute;
+            width:10px;
+            height:3px;
+            right:-8px;
+            bottom:-4px;
+            background:#26333d;
+            border-radius:5px;
+            transform:rotate(45deg);
+        }
+
+        .searchText{
+            min-height:25px;
+            font-size:20px;
+            color:#17212a;
+        }
+
+        .searchCaret{
+            width:2px;
+            height:25px;
+            margin-left:3px;
+            background:var(--primary);
+            animation:blink .8s infinite;
+        }
+
+        @keyframes blink{
+            50%{opacity:0;}
+        }
+
+        .searchResult{
+            width:100%;
+            margin-top:10px;
+            padding:18px 22px;
+            display:flex;
+            align-items:center;
+            gap:15px;
+            border:0;
+            border-radius:14px;
+            text-align:left;
+            background:#fff;
+            color:#17212a;
+            box-shadow:0 15px 45px rgba(0,0,0,.18);
+            opacity:0;
+            transform:translateY(-8px);
+            pointer-events:none;
+            cursor:pointer;
+            transition:
+                opacity .35s ease,
+                transform .35s ease,
+                background .25s ease;
+        }
+
+        .searchResult.visible{
+            opacity:1;
+            transform:translateY(0);
+            pointer-events:auto;
+        }
+
+        .searchResult:hover{
+            background:#f5f8fa;
+        }
+
+        .resultLogo{
+            width:44px;
+            height:44px;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+            background:#fff;
+        }
+
+        .resultLogo img{
+            width:82%;
+            height:82%;
+            object-fit:contain;
+        }
+
+        .resultInfo{
+            display:flex;
+            flex-direction:column;
+            gap:4px;
+        }
+
+        .resultInfo strong{
+            font-family:"Space Grotesk",sans-serif;
+            font-size:15px;
+        }
+
+        .resultInfo span{
+            font-size:12px;
+            color:#7c8790;
+        }
+
+        /* =====================================================
+           TRANSIÇÃO DA INSTITUIÇÃO
+        ====================================================== */
+
+        .pageTransition{
+            position:fixed;
+            inset:0;
+            z-index:12000;
+            visibility:hidden;
+            pointer-events:none;
+        }
+
+        .pageTransition.active{
+            visibility:visible;
+        }
+
+        .transitionCircle{
+            position:absolute;
+            width:90px;
+            height:90px;
+            border-radius:50%;
+            background:#fff;
+            transform:scale(0);
+        }
+
+        .transitionCircle:nth-child(1){
+            left:7%;
+            top:13%;
+        }
+
+        .transitionCircle:nth-child(2){
+            left:39%;
+            top:4%;
+        }
+
+        .transitionCircle:nth-child(3){
+            right:9%;
+            top:17%;
+        }
+
+        .transitionCircle:nth-child(4){
+            left:17%;
+            bottom:11%;
+        }
+
+        .transitionCircle:nth-child(5){
+            right:23%;
+            bottom:7%;
+        }
+
+        .transitionCircle:nth-child(6){
+            left:50%;
+            top:50%;
+        }
+
+        .pageTransition.active .transitionCircle{
+            animation:
+                expandCircle
+                1.15s
+                cubic-bezier(.76,0,.24,1)
+                forwards;
+        }
+
+        .pageTransition.active .transitionCircle:nth-child(2){
+            animation-delay:.06s;
+        }
+
+        .pageTransition.active .transitionCircle:nth-child(3){
+            animation-delay:.12s;
+        }
+
+        .pageTransition.active .transitionCircle:nth-child(4){
+            animation-delay:.08s;
+        }
+
+        .pageTransition.active .transitionCircle:nth-child(5){
+            animation-delay:.15s;
+        }
+
+        .pageTransition.active .transitionCircle:nth-child(6){
+            animation-delay:.02s;
+        }
+
+        @keyframes expandCircle{
+            from{
+                transform:scale(0);
+            }
+            to{
+                transform:scale(35);
+            }
+        }
+
+        /* =====================================================
+           PÁGINA PRINCIPAL
+        ====================================================== */
+
+        #mainPage{
+            opacity:0;
+            visibility:hidden;
+        }
+
+        #mainPage.ready{
+            opacity:1;
+            visibility:visible;
+        }
+
+        .reveal{
+            opacity:0;
+            transform:translateY(30px);
+            transition:
+                opacity .55s ease,
+                transform .6s cubic-bezier(.22,1,.36,1);
+        }
+
+        .reveal.show{
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        /* =====================================================
+           HERO
+        ====================================================== */
+
+        .hero{
+            position:relative;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+            background:#071521;
+            isolation:isolate;
+        }
+
+        .heroBackground{
+            position:absolute;
+            inset:0;
+            background:
+                linear-gradient(
+                    115deg,
+                    rgba(10,30,55,.9),
+                    rgba(35,100,170,.48),
+                    rgba(184,51,106,.28)
+                ),
+                url("img/fundos/dio.jpg")
+                center/cover no-repeat;
+            z-index:-3;
+        }
+
+        .heroOverlay{
+            position:absolute;
+            inset:0;
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(35,100,170,.52),
+                    rgba(0,0,0,.04) 50%,
+                    rgba(184,51,106,.4)
+                );
+            z-index:-2;
+        }
+
+        .heroNoise{
+            position:absolute;
+            inset:0;
+            background:
+                radial-gradient(
+                    circle at 20% 25%,
+                    rgba(255,255,255,.14),
+                    transparent 22%
+                ),
+                radial-gradient(
+                    circle at 80% 75%,
+                    rgba(255,255,255,.1),
+                    transparent 25%
+                );
+            z-index:-1;
+        }
+
+        .heroContent{
+            position:relative;
+            width:min(1150px,88vw);
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+        }
+
+        .logoHalo{
+            position:absolute;
+            width:470px;
+            height:470px;
+            border-radius:50%;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(255,255,255,.32),
+                    rgba(35,100,170,.14) 45%,
+                    transparent 72%
+                );
+            filter:blur(8px);
+            animation:haloPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes haloPulse{
+            0%,100%{
+                transform:scale(.94);
+                opacity:.65;
+            }
+            50%{
+                transform:scale(1.06);
+                opacity:1;
+            }
+        }
+
+        .heroLogo{
+            position:relative;
+            width:320px;
+            height:320px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:50%;
+            background:#fff;
+            box-shadow:
+                0 0 25px rgba(255,255,255,.85),
+                0 0 70px rgba(35,100,170,.75),
+                0 0 120px rgba(184,51,106,.48);
+            animation:
+                heroLogoIntro
+                1.2s
+                cubic-bezier(.22,1,.36,1)
+                both;
+        }
+
+        .heroLogo::before{
+            content:"";
+            position:absolute;
+            inset:-15px;
+            border-radius:50%;
+            border:1px solid rgba(255,255,255,.65);
+            animation:logoRing 3.5s ease-in-out infinite;
+        }
+
+        @keyframes heroLogoIntro{
+            from{
+                opacity:0;
+                transform:scale(.65);
+            }
+            to{
+                opacity:1;
+                transform:scale(1);
+            }
+        }
+
+        @keyframes logoRing{
+            0%,100%{
+                transform:scale(1);
+                opacity:.45;
+            }
+            50%{
+                transform:scale(1.06);
+                opacity:1;
+            }
+        }
+
+        .heroLogo img{
+            width:68%;
+            height:68%;
+            object-fit:contain;
+        }
+
+        /* =====================================================
+           AVISO
+        ====================================================== */
+
+        .noticeSection{
+            position:relative;
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:100px 7vw;
+            overflow:hidden;
+            background:#fff;
+        }
+
+        .noticeShape{
+            position:absolute;
+            border-radius:50%;
+            pointer-events:none;
+        }
+
+        .noticeShape.one{
+            width:320px;
+            height:320px;
+            right:-130px;
+            top:-120px;
+            background:linear-gradient(
+                145deg,
+                var(--primary),
+                var(--secondary)
+            );
+            opacity:.9;
+        }
+
+        .noticeShape.two{
+            width:220px;
+            height:220px;
+            left:-100px;
+            bottom:-100px;
+            border:35px solid var(--primary);
+            opacity:.16;
+        }
+
+        .noticeShape.three{
+            width:90px;
+            height:90px;
+            right:18%;
+            bottom:13%;
+            background:var(--secondary);
+            opacity:.18;
+        }
+
+        .noticeWrap{
+            position:relative;
+            width:min(900px,90vw);
+            min-height:430px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            overflow:hidden;
+        }
+
+        .noticeInitial,
+        .noticeMessage,
+        .noticeThanks{
+            position:absolute;
+            width:100%;
+            text-align:center;
+            transition:
+                opacity .55s ease,
+                transform .6s cubic-bezier(.76,0,.24,1);
+        }
+
+        .noticeInitial{
+            opacity:1;
+            transform:translateX(0);
+        }
+
+        .noticeInitial.hidden{
+            opacity:0;
+            transform:translateX(-120%);
+        }
+
+        .noticeInitial h1,
+        .noticeThanks h1{
+            font-size:clamp(54px,9vw,110px);
+            line-height:.9;
+            letter-spacing:-5px;
+            margin-bottom:38px;
+        }
+
+        .noticeButton{
+            border:0;
+            padding:18px 42px;
+            border-radius:100px;
+            background:linear-gradient(
+                110deg,
+                var(--primary),
+                var(--secondary)
+            );
+            color:#fff;
+            font-weight:700;
+            letter-spacing:1px;
+            cursor:pointer;
+            box-shadow:
+                0 15px 40px
+                rgba(35,100,170,.25);
+            transition:
+                transform .3s ease,
+                box-shadow .3s ease;
+        }
+
+        .noticeButton:hover{
+            transform:translateY(-5px);
+            box-shadow:
+                0 22px 50px
+                rgba(35,100,170,.34);
+        }
+
+        .noticeMessage{
+            opacity:0;
+            transform:translateX(120%);
+        }
+
+        .noticeMessage.visible{
+            opacity:1;
+            transform:translateX(0);
+        }
+
+        .noticeMessage p{
+            max-width:700px;
+            margin:0 auto 32px;
+            font-size:18px;
+            line-height:1.9;
+            color:#5d6870;
+        }
+
+        .noticeMessage .noticeButton{
+            background:var(--primary);
+        }
+
+        .noticeThanks{
+            opacity:0;
+            transform:translateX(120%);
+        }
+
+        .noticeThanks.visible{
+            opacity:1;
+            transform:translateX(0);
+        }
+
+        .scrollArrow{
+            position:absolute;
+            bottom:38px;
+            left:50%;
+            width:54px;
+            height:54px;
+            border:1px solid rgba(16,24,32,.2);
+            border-radius:50%;
+            background:#fff;
+            color:var(--primary);
+            cursor:pointer;
+            transform:translateX(-50%);
+            opacity:0;
+            pointer-events:none;
+            transition:
+                opacity .5s ease,
+                transform .3s ease,
+                background .3s ease;
+        }
+
+        .scrollArrow.visible{
+            opacity:1;
+            pointer-events:auto;
+            animation:arrowFloat 1.8s ease-in-out infinite;
+        }
+
+        .scrollArrow:hover{
+            background:var(--primary);
+            color:#fff;
+        }
+
+        @keyframes arrowFloat{
+            0%,100%{
+                transform:translateX(-50%) translateY(0);
+            }
+            50%{
+                transform:translateX(-50%) translateY(8px);
+            }
+        }
+
+        /* =====================================================
+           CURSOS
+        ====================================================== */
+
+        .coursesSection{
+            position:relative;
+            min-height:100vh;
+            padding:130px 6vw 120px;
+            overflow:hidden;
+            background:linear-gradient(
+                145deg,
+                #f7fafc,
+                #ffffff
+            );
+            display:flex;
+            flex-direction:column;
+            justify-content:flex-start;
+        }
+
+        .coursesSection::before{
+            content:"";
+            position:absolute;
+            width:600px;
+            height:600px;
+            right:-300px;
+            top:10%;
+            border-radius:50%;
+            background:
+                radial-gradient(
+                    circle,
+                    rgba(35,100,170,.11),
+                    transparent 70%
+                );
+            pointer-events:none;
+        }
+
+        .coursesHeader{
+            position:relative;
+            width:min(1100px,90vw);
+            margin:0 auto 70px;
+            text-align:center;
+        }
+
+        .coursesEyebrow{
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:14px;
+            margin-bottom:22px;
+            color:var(--primary);
+            font-size:11px;
+            letter-spacing:4px;
+            font-weight:700;
+        }
+
+        .coursesEyebrow::before,
+        .coursesEyebrow::after{
+            content:"";
+            width:50px;
+            height:1px;
+            background:var(--primary);
+        }
+
+        .coursesHeader h1{
+            font-size:clamp(60px,10vw,130px);
+            line-height:.8;
+            letter-spacing:-7px;
+        }
+
+        .coursesHeader p{
+            max-width:650px;
+            margin:32px auto 0;
+            line-height:1.8;
+            color:#68747d;
+            font-size:16px;
+        }
+
+        .carouselShell{
+            position:relative;
+            width:100%;
+            display:flex;
+            justify-content:center;
+        }
+
+        .coursesTrack{
+            width:min(1200px,90vw);
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            gap:30px;
+            padding:20px 0 55px;
+            overflow:visible;
+        }
+
+        .courseCard{
+            position:relative;
+            flex:0 0 350px;
+            height:470px;
+            padding:26px;
+            display:flex;
+            flex-direction:column;
+            justify-content:space-between;
+            border-radius:28px;
+            background:linear-gradient(
+                145deg,
+                #ffffff,
+                #f1f5f8
+            );
+            border:1px solid rgba(16,24,32,.08);
+            box-shadow:
+                0 20px 60px
+                rgba(15,30,45,.08);
+            overflow:hidden;
+            cursor:pointer;
+            opacity:0;
+            transform:translateY(35px);
+            transition:
+                opacity .55s ease,
+                transform .55s cubic-bezier(.22,1,.36,1),
+                box-shadow .35s ease,
+                border-color .35s ease;
+        }
+
+        .courseCard.show{
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        .courseCard:hover{
+            transform:translateY(-12px);
+            border-color:rgba(35,100,170,.35);
+            box-shadow:
+                0 35px 80px
+                rgba(15,30,45,.15);
+        }
+
+        .courseCard::before{
+            content:"";
+            position:absolute;
+            inset:0;
+            background:linear-gradient(
+                145deg,
+                rgba(35,100,170,.08),
+                transparent 50%,
+                rgba(184,51,106,.1)
+            );
+            opacity:0;
+            transition:opacity .4s ease;
+        }
+
+        .courseCard:hover::before{
+            opacity:1;
+        }
+
+        .courseTop{
+            position:relative;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            z-index:2;
+        }
+
+        .courseNumber{
+            font-size:11px;
+            letter-spacing:3px;
+            color:var(--primary);
+            font-weight:700;
+        }
+
+        .courseOpen{
+            font-size:9px;
+            letter-spacing:2px;
+            color:#8b959d;
+            transition:color .3s ease;
+        }
+
+        .courseCard:hover .courseOpen{
+            color:var(--primary);
+        }
+
+        .courseLogo{
+            position:absolute;
+            left:50%;
+            top:50%;
+            width:170px;
+            height:170px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:50%;
+            background:#fff;
+            transform:translate(-50%,-55%);
+            box-shadow:
+                0 20px 60px
+                rgba(0,0,0,.09);
+            transition:
+                transform .5s cubic-bezier(.22,1,.36,1),
+                box-shadow .5s ease;
+        }
+
+        .courseCard:hover .courseLogo{
+            transform:
+                translate(-50%,-55%)
+                scale(1.08);
+            box-shadow:
+                0 25px 70px
+                rgba(35,100,170,.2);
+        }
+
+        .courseLogo::before{
+            content:"";
+            position:absolute;
+            inset:-8px;
+            border-radius:50%;
+            border:1px solid rgba(35,100,170,.18);
+            transition:
+                transform .5s ease,
+                border-color .5s ease;
+        }
+
+        .courseCard:hover .courseLogo::before{
+            transform:scale(1.08);
+            border-color:rgba(184,51,106,.55);
+        }
+
+        .courseLogo img{
+            width:67%;
+            height:67%;
+            object-fit:contain;
+        }
+
+        .courseBottom{
+            position:relative;
+            z-index:2;
+        }
+
+        .courseBottom span{
+            display:block;
+            margin-bottom:10px;
+            font-size:9px;
+            letter-spacing:3px;
+            color:#8a949b;
+        }
+
+        .courseBottom h2{
+            font-size:25px;
+            line-height:1.08;
+            max-width:290px;
+        }
+
+        .courseArrow{
+            position:absolute;
+            right:24px;
+            bottom:25px;
+            width:48px;
+            height:48px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            border-radius:50%;
+            background:var(--primary);
+            color:#fff;
+            font-size:20px;
+            transform:translateX(8px);
+            opacity:.65;
+            transition:
+                transform .35s ease,
+                opacity .35s ease;
+        }
+
+        .courseCard:hover .courseArrow{
+            transform:translateX(0);
+            opacity:1;
+        }
+
+        /* =====================================================
+           TRANSIÇÃO DOS CURSOS
+        ====================================================== */
+
+        .courseOverlay{
+            position:fixed;
+            inset:0;
+            z-index:15000;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:rgba(255,255,255,.98);
+            opacity:0;
+            visibility:hidden;
+            pointer-events:none;
+            transition:
+                opacity .4s ease,
+                visibility .4s ease;
+        }
+
+        .courseOverlay.active{
+            opacity:1;
+            visibility:visible;
+            pointer-events:auto;
+        }
+
+        .courseOverlayLine{
+            width:0;
+            height:2px;
+            background:linear-gradient(
+                90deg,
+                var(--primary),
+                var(--secondary)
+            );
+            transition:
+                width .65s cubic-bezier(.76,0,.24,1);
+        }
+
+        .courseOverlay.active .courseOverlayLine{
+            width:180px;
+        }
+
+        .courseOverlayText{
+            position:absolute;
+            bottom:50px;
+            left:50%;
+            transform:translateX(-50%);
+            font-size:9px;
+            letter-spacing:4px;
+            color:#7c858c;
+        }
+
+        /* =====================================================
+           RESPONSIVO
+        ====================================================== */
+
+        @media(max-width:900px){
+
+            .heroLogo{
+                width:250px;
+                height:250px;
+            }
+
+            .logoHalo{
+                width:360px;
+                height:360px;
+            }
+
+            .noticeInitial h1,
+            .noticeThanks h1{
+                letter-spacing:-3px;
+            }
+
+            .courseCard{
+                flex-basis:390px;
+            }
+
+        }
+
+        @media(max-width:600px){
+
+            .searchBox{
+                height:62px;
+                padding:0 20px;
+            }
+
+            .searchText{
+                font-size:16px;
+            }
+
+            .heroLogo{
+                width:210px;
+                height:210px;
+            }
+
+            .noticeSection{
+                padding:80px 6vw;
+            }
+
+            .noticeMessage p{
+                font-size:15px;
+            }
+
+            .coursesSection{
+                padding:100px 0;
+            }
+
+            .coursesHeader{
+                padding:0 7vw;
+            }
+
+            .coursesHeader h1{
+                letter-spacing:-4px;
+            }
+
+            .coursesTrack{
+                padding-left:7vw;
+                padding-right:7vw;
+            }
+
+            .courseCard{
+                flex-basis:82vw;
+                height:420px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <section id="institutionEntry">
+
+        <div class="entryContent">
+
+            <div class="searchBox">
+
+                <div class="searchIcon"></div>
+
+                <span
+                    class="searchText"
+                    id="searchText"
+                ></span>
+
+                <span class="searchCaret"></span>
+
+            </div>
+
+            <button
+                class="searchResult"
+                id="searchResult"
+                type="button"
+            >
+
+                <span class="resultLogo">
+
+                    <img
+                        src="img/logos/dio.png"
+                        alt="DIO"
+                    >
+
+                </span>
+
+                <span class="resultInfo">
+
+                    <strong>DIO</strong>
+
+                    <span>
+                        digitalinnovation.one
+                    </span>
+
+                </span>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <div
+        class="pageTransition"
+        id="pageTransition"
+    >
+
+        <div class="transitionCircle"></div>
+        <div class="transitionCircle"></div>
+        <div class="transitionCircle"></div>
+        <div class="transitionCircle"></div>
+        <div class="transitionCircle"></div>
+        <div class="transitionCircle"></div>
+
+    </div>
+
+
+    <main id="mainPage">
+
+        <section class="hero">
+
+            <div class="heroBackground"></div>
+            <div class="heroOverlay"></div>
+            <div class="heroNoise"></div>
+
+            <div class="heroContent">
+
+                <div class="logoHalo"></div>
+
+                <div class="heroLogo">
+
+                    <img
+                        src="img/logos/dio.png"
+                        alt="Logo DIO"
+                    >
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section
+            class="noticeSection"
+            id="notice"
+        >
+
+            <div class="noticeShape one"></div>
+            <div class="noticeShape two"></div>
+            <div class="noticeShape three"></div>
+
+            <div class="noticeWrap">
+
+                <div
+                    class="noticeInitial"
+                    id="noticeInitial"
+                >
+
+                    <h1>AVISO</h1>
+
+                    <button
+                        class="noticeButton"
+                        id="noticeButton"
+                        type="button"
+                    >
+                        CONTINUAR
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="noticeMessage"
+                    id="noticeMessage"
+                >
+
+                    <p>
+                        Este conteúdo não representa propaganda
+                        institucional. Trata-se de uma amostra da
+                        trajetória acadêmica e das certificações
+                        realizadas pelo desenvolvedor.
+                    </p>
+
+                    <button
+                        class="noticeButton"
+                        id="noticeOk"
+                        type="button"
+                    >
+                        OK
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="noticeThanks"
+                    id="noticeThanks"
+                >
+
+                    <h1>
+                        Obrigado por ler!
+                    </h1>
+
+                </div>
+
+
+                <button
+                    class="scrollArrow"
+                    id="scrollArrow"
+                    type="button"
+                    aria-label="Ver cursos"
+                >
+                    ↓
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <section
+            class="coursesSection"
+            id="courses"
+        >
+
+            <div class="coursesHeader reveal">
+
+                <div class="coursesEyebrow">
+                    COURSES A-Z
+                </div>
+
+                <h1>CURSOS</h1>
+
+                <p>
+                    Explore as formações, bootcamps e acelerações
+                    que fazem parte da trajetória apresentada nesta
+                    instituição.
+                </p>
+
+            </div>
+
+
+            <div class="carouselShell">
+
+                <div
+                    class="coursesTrack"
+                    id="coursesTrack"
+                >
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-randstad-service-desk.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">01</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                BOOTCAMP / 001
+                            </span>
+
+                            <h2>
+                                Aceleração Randstad -
+                                Service Desk
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-nublify-ia-cloud.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">02</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                BOOTCAMP / 002
+                            </span>
+
+                            <h2>
+                                Nublify - Primeiros passos
+                                em IA e Cloud
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-bairesdev-machine-learning.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">03</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                BOOTCAMP / 003
+                            </span>
+
+                            <h2>
+                                BairesDev -
+                                Machine Learning Training
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-ai-automation-n8n.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">04</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                BOOTCAMP / 004
+                            </span>
+
+                            <h2>
+                                AI Automation com N8N
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-github-copilot.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">05</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                BOOTCAMP / 005
+                            </span>
+
+                            <h2>
+                                Formação GitHub Copilot
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-riachuelo-produtos-ia.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">06</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                BOOTCAMP / 006
+                            </span>
+
+                            <h2>
+                                Riachuelo -
+                                Criando produtos com IA
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-afya-automacao-dados.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">07</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                BOOTCAMP / 007
+                            </span>
+
+                            <h2>
+                                Bootcamp Afya -
+                                Automação de Dados com IA
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-bradesco-genai-dados-cyber.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">08</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                BOOTCAMP / 008
+                            </span>
+
+                            <h2>
+                                Bootcamp Bradesco -
+                                GenAI, Dados &amp; Cyber
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-html-developer.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">09</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                FORMAÇÃO / 001
+                            </span>
+
+                            <h2>
+                                HTML Developer
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-css-developer.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">10</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                FORMAÇÃO / 002
+                            </span>
+
+                            <h2>
+                                CSS Developer
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-javascript-developer.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">11</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                FORMAÇÃO / 003
+                            </span>
+
+                            <h2>
+                                JavaScript Developer
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-ui-ux-design.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">12</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                FORMAÇÃO / 004
+                            </span>
+
+                            <h2>
+                                UI/UX Design
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-ux-design.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">13</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                FORMAÇÃO / 005
+                            </span>
+
+                            <h2>
+                                UX Design
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-chatgpt-for-devs.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">14</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                FORMAÇÃO / 006
+                            </span>
+
+                            <h2>
+                                ChatGPT For Devs
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+
+                    <article
+                        class="courseCard"
+                        data-course-url="page/dio-github-copilot-formacao.html"
+                    >
+
+                        <div class="courseTop">
+                            <span class="courseNumber">15</span>
+                            <span class="courseOpen">ABRIR CURSO</span>
+                        </div>
+
+                        <div class="courseLogo">
+                            <img
+                                src="img/logos/dio.png"
+                                alt="DIO"
+                            >
+                        </div>
+
+                        <div class="courseBottom">
+
+                            <span>
+                                FORMAÇÃO / 007
+                            </span>
+
+                            <h2>
+                                GitHub Copilot
+                            </h2>
+
+                        </div>
+
+                        <div class="courseArrow">→</div>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <div
+        class="courseOverlay"
+        id="courseOverlay"
+    >
+
+        <div class="courseOverlayLine"></div>
+
+        <span class="courseOverlayText">
+            ABRINDO CURSO
+        </span>
+
+    </div>
+
+
+    <script>
+
+        /* =====================================================
+           RETORNO DOS CURSOS / CONTROLE DA INTRODUÇÃO
+        ====================================================== */
+
+        const urlParams =
+            new URLSearchParams(
+                window.location.search
+            );
+
+        const skipIntro =
+            urlParams.get("skipIntro") === "1";
+
+
+        /* =====================================================
+           ELEMENTOS
+        ====================================================== */
+
+        const institutionEntry =
+            document.getElementById(
+                "institutionEntry"
+            );
+
+        const searchText =
+            document.getElementById(
+                "searchText"
+            );
+
+        const searchResult =
+            document.getElementById(
+                "searchResult"
+            );
+
+        const pageTransition =
+            document.getElementById(
+                "pageTransition"
+            );
+
+        const mainPage =
+            document.getElementById(
+                "mainPage"
+            );
+
+        const institutionName =
+            "DIO";
+
+        let typingIndex = 0;
+
+
+        /* =====================================================
+           ABRIR SEM INTRODUÇÃO
+        ====================================================== */
+
+        function openWithoutIntro(){
+
+            institutionEntry.classList.add(
+                "hidden"
+            );
+
+            mainPage.classList.add(
+                "ready"
+            );
+
+            document.body.style.overflow = "";
+
+            revealPage();
+
+        }
+
+
+        /* =====================================================
+           DIGITAÇÃO DA INTRODUÇÃO
+        ====================================================== */
+
+        function typeInstitution(){
+
+            if(
+                typingIndex <
+                institutionName.length
+            ){
+
+                searchText.textContent +=
+                    institutionName[
+                        typingIndex
+                    ];
+
+                typingIndex++;
+
+                setTimeout(
+                    typeInstitution,
+                    125
+                );
+
+                return;
+            }
+
+            setTimeout(() => {
+
+                searchResult.classList.add(
+                    "visible"
+                );
+
+            },500);
+
+        }
+
+
+        /* =====================================================
+           DECISÃO DA INTRODUÇÃO
+        ====================================================== */
+
+        if(skipIntro){
+
+            /*
+             * IMPORTANTE:
+             * Quando uma página dentro de /page/
+             * utiliza ../dio.html?skipIntro=1,
+             * a DIO abre diretamente sem executar
+             * a animação de pesquisa.
+             */
+
+            openWithoutIntro();
+
+        }else{
+
+            setTimeout(
+                typeInstitution,
+                700
+            );
+
+        }
+
+
+        /* =====================================================
+           ENTRADA → PÁGINA PRINCIPAL
+        ====================================================== */
+
+        searchResult.addEventListener(
+            "click",
+            () => {
+
+                if(
+                    !searchResult.classList.contains(
+                        "visible"
+                    )
+                ){
+
+                    return;
+
+                }
+
+                pageTransition.classList.add(
+                    "active"
+                );
+
+                setTimeout(() => {
+
+                    mainPage.classList.add(
+                        "ready"
+                    );
+
+                },850);
+
+                setTimeout(() => {
+
+                    institutionEntry.classList.add(
+                        "hidden"
+                    );
+
+                },1050);
+
+                setTimeout(() => {
+
+                    pageTransition.classList.remove(
+                        "active"
+                    );
+
+                    revealPage();
+
+                },1500);
+
+            }
+        );
+
+
+        /* =====================================================
+           ENTRADA DOS ELEMENTOS
+        ====================================================== */
+
+        function revealPage(){
+
+            const revealElements =
+                document.querySelectorAll(
+                    ".reveal"
+                );
+
+            revealElements.forEach(
+                (element,index) => {
+
+                    setTimeout(() => {
+
+                        element.classList.add(
+                            "show"
+                        );
+
+                    },index * 80);
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           AVISO
+        ====================================================== */
+
+        const noticeInitial =
+            document.getElementById(
+                "noticeInitial"
+            );
+
+        const noticeMessage =
+            document.getElementById(
+                "noticeMessage"
+            );
+
+        const noticeThanks =
+            document.getElementById(
+                "noticeThanks"
+            );
+
+        const noticeButton =
+            document.getElementById(
+                "noticeButton"
+            );
+
+        const noticeOk =
+            document.getElementById(
+                "noticeOk"
+            );
+
+        const scrollArrow =
+            document.getElementById(
+                "scrollArrow"
+            );
+
+
+        noticeButton.addEventListener(
+            "click",
+            () => {
+
+                noticeInitial.classList.add(
+                    "hidden"
+                );
+
+                setTimeout(() => {
+
+                    noticeMessage.classList.add(
+                        "visible"
+                    );
+
+                },350);
+
+            }
+        );
+
+
+        noticeOk.addEventListener(
+            "click",
+            () => {
+
+                noticeMessage.classList.remove(
+                    "visible"
+                );
+
+                setTimeout(() => {
+
+                    noticeThanks.classList.add(
+                        "visible"
+                    );
+
+                    scrollArrow.classList.add(
+                        "visible"
+                    );
+
+                },450);
+
+            }
+        );
+
+
+        scrollArrow.addEventListener(
+            "click",
+            () => {
+
+                document.getElementById(
+                    "courses"
+                ).scrollIntoView({
+                    behavior:"smooth"
+                });
+
+            }
+        );
+
+
+        /* =====================================================
+           INTRODUÇÃO DOS CARDS
+        ====================================================== */
+
+        const courseCards =
+            document.querySelectorAll(
+                ".courseCard"
+            );
+
+        const cardObserver =
+            new IntersectionObserver(
+                (entries) => {
+
+                    entries.forEach(
+                        (entry) => {
+
+                            if(
+                                entry.isIntersecting
+                            ){
+
+                                entry.target.classList.add(
+                                    "show"
+                                );
+
+                                cardObserver.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold:.12
+                }
+            );
+
+
+        courseCards.forEach(
+            (card,index) => {
+
+                card.style.transitionDelay =
+                    `${(index % 3) * 80}ms`;
+
+                cardObserver.observe(
+                    card
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           ABERTURA DOS CURSOS
+        ====================================================== */
+
+        const courseOverlay =
+            document.getElementById(
+                "courseOverlay"
+            );
+
+
+        courseCards.forEach(
+            (card) => {
+
+                card.addEventListener(
+                    "click",
+                    () => {
+
+                        const destination =
+                            card.dataset.courseUrl;
+
+                        if(!destination){
+                            return;
+                        }
+
+                        courseOverlay.classList.add(
+                            "active"
+                        );
+
+                        document.body.style.overflow =
+                            "hidden";
+
+                        setTimeout(() => {
+
+                            window.location.href =
+                                destination;
+
+                        },700);
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           HISTÓRICO DO NAVEGADOR
+        ====================================================== */
+
+        window.addEventListener(
+            "pageshow",
+            () => {
+
+                document.body.style.overflow = "";
+
+                /*
+                 * Se o usuário retornou de uma página de curso
+                 * utilizando o botão VOLTAR, a página já deve
+                 * permanecer aberta sem a introdução.
+                 */
+
+                const currentParams =
+                    new URLSearchParams(
+                        window.location.search
+                    );
+
+                if(
+                    currentParams.get(
+                        "skipIntro"
+                    ) === "1"
+                ){
+
+                    institutionEntry.classList.add(
+                        "hidden"
+                    );
+
+                    mainPage.classList.add(
+                        "ready"
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

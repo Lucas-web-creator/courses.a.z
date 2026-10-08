@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ChatGPT For Devs | DIO</title>
+  <link rel="icon" href="../favicondio.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2364AA;
+            --secondary: #B8336A;
+            --dark: #182B49;
+            --soft: #F5F7FA;
+            --text: #101820;
+
+            --theme: #10A37F;
+            --theme-dark: #08745B;
+            --theme-glow: rgba(16,163,127,.45);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Manrope", sans-serif;
+            color: var(--text);
+            background: var(--soft);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: "Space Grotesk", sans-serif;
+        }
+
+        .hero {
+            min-height: 100vh;
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+
+            overflow: hidden;
+
+            color: #fff;
+
+            background:
+                radial-gradient(
+                    circle at 82% 18%,
+                    var(--theme-glow),
+                    transparent 27%
+                ),
+                radial-gradient(
+                    circle at 10% 85%,
+                    rgba(35,100,170,.30),
+                    transparent 33%
+                ),
+                linear-gradient(
+                    135deg,
+                    #101a2d 0%,
+                    #182B49 48%,
+                    #111827 100%
+                );
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            pointer-events: none;
+
+            background:
+                linear-gradient(
+                    115deg,
+                    transparent 0 48%,
+                    rgba(255,255,255,.035) 48.2% 48.6%,
+                    transparent 48.8%
+                ),
+                linear-gradient(
+                    25deg,
+                    transparent 0 68%,
+                    rgba(255,255,255,.025) 68.2% 68.5%,
+                    transparent 68.7%
+                );
+        }
+
+        .hero-inner {
+            width: min(1180px, calc(100% - 48px));
+
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1.2fr .8fr;
+
+            gap: 70px;
+            align-items: center;
+
+            position: relative;
+            z-index: 1;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            padding: 9px 14px;
+
+            border: 1px solid rgba(255,255,255,.15);
+            border-radius: 999px;
+
+            background: rgba(255,255,255,.06);
+
+            color: #dce8f5;
+
+            font-size: .75rem;
+            font-weight: 800;
+            letter-spacing: .13em;
+        }
+
+        .eyebrow::before {
+            content: "";
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: var(--theme);
+
+            box-shadow:
+                0 0 18px var(--theme-glow);
+        }
+
+        .hero h1 {
+            font-size: clamp(3.3rem, 7.5vw, 6.8rem);
+
+            line-height: .9;
+
+            letter-spacing: -.065em;
+
+            margin: 28px 0 26px;
+        }
+
+        .hero h1 span {
+            color: var(--theme);
+        }
+
+        .hero-copy {
+            max-width: 700px;
+
+            color: #c7d4e4;
+
+            font-size: 1.08rem;
+            line-height: 1.8;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 10px;
+
+            margin-top: 30px;
+        }
+
+        .tag {
+            padding: 9px 13px;
+
+            border: 1px solid rgba(255,255,255,.12);
+            border-radius: 8px;
+
+            background: rgba(255,255,255,.055);
+
+            font-size: .72rem;
+            font-weight: 800;
+
+            letter-spacing: .08em;
+        }
+
+        .hero-card {
+            width: min(360px, 100%);
+            min-height: 360px;
+
+            margin-left: auto;
+
+            padding: 30px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 30px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.11),
+                    rgba(255,255,255,.035)
+                );
+
+            box-shadow:
+                0 35px 90px rgba(0,0,0,.32);
+
+            backdrop-filter: blur(16px);
+
+            transform: rotate(2deg);
+        }
+
+        .hero-card-top {
+            display: flex;
+            justify-content: space-between;
+
+            color: #aebed0;
+
+            font-size: .72rem;
+            font-weight: 800;
+
+            letter-spacing: .12em;
+        }
+
+        .hero-symbol {
+            width: 150px;
+            height: 150px;
+
+            align-self: center;
+
+            display: grid;
+            place-items: center;
+
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 34px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--theme),
+                    var(--theme-dark)
+                );
+
+            color: #fff;
+
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: 2.2rem;
+            font-weight: 800;
+
+            letter-spacing: -.06em;
+
+            box-shadow:
+                0 0 70px var(--theme-glow);
+        }
+
+        .hero-card-bottom {
+            color: #dce8f5;
+
+            font-size: .85rem;
+            line-height: 1.6;
+        }
+
+        section {
+            padding: 110px 24px;
+        }
+
+        .section-inner {
+            width: min(1180px, 100%);
+            margin: auto;
+        }
+
+        .section-label {
+            color: var(--theme-dark);
+
+            font-size: .72rem;
+            font-weight: 800;
+
+            letter-spacing: .16em;
+
+            margin-bottom: 18px;
+        }
+
+        .about {
+            background: #fff;
+        }
+
+        .about-head {
+            display: grid;
+            grid-template-columns: .75fr 1.25fr;
+
+            gap: 60px;
+
+            align-items: end;
+
+            margin-bottom: 60px;
+        }
+
+        .about h2 {
+            font-size: clamp(2.8rem, 6vw, 5.8rem);
+
+            line-height: .92;
+
+            letter-spacing: -.06em;
+        }
+
+        .about h2 span {
+            color: var(--theme-dark);
+        }
+
+        .about-intro {
+            color: #5b6675;
+
+            font-size: 1.05rem;
+            line-height: 1.8;
+
+            max-width: 650px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+
+            gap: 16px;
+        }
+
+        .info-card {
+            min-height: 285px;
+
+            padding: 27px;
+
+            border: 1px solid #e3e8ef;
+            border-radius: 20px;
+
+            background: #fff;
+
+            opacity: 0;
+            transform: translateY(25px);
+
+            transition:
+                opacity .7s ease,
+                transform .7s ease,
+                box-shadow .3s ease,
+                border-color .3s ease;
+        }
+
+        .info-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .info-card:hover {
+            border-color: var(--theme);
+
+            box-shadow:
+                0 18px 45px rgba(24,43,73,.09);
+        }
+
+        .card-number {
+            color: var(--theme-dark);
+
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: .8rem;
+            font-weight: 800;
+        }
+
+        .info-card h3 {
+            font-size: 1.35rem;
+
+            margin: 60px 0 15px;
+        }
+
+        .info-card p {
+            color: #687484;
+
+            font-size: .9rem;
+            line-height: 1.7;
+        }
+
+        .focus {
+            position: relative;
+
+            overflow: hidden;
+
+            color: #fff;
+
+            background:
+                radial-gradient(
+                    circle at 78% 45%,
+                    var(--theme-glow),
+                    transparent 25%
+                ),
+                linear-gradient(
+                    135deg,
+                    #111827,
+                    #182B49
+                );
+        }
+
+        .focus::after {
+            content: "";
+
+            position: absolute;
+
+            width: 420px;
+            height: 420px;
+
+            right: -170px;
+            top: -160px;
+
+            border: 1px solid rgba(255,255,255,.08);
+
+            border-radius: 50%;
+
+            box-shadow:
+                0 0 0 70px rgba(255,255,255,.018),
+                0 0 0 140px rgba(255,255,255,.012);
+        }
+
+        .focus-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            gap: 80px;
+
+            align-items: center;
+
+            position: relative;
+            z-index: 1;
+        }
+
+        .focus .section-label {
+            color: var(--theme);
+        }
+
+        .focus h2 {
+            max-width: 720px;
+
+            font-size: clamp(2.8rem, 6vw, 5.7rem);
+
+            line-height: .94;
+
+            letter-spacing: -.06em;
+        }
+
+        .focus h2 span {
+            color: var(--theme);
+        }
+
+        .focus-copy {
+            color: #b9c7d8;
+
+            line-height: 1.8;
+
+            margin-top: 25px;
+
+            max-width: 650px;
+        }
+
+        .focus-list {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 12px;
+        }
+
+        .focus-item {
+            padding: 22px;
+
+            min-height: 105px;
+
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 16px;
+
+            background: rgba(255,255,255,.045);
+
+            display: flex;
+            align-items: flex-end;
+
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .difference {
+            background: #fff;
+        }
+
+        .difference-grid {
+            display: grid;
+            grid-template-columns: 1fr .7fr;
+
+            gap: 70px;
+
+            align-items: center;
+        }
+
+        .difference h2 {
+            font-size: clamp(2.6rem, 5vw, 5.1rem);
+
+            line-height: .98;
+
+            letter-spacing: -.055em;
+        }
+
+        .difference h2 span {
+            color: var(--theme-dark);
+        }
+
+        .difference p {
+            color: #687484;
+
+            line-height: 1.8;
+
+            margin-top: 25px;
+
+            max-width: 650px;
+        }
+
+        .difference-mark {
+            aspect-ratio: 1;
+
+            max-width: 330px;
+
+            margin-left: auto;
+
+            border: 1px solid #e1e6ed;
+
+            border-radius: 38px;
+
+            display: grid;
+            place-items: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #fff,
+                    #f0f3f7
+                );
+
+            color: var(--theme-dark);
+
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: clamp(3rem, 7vw, 6rem);
+
+            font-weight: 800;
+
+            letter-spacing: -.08em;
+
+            box-shadow:
+                0 30px 70px rgba(24,43,73,.1);
+        }
+
+        footer {
+            padding: 70px 24px;
+
+            background: #101820;
+
+            color: #fff;
+        }
+
+        .footer-inner {
+            width: min(1180px,100%);
+
+            margin: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 30px;
+        }
+
+        .footer-copy {
+            color: #8e9bad;
+
+            font-size: .8rem;
+            line-height: 1.6;
+        }
+
+        .back {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 48px;
+
+            padding: 0 19px;
+
+            border: 1px solid rgba(255,255,255,.15);
+            border-radius: 10px;
+
+            color: #fff;
+
+            text-decoration: none;
+
+            font-size: .75rem;
+            font-weight: 800;
+
+            letter-spacing: .08em;
+
+            transition: .25s ease;
+        }
+
+        .back:hover {
+            border-color: var(--theme);
+            color: var(--theme);
+
+            transform: translateY(-2px);
+        }
+
+        @media (max-width:900px) {
+            .hero-inner,
+            .about-head,
+            .focus-grid,
+            .difference-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 90px 0;
+            }
+
+            .hero-card {
+                margin: 10px auto 0;
+            }
+
+            .cards {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .about-head {
+                gap: 30px;
+            }
+
+            .focus-grid,
+            .difference-grid {
+                gap: 45px;
+            }
+
+            .difference-mark {
+                margin: auto;
+
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width:560px) {
+            section {
+                padding: 80px 20px;
+            }
+
+            .hero-inner {
+                width: min(100% - 36px,1180px);
+            }
+
+            .hero h1 {
+                font-size: 3.45rem;
+            }
+
+            .cards,
+            .focus-list {
+                grid-template-columns: 1fr;
+            }
+
+            .info-card {
+                min-height: auto;
+            }
+
+            .info-card h3 {
+                margin-top: 38px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="hero">
+
+        <div class="hero-inner">
+
+            <div>
+
+                <div class="eyebrow">
+                    FORMAÇÃO · DIO
+                </div>
+
+                <h1>
+                    ChatGPT
+                    <span>For Devs</span>
+                </h1>
+
+                <p class="hero-copy">
+                    Uma formação voltada ao uso do ChatGPT como apoio
+                    ao desenvolvimento, explorando interação com IA,
+                    produtividade, geração de código e resolução de problemas.
+                </p>
+
+                <div class="tags">
+                    <span class="tag">CHATGPT</span>
+                    <span class="tag">IA</span>
+                    <span class="tag">DESENVOLVIMENTO</span>
+                </div>
+
+            </div>
+
+            <div class="hero-card">
+
+                <div class="hero-card-top">
+                    <span>DIO</span>
+                    <span>AI / DEV</span>
+                </div>
+
+                <div class="hero-symbol">
+                    AI
+                </div>
+
+                <div class="hero-card-bottom">
+                    ChatGPT · IA Generativa · Desenvolvimento
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <section class="about">
+
+        <div class="section-inner">
+
+            <div class="about-head">
+
+                <div>
+
+                    <div class="section-label">
+                        SOBRE A FORMAÇÃO
+                    </div>
+
+                    <h2>
+                        IA.
+                        <span>Código.</span>
+                        Produtividade.
+                    </h2>
+
+                </div>
+
+                <p class="about-intro">
+                    ChatGPT For Devs aproxima inteligência artificial
+                    generativa da rotina de desenvolvimento, mostrando
+                    como utilizar a ferramenta de maneira prática para
+                    apoiar raciocínio, código e aprendizagem.
+                </p>
+
+            </div>
+
+            <div class="cards">
+
+                <article class="info-card">
+
+                    <div class="card-number">
+                        01
+                    </div>
+
+                    <h3>
+                        O que é?
+                    </h3>
+
+                    <p>
+                        Uma formação sobre o uso do ChatGPT como ferramenta
+                        de apoio para pessoas desenvolvedoras em diferentes
+                        etapas do trabalho.
+                    </p>
+
+                </article>
+
+                <article class="info-card">
+
+                    <div class="card-number">
+                        02
+                    </div>
+
+                    <h3>
+                        O que você aprende?
+                    </h3>
+
+                    <p>
+                        Você explora prompts, geração e explicação de código,
+                        depuração, documentação, ideias e apoio à resolução
+                        de problemas.
+                    </p>
+
+                </article>
+
+                <article class="info-card">
+
+                    <div class="card-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Competências
+                    </h3>
+
+                    <p>
+                        Engenharia de prompts, revisão de código, investigação
+                        de erros, comunicação com IA e uso estratégico de
+                        ferramentas generativas.
+                    </p>
+
+                </article>
+
+                <article class="info-card">
+
+                    <div class="card-number">
+                        04
+                    </div>
+
+                    <h3>
+                        Aplicação
+                    </h3>
+
+                    <p>
+                        O conhecimento pode apoiar estudos, protótipos,
+                        projetos web, automações, documentação e tarefas
+                        recorrentes de desenvolvimento.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="focus">
+
+        <div class="section-inner focus-grid">
+
+            <div>
+
+                <div class="section-label">
+                    TECNOLOGIA DA FORMAÇÃO
+                </div>
+
+                <h2>
+                    Usar IA para desenvolver
+                    com mais
+                    <span>eficiência.</span>
+                </h2>
+
+                <p class="focus-copy">
+                    A proposta não é substituir o raciocínio de quem
+                    desenvolve, mas utilizar o ChatGPT como parceiro
+                    para explorar soluções, compreender conceitos
+                    e acelerar tarefas.
+                </p>
+
+            </div>
+
+            <div class="focus-list">
+
+                <div class="focus-item">
+                    PROMPTS
+                </div>
+
+                <div class="focus-item">
+                    CÓDIGO
+                </div>
+
+                <div class="focus-item">
+                    DEBUG
+                </div>
+
+                <div class="focus-item">
+                    PRODUTIVIDADE
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="difference">
+
+        <div class="section-inner difference-grid">
+
+            <div>
+
+                <div class="section-label">
+                    DIFERENCIAL
+                </div>
+
+                <h2>
+                    Aprender a usar IA no
+                    desenvolvimento é transformar
+                    uma ferramenta em um
+                    <span>parceiro de raciocínio.</span>
+                </h2>
+
+                <p>
+                    O diferencial está em saber perguntar, analisar
+                    as respostas e integrar a IA ao próprio processo
+                    sem abrir mão da compreensão técnica e da revisão humana.
+                </p>
+
+            </div>
+
+            <div class="difference-mark">
+                AI
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        <div class="footer-inner">
+
+            <p class="footer-copy">
+                Formação em ChatGPT For Devs · Cursos A-Z · DIO
+            </p>
+
+            <a
+                href="../dio.html?skipIntro=1"
+                class="back"
+                id="qw4bvv"
+            >
+                ← VOLTAR PARA DIO
+            </a>
+
+        </div>
+
+    </footer>
+
+    <script>
+        const cards = document.querySelectorAll(".info-card");
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+
+                entries.forEach((entry, index) => {
+
+                    if (entry.isIntersecting) {
+
+                        setTimeout(() => {
+                            entry.target.classList.add("show");
+                        }, index * 90);
+
+                        observer.unobserve(entry.target);
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.14
+            }
+        );
+
+        cards.forEach(card => {
+            observer.observe(card);
+        });
+    </script>
+
+</body>
+</html>

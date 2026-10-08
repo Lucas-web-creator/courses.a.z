@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>AI Automation com N8N | DIO</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+    <link rel="icon" href="../favicondio.jpg">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        :root {
+            --blue:#2364AA;
+            --pink:#B8336A;
+            --orange:#FF6B35;
+            --dark:#080F18;
+            --text:#17222C;
+            --muted:#68757E;
+        }
+
+        * {
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html {
+            scroll-behavior:smooth;
+        }
+
+        body {
+            font-family:"Manrope",sans-serif;
+            color:var(--text);
+            background:#F5F7F9;
+            overflow-x:hidden;
+        }
+
+        h1,h2,h3 {
+            font-family:"Space Grotesk",sans-serif;
+        }
+
+        .hero {
+            min-height:100vh;
+            display:flex;
+            align-items:center;
+            position:relative;
+            overflow:hidden;
+            color:white;
+            background:
+                radial-gradient(
+                    circle at 70% 50%,
+                    rgba(255,107,53,.35),
+                    transparent 27%
+                ),
+                radial-gradient(
+                    circle at 90% 10%,
+                    rgba(184,51,106,.3),
+                    transparent 25%
+                ),
+                linear-gradient(
+                    135deg,
+                    #050D15,
+                    #122D47 60%,
+                    #2364AA
+                );
+        }
+
+        .hero::before {
+            content:"";
+            position:absolute;
+            width:750px;
+            height:750px;
+            right:-350px;
+            top:-120px;
+            border:1px solid rgba(255,255,255,.08);
+            border-radius:50%;
+            box-shadow:
+                0 0 0 90px rgba(255,255,255,.02),
+                0 0 0 180px rgba(255,255,255,.015);
+        }
+
+        .hero-content {
+            width:min(1180px,88vw);
+            margin:auto;
+            position:relative;
+            z-index:2;
+            display:grid;
+            grid-template-columns:1.1fr .9fr;
+            gap:80px;
+            align-items:center;
+        }
+
+        .eyebrow,
+        .section-label {
+            font-size:10px;
+            font-weight:800;
+            letter-spacing:4px;
+            color:#91CFFF;
+        }
+
+        .eyebrow {
+            margin-bottom:25px;
+        }
+
+        .hero h1 {
+            max-width:760px;
+            font-size:clamp(50px,7vw,100px);
+            line-height:.9;
+            letter-spacing:-6px;
+            margin-bottom:30px;
+            animation:up .65s ease both;
+        }
+
+        .hero h1 span {
+            color:#FF8B62;
+        }
+
+        .description {
+            max-width:650px;
+            color:#C2D1DC;
+            line-height:1.85;
+            animation:up .7s .1s ease both;
+        }
+
+        .tags {
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            margin-top:30px;
+        }
+
+        .tag {
+            padding:10px 15px;
+            border-radius:100px;
+            border:1px solid rgba(255,255,255,.14);
+            background:rgba(255,255,255,.05);
+            font-size:10px;
+            letter-spacing:1px;
+            color:#D9E5EC;
+        }
+
+        .workflow {
+            position:relative;
+            height:450px;
+            border-radius:38px;
+            border:1px solid rgba(255,255,255,.14);
+            background:rgba(255,255,255,.045);
+            backdrop-filter:blur(18px);
+            overflow:hidden;
+            box-shadow:0 30px 90px rgba(0,0,0,.3);
+            animation:visual .8s .15s ease both;
+        }
+
+        .flow-node {
+            position:absolute;
+            width:82px;
+            height:82px;
+            border-radius:20px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            background:#fff;
+            color:var(--blue);
+            font-family:"Space Grotesk";
+            font-weight:700;
+            font-size:12px;
+            text-align:center;
+            box-shadow:
+                0 15px 40px rgba(0,0,0,.2);
+        }
+
+        .flow-node:nth-child(1) {
+            left:13%;
+            top:17%;
+        }
+
+        .flow-node:nth-child(2) {
+            left:43%;
+            top:42%;
+        }
+
+        .flow-node:nth-child(3) {
+            right:12%;
+            top:17%;
+        }
+
+        .flow-node:nth-child(4) {
+            left:15%;
+            bottom:15%;
+        }
+
+        .flow-node:nth-child(5) {
+            right:13%;
+            bottom:15%;
+        }
+
+        .flow-node:nth-child(2) {
+            background:
+                linear-gradient(
+                    135deg,
+                    #FF8B62,
+                    #FF6B35
+                );
+            color:white;
+        }
+
+        .flow-line {
+            position:absolute;
+            height:2px;
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #FF6B35,
+                    transparent
+                );
+            transform-origin:left;
+        }
+
+        .line-a {
+            width:190px;
+            left:26%;
+            top:27%;
+            transform:rotate(26deg);
+        }
+
+        .line-b {
+            width:190px;
+            left:52%;
+            top:48%;
+            transform:rotate(-26deg);
+        }
+
+        .line-c {
+            width:180px;
+            left:28%;
+            bottom:27%;
+            transform:rotate(-24deg);
+        }
+
+        .line-d {
+            width:180px;
+            left:54%;
+            bottom:27%;
+            transform:rotate(25deg);
+        }
+
+        .information {
+            padding:130px 6vw;
+            background:#fff;
+        }
+
+        .header {
+            width:min(1000px,90vw);
+            margin:0 auto 65px;
+        }
+
+        .header h2 {
+            font-size:clamp(43px,6vw,78px);
+            line-height:.95;
+            letter-spacing:-4px;
+            margin-top:18px;
+        }
+
+        .header p {
+            max-width:730px;
+            color:var(--muted);
+            line-height:1.85;
+            margin-top:25px;
+        }
+
+        .grid {
+            width:min(1100px,90vw);
+            margin:auto;
+            display:grid;
+            grid-template-columns:repeat(2,1fr);
+            gap:24px;
+        }
+
+        .card {
+            min-height:250px;
+            padding:35px;
+            border-radius:28px;
+            border:1px solid rgba(35,100,170,.08);
+            background:
+                linear-gradient(
+                    145deg,
+                    #fff,
+                    #F4F7FA
+                );
+            box-shadow:0 18px 55px rgba(15,30,45,.07);
+            opacity:0;
+            transform:translateY(22px);
+            transition:
+                opacity .5s ease,
+                transform .5s ease,
+                box-shadow .3s ease;
+        }
+
+        .card.show {
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        .card:hover {
+            transform:translateY(-7px);
+            box-shadow:0 30px 65px rgba(15,30,45,.12);
+        }
+
+        .card h3 {
+            font-size:25px;
+            margin-bottom:18px;
+        }
+
+        .card p {
+            color:var(--muted);
+            line-height:1.8;
+            font-size:15px;
+        }
+
+        .steps {
+            display:grid;
+            gap:12px;
+            margin-top:20px;
+        }
+
+        .step {
+            display:flex;
+            align-items:center;
+            gap:12px;
+            color:#53616B;
+            font-size:13px;
+        }
+
+        .step strong {
+            width:28px;
+            height:28px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex-shrink:0;
+            border-radius:50%;
+            background:#FFF0EA;
+            color:#E45124;
+            font-size:11px;
+        }
+
+        .difference {
+            padding:130px 6vw;
+            color:white;
+            background:
+                linear-gradient(
+                    135deg,
+                    #07131E,
+                    #102D4D
+                );
+        }
+
+        .difference-inner {
+            width:min(1100px,90vw);
+            margin:auto;
+        }
+
+        .difference h2 {
+            max-width:900px;
+            margin:20px 0 30px;
+            font-size:clamp(44px,6vw,80px);
+            line-height:.95;
+            letter-spacing:-4px;
+        }
+
+        .difference h2 span {
+            color:#FF8B62;
+        }
+
+        .difference p {
+            max-width:780px;
+            color:#BACBD6;
+            line-height:1.9;
+        }
+
+        .line {
+            width:90px;
+            height:4px;
+            margin:30px 0;
+            background:
+                linear-gradient(
+                    90deg,
+                    var(--blue),
+                    var(--orange),
+                    var(--pink)
+                );
+        }
+
+        .footer {
+            padding:65px;
+            text-align:center;
+            background:#fff;
+        }
+
+        .back {
+            display:inline-flex;
+            padding:16px 25px;
+            border-radius:100px;
+            border:1px solid rgba(16,24,32,.12);
+            color:#26343D;
+            text-decoration:none;
+            font-size:11px;
+            font-weight:800;
+            letter-spacing:1px;
+            transition:.3s;
+        }
+
+        .back:hover {
+            color:#fff;
+            background:var(--blue);
+            transform:translateY(-3px);
+        }
+
+        @keyframes up {
+            from {
+                opacity:0;
+                transform:translateY(25px);
+            }
+            to {
+                opacity:1;
+                transform:translateY(0);
+            }
+        }
+
+        @keyframes visual {
+            from {
+                opacity:0;
+                transform:translateX(30px);
+            }
+            to {
+                opacity:1;
+                transform:translateX(0);
+            }
+        }
+
+        @media(max-width:800px) {
+
+            .hero-content {
+                grid-template-columns:1fr;
+                padding:100px 0;
+            }
+
+            .grid {
+                grid-template-columns:1fr;
+            }
+
+            .workflow {
+                height:360px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <div>
+
+                    <div class="eyebrow">
+                        DIO · BOOTCAMP 004
+                    </div>
+
+                    <h1>
+                        AI Automation
+                        <span>com N8N</span>
+                    </h1>
+
+                    <p class="description">
+                        Uma experiência voltada à automação de
+                        processos utilizando Inteligência Artificial
+                        e workflows, explorando como diferentes
+                        serviços podem ser conectados para criar
+                        fluxos automatizados.
+                    </p>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            N8N
+                        </span>
+
+                        <span class="tag">
+                            AUTOMAÇÃO
+                        </span>
+
+                        <span class="tag">
+                            IA
+                        </span>
+
+                        <span class="tag">
+                            WORKFLOWS
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="workflow">
+
+                    <div class="flow-line line-a"></div>
+                    <div class="flow-line line-b"></div>
+                    <div class="flow-line line-c"></div>
+                    <div class="flow-line line-d"></div>
+
+                    <div class="flow-node">
+                        DADOS
+                    </div>
+
+                    <div class="flow-node">
+                        AI
+                    </div>
+
+                    <div class="flow-node">
+                        API
+                    </div>
+
+                    <div class="flow-node">
+                        INPUT
+                    </div>
+
+                    <div class="flow-node">
+                        OUTPUT
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="information">
+
+            <div class="header">
+
+                <div class="section-label">
+                    SOBRE O BOOTCAMP
+                </div>
+
+                <h2>
+                    Automatizar
+                    é conectar.
+                </h2>
+
+                <p>
+                    A automação permite transformar processos
+                    repetitivos em fluxos inteligentes, conectando
+                    aplicações, dados e serviços sem depender de
+                    operações manuais em cada etapa.
+                </p>
+
+            </div>
+
+
+            <div class="grid">
+
+                <article class="card">
+
+                    <h3>
+                        O que é N8N?
+                    </h3>
+
+                    <p>
+                        O N8N é uma plataforma de automação baseada
+                        em workflows. Ela permite conectar diferentes
+                        serviços e construir fluxos para executar
+                        tarefas automaticamente.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Como funciona?
+                    </h3>
+
+                    <div class="steps">
+
+                        <div class="step">
+                            <strong>01</strong>
+                            Entrada de informações
+                        </div>
+
+                        <div class="step">
+                            <strong>02</strong>
+                            Processamento
+                        </div>
+
+                        <div class="step">
+                            <strong>03</strong>
+                            Inteligência
+                        </div>
+
+                        <div class="step">
+                            <strong>04</strong>
+                            Ação automatizada
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        O papel da IA
+                    </h3>
+
+                    <p>
+                        A Inteligência Artificial pode ser incorporada
+                        aos workflows para interpretar informações,
+                        gerar conteúdo, classificar dados e auxiliar
+                        na tomada de decisões automatizadas.
+                    </p>
+
+                </article>
+
+
+                <article class="card">
+
+                    <h3>
+                        Aplicações
+                    </h3>
+
+                    <p>
+                        A lógica pode ser aplicada em integrações,
+                        tratamento de dados, notificações, atendimento,
+                        geração de conteúdo, rotinas administrativas
+                        e diversos outros processos.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <section class="difference">
+
+            <div class="difference-inner">
+
+                <div class="section-label">
+                    DIFERENCIAL
+                </div>
+
+                <h2>
+                    Criar fluxos que
+                    trabalham <span>sozinhos.</span>
+                </h2>
+
+                <div class="line"></div>
+
+                <p>
+                    O diferencial está na combinação entre automação
+                    e Inteligência Artificial. A proposta deixa de
+                    ser apenas executar uma tarefa automaticamente
+                    e passa a pensar no processo como um fluxo:
+                    entrada, processamento, decisão e resultado.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <footer class="footer">
+
+            <a
+                href="../dio.html?skipIntro=1"
+                class="backButton"
+            >
+                ← VOLTAR PARA DIO
+            </a>
+
+        </footer>
+
+    </main>
+
+
+    <script>
+
+        const cards =
+            document.querySelectorAll(".card");
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(
+                        (entry,index) => {
+
+                            if(
+                                entry.isIntersecting
+                            ){
+
+                                setTimeout(
+                                    () => {
+
+                                        entry.target.classList.add(
+                                            "show"
+                                        );
+
+                                    },
+                                    index * 70
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        }
+                    );
+
+                },
+                {
+                    threshold:.12
+                }
+            );
+
+        cards.forEach(
+            card => observer.observe(card)
+        );
+
+    </script>
+
+</body>
+
+</html>
